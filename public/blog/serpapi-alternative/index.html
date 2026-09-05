@@ -1,29 +1,28 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Free SerpAPI Alternative: How Jiro Compares in 2026 | Jiro Blog</title>
-  <meta name="description" content="Looking for a free, open-source SerpAPI alternative? Discover how Jiro delivers 9 search engines, 12 social scrapers, zero monthly subscriptions, and self-hosted control." />
-  <meta name="keywords" content="serpapi alternative, free serpapi alternative, open source search api, self hosted google search api, python google search scraper, jiro vs serpapi" />
-  <meta name="author" content="Adarsh Kushwah, Blackvault Technology" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <link rel="canonical" href="https://jiro.dev/blog/serpapi-alternative/" />
-  <link rel="alternate" type="application/rss+xml" title="Jiro Search Blog RSS" href="/blog/feed.xml" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Free SerpAPI Alternative: How Jiro Compares in 2026 | Jiro Engineering</title>
+  <meta name="description" content="Looking for a free, open-source SerpAPI alternative? Discover how Jiro delivers 9 search engines, 12 social scrapers, zero monthly subscriptions, and self-hosted control.">
+  <meta name="author" content="Adarsh Kushwah">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://jiro.dev/blog/serpapi-alternative/">
+  <link rel="alternate" type="application/rss+xml" title="Jiro Search Blog RSS" href="https://jiro.dev/blog/feed.xml">
 
   <!-- OPEN GRAPH & TWITTER -->
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Jiro Search" />
-  <meta property="og:title" content="The Free SerpAPI Alternative: How Jiro Compares in 2026" />
-  <meta property="og:description" content="Detailed benchmark &amp; architectural comparison between SerpAPI and Jiro Search. Compare pricing, rate limits, latency, and self-hosting benefits." />
-  <meta property="og:url" content="https://jiro.dev/blog/serpapi-alternative/" />
-  <meta property="og:image" content="https://jiro.dev/og-image.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Jiro Search Intelligence">
+  <meta property="og:title" content="The Free SerpAPI Alternative: How Jiro Compares in 2026">
+  <meta property="og:description" content="Looking for a free, open-source SerpAPI alternative? Discover how Jiro delivers 9 search engines, 12 social scrapers, zero monthly subscriptions, and self-hosted control.">
+  <meta property="og:url" content="https://jiro.dev/blog/serpapi-alternative/">
+  <meta property="og:image" content="https://jiro.dev/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- STRUCTURED DATA: BlogPosting & BreadcrumbList -->
   <script type="application/ld+json">
@@ -31,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "The Free SerpAPI Alternative: How Jiro Compares in 2026",
-    "description": "Comprehensive technical comparison between commercial SerpAPI plans and the self-hosted Jiro open source search API.",
-    "datePublished": "2026-09-01T08:00:00Z",
-    "dateModified": "2026-09-05T12:00:00Z",
+    "description": "Looking for a free, open-source SerpAPI alternative? Discover how Jiro delivers 9 search engines, 12 social scrapers, zero monthly subscriptions, and self-hosted control.",
+    "datePublished": "2026-09-04T08:00:00Z",
+    "dateModified": "2026-09-04T12:00:00Z",
     "author": {
       "@type": "Person",
       "name": "Adarsh Kushwah",
@@ -56,174 +55,472 @@
   </script>
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0a0a0a;
-      --surface-1: rgba(255, 255, 255, 0.03);
-      --border: rgba(255, 255, 255, 0.1);
-      --gold-base: #a78b71;
-      --gold-light: #c9b8a0;
-      --gold-hover: #e8d5b7;
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body: 'Inter', sans-serif;
-      --font-code: 'JetBrains Mono', monospace;
-    }
-    body {
-      background-color: var(--bg);
-      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-      background-size: 32px 32px;
-      color: #e5e5e5;
-      font-family: var(--font-body);
-      min-height: 100vh;
-      line-height: 1.8;
-      font-size: 16px;
-    }
-    a { color: var(--gold-light); text-decoration: none; }
-    a:hover { color: var(--gold-hover); text-decoration: underline; }
-    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    
+  :root {
+    --brand-orange: #ff6600;
+    --brand-orange-light: #ff8533;
+    --brand-orange-hover: #ff751a;
+    --brand-orange-dark: #e65c00;
+    --brand-orange-border: rgba(255, 102, 0, 0.35);
+    --brand-orange-bg: rgba(255, 102, 0, 0.08);
+    --brand-orange-glow: rgba(255, 102, 0, 0.25);
+    
+    /* Semantic aliases matching new orange brand theme */
+    --gold-base: #ff6600;
+    --gold-light: #ff8533;
+    --gold-hover: #ff751a;
+    --gold-border: rgba(255, 102, 0, 0.35);
+    
+    --bg-dark: #000000;
+    --surface-1: rgba(255, 255, 255, 0.03);
+    --surface-2: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.08);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000000;
+    color: #e6e6e6;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold-light); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--gold-hover); text-decoration: underline; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  
+  /* UNIFIED HEADER */
+  header.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(8, 8, 8, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* UNIFIED VECTOR LOGO */
+  .nav-logo, .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .nav-logo:hover, .footer-logo:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+  .jiro-logo-svg {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+  
+  .nav-badge {
+    font-family: var(--font-code);
+    font-size: 11px;
+    background: rgba(255, 102, 0, 0.12);
+    color: var(--gold-light);
+    border: 1px solid rgba(255, 102, 0, 0.28);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  @media (max-width: 520px) {
+    .nav-badge { display: none; }
+  }
 
-    header[role="banner"] {
-      position: sticky;
-      top: 0;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      height: 72px;
-      z-index: 50;
+  .nav-menu {
+    display: none;
+    align-items: center;
+    gap: 26px;
+    list-style: none;
+  }
+  @media (min-width: 900px) {
+    .nav-menu { display: flex; }
+  }
+  .nav-menu a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-menu a:hover, .nav-menu a.active {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover {
+    background: rgba(255, 102, 0, 0.15);
+    border-color: var(--brand-orange-border);
+    color: #ffffff;
+    text-decoration: none;
+  }
+  @media (max-width: 480px) {
+    .nav-cta span { display: none; }
+  }
+
+  /* MOBILE HAMBURGER TOGGLE */
+  .mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.2s ease;
+  }
+  .mobile-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--brand-orange-border);
+  }
+  @media (min-width: 900px) {
+    .mobile-toggle {
+      display: none;
     }
-    .nav-inner {
-      max-width: 1200px;
+  }
+  .hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* MOBILE DRAWER OVERLAY */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .mobile-drawer.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .mobile-drawer-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 82%;
+    max-width: 320px;
+    height: 100%;
+    background: #080808;
+    border-left: 1px solid var(--border);
+    padding: 24px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+  }
+  .mobile-drawer.open .mobile-drawer-inner {
+    transform: translateX(0);
+  }
+  .mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 24px;
+  }
+  .mobile-close-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mobile-close-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--brand-orange-light);
+  }
+  .mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: auto;
+  }
+  .mobile-nav-links a {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 12px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .mobile-nav-links a:hover, .mobile-nav-links a.active {
+    background: rgba(255, 102, 0, 0.12);
+    color: var(--brand-orange-light);
+  }
+  .mobile-drawer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mobile-btn-github, .mobile-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .mobile-btn-github {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+  .mobile-btn-primary {
+    background: var(--brand-orange);
+    color: #000000;
+    border: 1px solid var(--brand-orange);
+  }
+  .mobile-btn-primary:hover {
+    background: var(--brand-orange-hover);
+    color: #000000;
+  }
+  
+  /* UNIFIED FOOTER */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: rgba(6, 6, 6, 0.98);
+    margin-top: 80px;
+    padding: 60px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  @media (min-width: 640px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 992px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--brand-orange-light);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 9px; font-size: 13px; }
+  .footer-col ul li a { color: rgba(255, 255, 255, 0.65); text-decoration: none; }
+  .footer-col ul li a:hover { color: #ffffff; text-decoration: underline; }
+  .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin: 12px 0 16px; max-width: 280px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 48px;
+    padding: 24px 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .footer-bottom-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (min-width: 640px) {
+    .footer-bottom-inner { flex-direction: row; }
+  }
+  .footer-sublinks { display: flex; gap: 16px; }
+  .footer-sublinks a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
+  .footer-sublinks a:hover { color: var(--brand-orange-light); }
+
+
+    .article-wrap {
+      max-width: 860px;
       margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
+      padding: 40px 24px 80px;
     }
-    .nav-logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; font-style: italic; color: #fff; }
-    .nav-menu { display: flex; gap: 24px; list-style: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; }
-    .nav-menu a { color: rgba(255,255,255,0.6); }
 
     .breadcrumbs {
-      padding: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 12px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 24px;
     }
-    .breadcrumbs a { color: rgba(255,255,255,0.6); }
+    .breadcrumbs a { color: rgba(255, 255, 255, 0.6); }
 
-    .article-header { padding: 32px 0 48px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 48px; }
+    .article-header {
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
     .article-tag {
       display: inline-block;
-      background: rgba(167, 139, 113, 0.15);
-      color: var(--gold-light);
+      font-family: var(--font-code);
       font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      background: rgba(255, 102, 0, 0.1);
+      border: 1px solid rgba(255, 102, 0, 0.25);
       padding: 4px 12px;
       border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 16px;
     }
     .article-title {
       font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-size: clamp(32px, 5vw, 44px);
       line-height: 1.15;
-      color: #ffffff;
-      font-weight: 400;
-      margin-bottom: 20px;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 18px;
     }
     .article-meta {
       display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       gap: 16px;
       font-size: 13px;
-      color: rgba(255,255,255,0.5);
-      font-family: var(--font-code);
+      color: rgba(255, 255, 255, 0.5);
     }
+    .article-meta span { display: flex; align-items: center; gap: 6px; }
 
-    .article-content h2 {
+    .article-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .article-body h2 {
       font-family: var(--font-display);
-      font-style: italic;
       font-size: 28px;
-      color: #ffffff;
+      font-style: italic;
+      color: #fff;
       margin: 48px 0 20px;
-      font-weight: 400;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       padding-bottom: 8px;
     }
-    .article-content h3 {
+    .article-body h3 {
       font-size: 20px;
       color: var(--gold-light);
       margin: 32px 0 14px;
       font-weight: 600;
     }
-    .article-content p { margin-bottom: 24px; color: rgba(255,255,255,0.8); }
-    .article-content ul, .article-content ol { margin-bottom: 24px; padding-left: 24px; }
-    .article-content li { margin-bottom: 10px; color: rgba(255,255,255,0.75); }
-
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 32px 0;
-      background: var(--surface-1);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      font-size: 14px;
+    .article-body p { margin-bottom: 22px; }
+    .article-body ul, .article-body ol { margin-bottom: 24px; padding-left: 24px; }
+    .article-body li { margin-bottom: 8px; color: rgba(255, 255, 255, 0.8); }
+    .article-body blockquote {
+      border-left: 3px solid var(--gold-base);
+      background: rgba(255, 102, 0, 0.06);
+      padding: 16px 20px;
+      margin: 28px 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.9);
     }
-    .comparison-table th, .comparison-table td {
-      padding: 14px 18px;
-      text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .comparison-table th {
-      background: rgba(255,255,255,0.04);
-      color: var(--gold-light);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-    }
-
-    .code-snippet {
+    .article-body pre {
       background: #0d0d0d;
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px;
-      margin: 28px 0;
       font-family: var(--font-code);
       font-size: 13px;
+      line-height: 1.6;
+      margin: 24px 0;
       overflow-x: auto;
-      color: #d1d5db;
+      color: #e5e5e5;
     }
-    .code-snippet .keyword { color: #f472b6; }
-    .code-snippet .string { color: #a78b71; }
-    .code-snippet .comment { color: #6b7280; }
-
-    .callout {
-      background: rgba(167, 139, 113, 0.08);
-      border-left: 3px solid var(--gold-base);
-      border-radius: 0 12px 12px 0;
-      padding: 20px 24px;
-      margin: 32px 0;
-      font-size: 15px;
-    }
-
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 60px 0 40px;
-      text-align: center;
+    .article-body code {
+      font-family: var(--font-code);
       font-size: 13px;
-      color: rgba(255,255,255,0.4);
-      margin-top: 80px;
+      color: var(--gold-light);
+      background: rgba(255, 102, 0, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
     }
-  
-    /* AUTHOR BIO CARD */
+    .article-body pre code { background: transparent; padding: 0; color: inherit; }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin: 24px 0 32px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    /* AUTHOR CARD */
     .article-author-card {
-      margin: 48px 0 32px;
+      margin: 56px 0 40px;
       padding: 24px;
       background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
       border-radius: 16px;
       display: flex;
       gap: 20px;
@@ -237,7 +534,7 @@
       color: #ffffff;
       font-weight: 700;
       font-family: var(--font-display);
-      font-size: 16px;
+      font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -245,20 +542,19 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
     .author-details { flex: 1; }
-    .author-header-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 6px; }
-    .author-name { font-size: 16px; font-weight: 600; color: #ffffff; margin: 0; }
-    .author-role { font-size: 12px; color: var(--gold-light); font-weight: 400; }
-    .author-bio { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.6; margin-bottom: 12px; }
+    .author-name { font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 2px; }
+    .author-role { font-size: 12px; color: var(--gold-light); margin-bottom: 8px; }
+    .author-bio { font-size: 13px; color: rgba(255, 255, 255, 0.65); line-height: 1.5; margin-bottom: 12px; }
     .author-links { display: flex; gap: 16px; font-size: 12px; }
-    .author-links a { color: var(--gold-light); font-weight: 500; text-decoration: none; }
-    .author-links a:hover { text-decoration: underline; color: var(--gold-hover); }
+    .author-links a { color: var(--gold-light); text-decoration: none; }
+    .author-links a:hover { text-decoration: underline; }
 
     /* CLUSTER CALLOUT */
     .blog-cluster-callout {
-      margin: 36px 0;
-      padding: 24px 28px;
-      background: linear-gradient(135deg, rgba(167, 139, 113, 0.08), rgba(255, 255, 255, 0.02));
-      border: 1px solid rgba(167, 139, 113, 0.25);
+      margin: 40px 0;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(255, 102, 0, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 102, 0, 0.25);
       border-radius: 16px;
     }
     .cluster-callout-inner {
@@ -270,7 +566,7 @@
       .cluster-callout-inner { flex-direction: row; align-items: center; justify-content: space-between; }
     }
     .cluster-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-base); text-transform: uppercase; margin-bottom: 6px; display: block; }
-    .cluster-callout-text h3 { font-family: var(--font-display); font-size: 20px; color: #ffffff; margin-bottom: 6px; }
+    .cluster-callout-text h3 { font-family: var(--font-display); font-size: 22px; color: #ffffff; margin-bottom: 6px; }
     .cluster-callout-text p { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.5; margin: 0; max-width: 520px; }
     .btn-cluster-explore {
       display: inline-flex;
@@ -293,8 +589,6 @@
     .related-section { margin-top: 52px; padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
     .related-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
     .related-header h3 { font-family: var(--font-display); font-size: 22px; font-style: italic; color: #ffffff; }
-    .related-see-all { font-size: 12px; color: var(--gold-light); text-decoration: none; }
-    .related-see-all:hover { text-decoration: underline; }
     .related-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -305,18 +599,18 @@
     }
     .related-card {
       background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       text-decoration: none;
-      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      transition: all 0.2s;
     }
     .related-card:hover {
       background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(167, 139, 113, 0.4);
+      border-color: rgba(255, 102, 0, 0.4);
       transform: translateY(-2px);
       text-decoration: none;
     }
@@ -333,359 +627,396 @@
       font-weight: 600;
       color: #ffffff;
       line-height: 1.4;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
-    .related-excerpt {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.5;
-      margin-bottom: 14px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .related-link-arrow {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--gold-light);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: auto;
-    }
-
-    /* BLOG RICH FOOTER */
-    .blog-rich-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(10, 10, 10, 0.95);
-      margin-top: 80px;
-      padding: 60px 0 0;
-    }
-    .footer-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 36px;
-    }
-    @media (min-width: 640px) {
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 992px) {
-      .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
-    }
-    .footer-col h4 {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: var(--gold-light);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .footer-col ul { list-style: none; padding: 0; margin: 0; }
-    .footer-col ul li { margin-bottom: 10px; font-size: 13px; }
-    .footer-col ul li a { color: rgba(255, 255, 255, 0.65); text-decoration: none; }
-    .footer-col ul li a:hover { color: #ffffff; text-decoration: underline; }
-    .footer-logo { font-family: var(--font-display); font-size: 26px; font-style: italic; font-weight: 700; color: #fff; text-decoration: none; }
-    .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin: 12px 0 16px; max-width: 320px; }
-    .footer-meta-pill { display: inline-block; font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(167, 139, 113, 0.1); border: 1px solid rgba(167, 139, 113, 0.2); border-radius: 999px; padding: 4px 12px; }
-    .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 48px; padding: 24px 0; font-size: 12px; color: rgba(255, 255, 255, 0.4); }
-    .footer-bottom-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: space-between; }
-    @media (min-width: 640px) {
-      .footer-bottom-inner { flex-direction: row; }
-    }
-    .footer-sublinks { display: flex; gap: 18px; }
-    .footer-sublinks a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
-    .footer-sublinks a:hover { color: var(--gold-light); }
-
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://jiro.dev/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": "https://jiro.dev/blog/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "serpapi alternative",
-        "item": "https://jiro.dev/blog/serpapi-alternative/"
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
+  
+  <header class="site-nav" role="banner">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <a href="/" class="nav-logo" rel="home" aria-label="jiro home">
+          <svg viewBox="0 0 134 58" fill="none" class="jiro-logo-svg" height="28" aria-label="jiro" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17.5" cy="11.5" r="5.5" fill="#FFFFFF" />
+  <path d="M12 21 H23 V45 C23 52 18.5 56 10.5 56 C5.5 56 1.8 54 0 52 L2.4 44.5 C3.8 45.8 6.5 47.5 9.5 47.5 C12.8 47.5 14.5 45.5 14.5 41.5 V21 H12 Z" fill="#FFFFFF" />
+  <rect x="35" y="21" width="11" height="29" fill="#FFFFFF" rx="0.5" />
+  <g class="jiro-lens">
+    <circle cx="41.5" cy="11" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+    <path d="M47 16.5 L54 23.5" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+  </g>
+  <path d="M62 21 H72.5 V26 C75 22.5 79.5 20.5 85 20.5 C88 20.5 90.5 21.2 92 22.2 L88.5 29.8 C87.2 29 85.2 28.5 83 28.5 C77.5 28.5 73 32.5 73 40 V50 H62 V21 Z" fill="#FFFFFF" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M113 20.5 C122.5 20.5 130 27.2 130 35.5 C130 43.8 122.5 50.5 113 50.5 C103.5 50.5 96 43.8 96 35.5 C96 27.2 103.5 20.5 113 20.5 Z M113 28.8 C108.2 28.8 104.5 31.8 104.5 35.5 C104.5 39.2 108.2 42.2 113 42.2 C117.8 42.2 121.5 39.2 121.5 35.5 C121.5 31.8 117.8 28.8 113 28.8 Z" fill="#FFFFFF" />
+</svg>
+        </a>
+        <span class="nav-badge" id="nav-release-tag">v0.2.8</span>
+      </div>
 
-  <header role="banner">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">Jiro</a>
-      <ul class="nav-menu">
-        <li><a href="/#features">Features</a></li>
-        <li><a href="/#social">Social</a></li>
-        <li><a href="/#mcp">MCP</a></li>
-        <li><a href="/blog/">Blog</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
-      </ul>
-      <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" style="font-size:12px; color:var(--gold-light);">GitHub &rarr;</a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu" role="menubar">
+          <li role="menuitem"><a href="/#features" class="">Features</a></li>
+          <li role="menuitem"><a href="/docs/" class="">Docs</a></li>
+          <li role="menuitem"><a href="/pricing/" class="">Pricing</a></li>
+          <li role="menuitem"><a href="/blog/" class="active">Blog</a></li>
+          <li role="menuitem"><a href="/changelog/" class="">Changelog</a></li>
+          <li role="menuitem"><a href="/roadmap/" class="">Roadmap</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="nav-cta" aria-label="GitHub repository">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span id="nav-star-count">Star</span>
+        </a>
+        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleMobileNav()">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="container" role="main">
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>The Free SerpAPI Alternative</span>
-    </nav>
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-inner">
+      <div class="mobile-drawer-header">
+        <a href="/" class="nav-logo" rel="home" aria-label="jiro home">
+          <svg viewBox="0 0 134 58" fill="none" class="jiro-logo-svg" height="28" aria-label="jiro" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17.5" cy="11.5" r="5.5" fill="#FFFFFF" />
+  <path d="M12 21 H23 V45 C23 52 18.5 56 10.5 56 C5.5 56 1.8 54 0 52 L2.4 44.5 C3.8 45.8 6.5 47.5 9.5 47.5 C12.8 47.5 14.5 45.5 14.5 41.5 V21 H12 Z" fill="#FFFFFF" />
+  <rect x="35" y="21" width="11" height="29" fill="#FFFFFF" rx="0.5" />
+  <g class="jiro-lens">
+    <circle cx="41.5" cy="11" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+    <path d="M47 16.5 L54 23.5" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+  </g>
+  <path d="M62 21 H72.5 V26 C75 22.5 79.5 20.5 85 20.5 C88 20.5 90.5 21.2 92 22.2 L88.5 29.8 C87.2 29 85.2 28.5 83 28.5 C77.5 28.5 73 32.5 73 40 V50 H62 V21 Z" fill="#FFFFFF" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M113 20.5 C122.5 20.5 130 27.2 130 35.5 C130 43.8 122.5 50.5 113 50.5 C103.5 50.5 96 43.8 96 35.5 C96 27.2 103.5 20.5 113 20.5 Z M113 28.8 C108.2 28.8 104.5 31.8 104.5 35.5 C104.5 39.2 108.2 42.2 113 42.2 C117.8 42.2 121.5 39.2 121.5 35.5 C121.5 31.8 117.8 28.8 113 28.8 Z" fill="#FFFFFF" />
+</svg>
+        </a>
+        <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu" onclick="toggleMobileNav(false)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="/#features" class="">Features</a></li>
+        <li><a href="/docs/" class="">Documentation</a></li>
+        <li><a href="/pricing/" class="">Pricing</a></li>
+        <li><a href="/blog/" class="active">Blog (24 Guides)</a></li>
+        <li><a href="/changelog/" class="">Changelog</a></li>
+        <li><a href="/roadmap/" class="">Roadmap</a></li>
+      </ul>
+      <div class="mobile-drawer-actions">
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="mobile-btn-github">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span>Star on GitHub</span>
+        </a>
+        <a href="/docs/#quickstart" class="mobile-btn-primary">Get Started</a>
+      </div>
+    </div>
+  </div>
+  
 
-    <article>
+  <main>
+    <article class="article-wrap" role="main">
+      <nav class="breadcrumbs" aria-label="Breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog/">Engineering Blog</a>
+        <span>/</span>
+        <span style="color:rgba(255,255,255,0.8);">The Free SerpAPI Alternative: How Jiro Compares in 2026</span>
+      </nav>
+
       <header class="article-header">
-        <span class="article-tag">Comparisons &amp; Benchmarks</span>
+        <span class="article-tag">Comparisons</span>
         <h1 class="article-title">The Free SerpAPI Alternative: How Jiro Compares in 2026</h1>
         <div class="article-meta">
-          <span>By Adarsh Kushwah</span> &bull;
-          <time datetime="2026-09-01">September 1, 2026</time> &bull;
-          <span>8 min read</span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            8 min read
+          </span>
+          <span>&bull;</span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            2026-09-04
+          </span>
+          <span>&bull;</span>
+          <span>By Adarsh Kushwah</span>
         </div>
       </header>
 
-      <div class="article-content">
-        <p>If you have ever integrated web search results into an AI agent, analytics pipeline, or SEO monitoring tool, you have likely encountered <strong>SerpAPI</strong>. While SerpAPI pioneered commercial search engine scraping, its pricing structure—starting at $75/month for just 5,000 queries and scaling rapidly to $500+/month—creates severe financial friction for modern developers and startups.</p>
+      <div class="article-body">
+        
+      <h2>The Problem with Commercial Search APIs in 2026</h2>
+      <p>For nearly a decade, developers building autonomous agents, market research pipelines, and SEO dashboards relied on commercial SERP providers like SerpAPI. While reliable, commercial search APIs introduce severe operational drawbacks in modern high-frequency agent loops:</p>
+      
+      <ul>
+        <li><strong>Prohibitive Metered Billing:</strong> SerpAPI charges $50/month for a baseline of 5,000 searches ($0.01/search), scaling up to $250/month for 30,000 searches. An autonomous Deep Research agent executing 100 queries per run exhausts starter tiers in under two days.</li>
+        <li><strong>Hard Rate Limits & Concurrency Chokepoints:</strong> Strict concurrent request limits (often 10–20 parallel threads) throttle batch data ingestion pipelines.</li>
+        <li><strong>Data Privacy & Compliance Exposure:</strong> Query payloads containing proprietary customer data or corporate research pass through third-party infrastructure.</li>
+      </ul>
 
-        <p>Enter <strong>Jiro</strong>: a free, MIT-licensed, open-source search API designed from the ground up for self-hosting. In this article, we dissect how Jiro compares to SerpAPI across feature depth, rate limits, infrastructure control, and total cost of ownership.</p>
+      <p><strong>Jiro</strong> was architected as an MIT-licensed, local-first search intelligence engine that runs directly on your hardware or internal Kubernetes cluster with zero per-query fees and zero API key requirements.</p>
 
-        <h2>The Cost Problem with Hosted SERP APIs</h2>
-        <p>When building LLM applications (such as Autonomous Research Agents or RAG pipelines), search frequency is non-trivial. A single user query might trigger 5 to 10 background search requests to verify claims, retrieve recent documentation, or query social media sentiment.</p>
-        <ul>
-          <li><strong>SerpAPI Starter:</strong> 5,000 searches/mo = $75 ($0.015 per query)</li>
-          <li><strong>SerpAPI Production:</strong> 30,000 searches/mo = $250 ($0.0083 per query)</li>
-          <li><strong>SerpAPI Big Data:</strong> 100,000 searches/mo = $500 ($0.005 per query)</li>
-          <li><strong>Jiro (Self-Hosted):</strong> Unlimited searches = $0 in API fees (only your modest VPS or local hardware cost)</li>
-        </ul>
-
-        <h2>Architectural Comparison</h2>
-        <p>While SerpAPI acts as a closed, third-party proxy service, Jiro gives you a full-stack Python search engine pipeline you run on your own terms:</p>
-
-        <table class="comparison-table">
+      <h2>Head-to-Head Architectural Comparison</h2>
+      <div class="table-responsive">
+        <table style="width:100%; border-collapse:collapse; margin:24px 0;">
           <thead>
-            <tr>
-              <th>Feature</th>
-              <th>SerpAPI</th>
-              <th>Jiro Search (Open Source)</th>
+            <tr style="border-bottom: 2px solid rgba(255, 102, 0, 0.4); text-align: left;">
+              <th style="padding: 12px 16px; color: var(--gold-light);">Feature</th>
+              <th style="padding: 12px 16px; color: var(--gold-light);">SerpAPI (Commercial)</th>
+              <th style="padding: 12px 16px; color: var(--gold-base);">Jiro (Open Source MIT)</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>License &amp; Cost</strong></td>
-              <td>Proprietary ($75 - $500+/mo)</td>
-              <td><strong>MIT License (100% Free)</strong></td>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <td style="padding: 12px 16px; font-weight:600;">Pricing</td>
+              <td style="padding: 12px 16px; color: #f87171;">$50 – $250+ / month</td>
+              <td style="padding: 12px 16px; color: #4ade80;">$0 / Free Forever (Self-Hosted)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <td style="padding: 12px 16px; font-weight:600;">Monthly Query Limit</td>
+              <td style="padding: 12px 16px;">5,000 – 30,000 queries</td>
+              <td style="padding: 12px 16px; color: #4ade80;">Unlimited (Hardware-bound)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <td style="padding: 12px 16px; font-weight:600;">Search Engines Supported</td>
+              <td style="padding: 12px 16px;">Google, Bing, Yahoo, Baidu</td>
+              <td style="padding: 12px 16px; color: #4ade80;">9 Engines (Google, Bing, DDG, Brave, Qwant, Startpage, Searx, Yahoo, Mojeek)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <td style="padding: 12px 16px; font-weight:600;">Social Media Scrapers</td>
+              <td style="padding: 12px 16px; color: #f87171;">Not natively built-in</td>
+              <td style="padding: 12px 16px; color: #4ade80;">12 Platforms (Reddit, YouTube, TikTok, Bluesky, GitHub, Twitch, etc.)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <td style="padding: 12px 16px; font-weight:600;">AI Extractive Answers</td>
+              <td style="padding: 12px 16px;">Knowledge graph snippet only</td>
+              <td style="padding: 12px 16px; color: #4ade80;">Built-in 8ms 0-Key Extractive AI Answer Engine</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <td style="padding: 12px 16px; font-weight:600;">MCP Agent Server</td>
+              <td style="padding: 12px 16px; color: #f87171;">Third-party wrapper needed</td>
+              <td style="padding: 12px 16px; color: #4ade80;">Native 17-Tool MCP Server (stdio &amp; SSE)</td>
             </tr>
             <tr>
-              <td><strong>Supported Search Engines</strong></td>
-              <td>Google, Bing, Yahoo, Baidu</td>
-              <td><strong>9 Engines:</strong> Google, Bing, DuckDuckGo, Brave, YouTube, Amazon, eBay, Yandex, Baidu</td>
-            </tr>
-            <tr>
-              <td><strong>Social Media Scrapers</strong></td>
-              <td>Limited / Extra cost</td>
-              <td><strong>12 Built-in Platforms:</strong> Reddit, Twitter, TikTok, Instagram, YouTube, LinkedIn, Telegram, etc.</td>
-            </tr>
-            <tr>
-              <td><strong>MCP Server Protocol</strong></td>
-              <td>No native server</td>
-              <td><strong>Yes (17 tools, stdio/HTTP/SSE)</strong> for Claude Desktop &amp; Cursor</td>
-            </tr>
-            <tr>
-              <td><strong>Data Privacy</strong></td>
-              <td>Queries logged on third-party servers</td>
-              <td><strong>Zero telemetry</strong>, run entirely on your private VPC or laptop</td>
-            </tr>
-            <tr>
-              <td><strong>Hybrid Search &amp; Reranking</strong></td>
-              <td>Raw SERP only</td>
-              <td><strong>Built-in RRF &amp; CPU Cross-Encoder</strong> (80MB model, zero GPU)</td>
+              <td style="padding: 12px 16px; font-weight:600;">Data Privacy</td>
+              <td style="padding: 12px 16px; color: #f87171;">Queries logged on vendor cloud</td>
+              <td style="padding: 12px 16px; color: #4ade80;">100% Private (Runs on localhost)</td>
             </tr>
           </tbody>
         </table>
-
-        <h2>Getting Started with Jiro in 60 Seconds</h2>
-        <p>Transitioning from SerpAPI to Jiro is seamless because Jiro provides a standardized REST API and Python SDK:</p>
-
-        <div class="code-snippet">
-<span class="comment"># 1. Install Jiro via pip</span>
-pip install jirosearch
-
-<span class="comment"># 2. Start the local server</span>
-jiro serve --port 8000
-
-<span class="comment"># 3. Query via Python</span>
-<span class="keyword">import</span> httpx
-
-response = httpx.get(<span class="string">"http://localhost:8000/api/v1/search"</span>, params={
-    <span class="string">"q"</span>: <span class="string">"open source LLM frameworks 2026"</span>,
-    <span class="string">"engine"</span>: <span class="string">"google"</span>,
-    <span class="string">"num_results"</span>: 10
-})
-results = response.json()
-print(results[<span class="string">"results"</span>])
-        </div>
-
-        <div class="callout">
-          <strong>Key Takeaway:</strong> By self-hosting Jiro on a $10/month Hetzner or DigitalOcean droplet, an AI engineering team can serve 500,000+ monthly searches without paying thousands in recurring SaaS markup.
-        </div>
-
-        <h2>Conclusion</h2>
-        <p>SerpAPI served an important role in the early web scraping ecosystem. But for developers in 2026 building autonomous agents, enterprise RAG, and high-volume data scrapers, locked-in monthly subscription fees are obsolete. Jiro gives you 9 engines, 12 social platforms, MCP tools, and full code sovereignty under the permissive MIT license.</p>
-
-        <p><a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">Explore Jiro on GitHub &rarr;</a> or read our next guide on <a href="/blog/mcp-server-guide/">giving Claude Desktop live web access via MCP</a>.</p>
-      
-
-        <!-- AUTHOR BIO BOX -->
-        <div class="article-author-card">
-          <div class="author-avatar-badge">AK</div>
-          <div class="author-details">
-            <div class="author-header-line">
-              <h4 class="author-name">Adarsh Kushwah</h4>
-              <span class="author-role">Lead Engineer &bull; Blackvault Technology</span>
-            </div>
-            <p class="author-bio">
-              Core contributor to Jiro Search and high-throughput scraping infrastructure. Specializing in autonomous agent tooling, Model Context Protocol (MCP), and cost-efficient search architectures.
-            </p>
-            <div class="author-links">
-              <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub &rarr;</a>
-              <a href="/blog/">Engineering Hub &rarr;</a>
-              <a href="/blog/feed.xml">RSS Feed &rarr;</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- BLOG HUB CALLOUT BANNER -->
-        <div class="blog-cluster-callout">
-          <div class="cluster-callout-inner">
-            <div class="cluster-callout-text">
-              <span class="cluster-tag">ENGINEERING BLOG &bull; 12 TECHNICAL GUIDES</span>
-              <h3>Explore More Search &amp; Scraping Architecture</h3>
-              <p>Compare SerpAPI and Tavily, configure Claude Desktop with MCP, or learn how hybrid search fuses BM25 and CPU embeddings.</p>
-            </div>
-            <a href="/blog/" class="btn-cluster-explore">
-              <span>View All 12 Articles</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- RELATED ARTICLES SECTION -->
-        <section class="related-section" aria-labelledby="related-heading">
-          <div class="related-header">
-            <h3 id="related-heading">Related Engineering Guides</h3>
-            <a href="/blog/" class="related-see-all">Browse all 12 articles &rarr;</a>
-          </div>
-          <div class="related-grid">
-
-            <a href="/blog/tavily-alternative/" class="related-card">
-              <div>
-                <span class="related-category">Comparisons</span>
-                <h4 class="related-title">The Free Tavily Alternative: AI Search API Comparison</h4>
-                <p class="related-excerpt">Compare pricing, agent latency, and self-hosting flexibility with Tavily.</p>
-              </div>
-              <span class="related-link-arrow">Read article &rarr;</span>
-            </a>
-  
-
-            <a href="/blog/mcp-server-guide/" class="related-card">
-              <div>
-                <span class="related-category">MCP & Agents</span>
-                <h4 class="related-title">How to Give Claude Desktop Web Search with an MCP Server</h4>
-                <p class="related-excerpt">Connect Claude and Cursor directly to 9 search engines with zero API keys.</p>
-              </div>
-              <span class="related-link-arrow">Read article &rarr;</span>
-            </a>
-  
-
-            <a href="/blog/hybrid-search-explained/" class="related-card">
-              <div>
-                <span class="related-category">Architecture</span>
-                <h4 class="related-title">Hybrid Search Explained: Keyword + Semantic + SERP in One API</h4>
-                <p class="related-excerpt">How Reciprocal Rank Fusion and CPU cross-encoders beat pure vector search.</p>
-              </div>
-              <span class="related-link-arrow">Read article &rarr;</span>
-            </a>
-  
-          </div>
-        </section>
-  
       </div>
+
+      <h2>Quick Start: Migrating from SerpAPI to Jiro</h2>
+      <p>Replacing SerpAPI in your Python codebase requires changing just two lines of code:</p>
+
+      <pre><code># Install Jiro
+pip install jiro
+
+# Python Implementation
+from jiro import JiroClient
+
+client = JiroClient(base_url="http://localhost:8000")
+
+# Multi-engine search with automatic fallback
+results = client.search(
+    query="vector database benchmarks 2026",
+    engine="google",
+    max_results=10,
+    answer=True
+)
+
+print(f"Extractive Answer: {results.answer}")
+for item in results.items:
+    print(f"- {item.title} ({item.url})")</code></pre>
+
+      <h2>Conclusion</h2>
+      <p>By moving from closed metered SaaS to Jiro's open-source architecture, engineering teams eliminate unpredictable SaaS bills, achieve sub-50ms local latency, and gain full architectural sovereignty over their AI agent workflows.</p>
+    
+      </div>
+
+      <!-- AUTHOR BIO -->
+      <div class="article-author-card">
+        <div class="author-avatar-badge">AK</div>
+        <div class="author-details">
+          <div class="author-name">Adarsh Kushwah</div>
+          <div class="author-role">Founder &amp; Principal Architect &bull; Blackvault Technology</div>
+          <p class="author-bio">Building local-first open source search infrastructure, high-throughput web extractors, and agentic AI protocols.</p>
+          <div class="author-links">
+            <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://x.com/BlackvaultTech" target="_blank" rel="noopener">Twitter / X</a>
+            <a href="/blog/feed.xml">RSS Feed &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER CALLOUT -->
+      <div class="blog-cluster-callout">
+        <div class="cluster-callout-inner">
+          <div class="cluster-callout-text">
+            <span class="cluster-tag">ENGINEERING BLOG &bull; 24 GUIDES</span>
+            <h3>Explore More Search &amp; Agent Architecture</h3>
+            <p>Compare SerpAPI and Tavily, configure Claude Desktop with MCP, or learn how hybrid search fuses BM25 and CPU embeddings.</p>
+          </div>
+          <a href="/blog/" class="btn-cluster-explore">
+            <span>View All 24 Articles</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- RELATED ARTICLES SECTION -->
+      <section class="related-section" aria-labelledby="related-heading">
+        <div class="related-header">
+          <h3 id="related-heading">Related Engineering Guides</h3>
+          <a href="/blog/" style="font-size:12px; color:var(--gold-light);">Browse all 24 articles &rarr;</a>
+        </div>
+        <div class="related-grid">
+          
+          <a href="/blog/tavily-alternative/" class="related-card">
+            <div>
+              <span class="related-category">Comparisons</span>
+              <h4 class="related-title">The Free Tavily Alternative: AI Search API Comparison</h4>
+            </div>
+            <span style="font-size:11px; color:var(--gold-light);">Read article &rarr;</span>
+          </a>
+          
+          <a href="/blog/mcp-server-guide/" class="related-card">
+            <div>
+              <span class="related-category">MCP & Agents</span>
+              <h4 class="related-title">How to Give Claude Desktop Web Search with an MCP Server</h4>
+            </div>
+            <span style="font-size:11px; color:var(--gold-light);">Read article &rarr;</span>
+          </a>
+          
+          <a href="/blog/social-media-scraping/" class="related-card">
+            <div>
+              <span class="related-category">Scraping</span>
+              <h4 class="related-title">Scraping 12 Social Platforms with One Python API (No API Keys)</h4>
+            </div>
+            <span style="font-size:11px; color:var(--gold-light);">Read article &rarr;</span>
+          </a>
+          
+        </div>
+      </section>
     </article>
   </main>
 
   
-  <footer class="blog-rich-footer" role="contentinfo">
+  <footer class="site-footer" role="contentinfo">
     <div class="container footer-grid">
       <div class="footer-col brand-col">
-        <a href="/" class="footer-logo">Jiro</a>
+        <a href="/" class="footer-logo" aria-label="jiro home">
+          <svg viewBox="0 0 134 58" fill="none" class="jiro-logo-svg" height="28" aria-label="jiro" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17.5" cy="11.5" r="5.5" fill="#FFFFFF" />
+  <path d="M12 21 H23 V45 C23 52 18.5 56 10.5 56 C5.5 56 1.8 54 0 52 L2.4 44.5 C3.8 45.8 6.5 47.5 9.5 47.5 C12.8 47.5 14.5 45.5 14.5 41.5 V21 H12 Z" fill="#FFFFFF" />
+  <rect x="35" y="21" width="11" height="29" fill="#FFFFFF" rx="0.5" />
+  <g class="jiro-lens">
+    <circle cx="41.5" cy="11" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+    <path d="M47 16.5 L54 23.5" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+  </g>
+  <path d="M62 21 H72.5 V26 C75 22.5 79.5 20.5 85 20.5 C88 20.5 90.5 21.2 92 22.2 L88.5 29.8 C87.2 29 85.2 28.5 83 28.5 C77.5 28.5 73 32.5 73 40 V50 H62 V21 Z" fill="#FFFFFF" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M113 20.5 C122.5 20.5 130 27.2 130 35.5 C130 43.8 122.5 50.5 113 50.5 C103.5 50.5 96 43.8 96 35.5 C96 27.2 103.5 20.5 113 20.5 Z M113 28.8 C108.2 28.8 104.5 31.8 104.5 35.5 C104.5 39.2 108.2 42.2 113 42.2 C117.8 42.2 121.5 39.2 121.5 35.5 C121.5 31.8 117.8 28.8 113 28.8 Z" fill="#FFFFFF" />
+</svg>
+        </a>
         <p class="footer-desc">
-          Open-source, self-hosted search API with 9 engines, 12 social media scrapers, MCP server, and zero-key AI synthesis.
+          Local-first, AI-native web search &amp; scraping API. Self-hosted SerpAPI alternative with MCP server, 9 search engines, and 12 social scrapers.
         </p>
-        <div class="footer-meta-pill">MIT Licensed &bull; Free &amp; Self-Hosted</div>
+        <div style="font-family: var(--font-code); font-size: 11px; color: var(--brand-orange-light); background: rgba(255, 102, 0, 0.1); border: 1px solid rgba(255, 102, 0, 0.25); border-radius: 999px; padding: 4px 12px; display: inline-block;">
+          MIT Licensed &bull; Controlled Software
+        </div>
       </div>
 
       <div class="footer-col">
-        <h4>TOP COMPARISONS</h4>
+        <h4>PRODUCT</h4>
         <ul>
-          <li><a href="/blog/serpapi-alternative/">SerpAPI Alternative (2026)</a></li>
-          <li><a href="/blog/tavily-alternative/">Tavily AI Search Comparison</a></li>
-          <li><a href="/blog/open-source-search-api/">Why We Built Open Source</a></li>
-          <li><a href="/#pricing">Cloud vs Self-Hosted</a></li>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/pricing/">Pricing &amp; Plans</a></li>
+          <li><a href="/changelog/">Changelog (Auto-Sync)</a></li>
+          <li><a href="/roadmap/">Product Roadmap</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>AGENT &amp; AI GUIDES</h4>
+        <h4>DEVELOPERS</h4>
         <ul>
-          <li><a href="/blog/mcp-server-guide/">Claude Desktop MCP Setup</a></li>
-          <li><a href="/blog/hybrid-search-explained/">Hybrid Search Architecture</a></li>
-          <li><a href="/blog/ai-search-without-api-keys/">AI Search Without API Keys</a></li>
-          <li><a href="/blog/intent-classification/">Intent Classification (16 Types)</a></li>
+          <li><a href="/docs/">Documentation</a></li>
+          <li><a href="/blog/mcp-server-guide/">MCP Guide</a></li>
+          <li><a href="/blog/">Engineering Blog (24 Guides)</a></li>
+          <li><a href="/blog/serpapi-alternative/">SerpAPI Alternative</a></li>
+          <li><a href="/blog/tavily-alternative/">Tavily Alternative</a></li>
+          <li><a href="/blog/hybrid-search-explained/">Hybrid Search</a></li>
+          <li><a href="/blog/feed.xml">RSS XML Feed</a></li>
+          <li><a href="/sitemap.xml">XML Sitemap</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>SCRAPING &amp; DEVOPS</h4>
+        <h4>COMMUNITY</h4>
         <ul>
-          <li><a href="/blog/social-media-scraping/">12 Social Media Scrapers</a></li>
-          <li><a href="/blog/python-web-scraping-2026/">Python Web Scraping in 2026</a></li>
-          <li><a href="/blog/structured-data-extraction/">JSON Schema Extraction</a></li>
-          <li><a href="/blog/docker-search-api/">Docker &amp; Kubernetes Deployment</a></li>
-          <li><a href="/blog/web-scraping-compliance/">Robots.txt &amp; Compliance</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://discord.gg/jiro" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/issues" target="_blank" rel="noopener">Issues</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/discussions" target="_blank" rel="noopener">Discussions</a></li>
+          <li><a href="/contributing/">Contributing Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <ul>
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/acceptable-use/">Acceptable Use</a></li>
+          <li><a href="/license/">MIT License &amp; Trademark</a></li>
+          <li><a href="/security/">Security &amp; Disclosure</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-bottom-bar">
-      <div class="container footer-bottom-inner">
-        <div>&copy; 2026 Jiro Search. Built by Blackvault Technology. MIT Licensed.</div>
+    <div class="container footer-bottom">
+      <div class="footer-bottom-inner">
+        <div>&copy; 2026 Jiro Search. MIT Licensed. Built by Blackvault Technology.</div>
         <div class="footer-sublinks">
-          <a href="/blog/">Engineering Hub</a>
-          <a href="/blog/feed.xml">RSS Feed</a>
-          <a href="/sitemap.xml">XML Sitemap</a>
-          <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/security/">Security</a>
+          <span style="font-family: var(--font-code); color: var(--gold-light);">v0.2.8</span>
         </div>
       </div>
     </div>
   </footer>
-  
 
+  <script>
+    function toggleMobileNav(forceState) {
+      const drawer = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (!drawer) return;
+      const isOpen = typeof forceState === 'boolean' ? forceState : !drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden', 'false');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const drawer = document.getElementById('mobileDrawer');
+      if (drawer) {
+        drawer.addEventListener('click', (e) => {
+          if (e.target === drawer) toggleMobileNav(false);
+        });
+        const links = drawer.querySelectorAll('a');
+        links.forEach(l => l.addEventListener('click', () => toggleMobileNav(false)));
+      }
+    });
+  </script>
+  
 </body>
 </html>

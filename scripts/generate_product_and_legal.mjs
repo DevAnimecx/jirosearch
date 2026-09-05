@@ -36,7 +36,7 @@ function generatePricing() {
     }
     .pricing-card.featured {
       border-color: var(--gold-base);
-      background: linear-gradient(180deg, rgba(167, 139, 113, 0.08), rgba(255, 255, 255, 0.02));
+      background: linear-gradient(180deg, rgba(255, 102, 0, 0.08), rgba(255, 255, 255, 0.02));
     }
     .featured-badge {
       position: absolute;
@@ -157,166 +157,7 @@ function generatePricing() {
   console.log("Generated /pricing/index.html");
 }
 
-// 2. DASHBOARD APP
-function generateDashboard() {
-  const dir = path.join(process.cwd(), 'public/dashboard');
-  ensureDir(dir);
-
-  const html = `<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Developer Dashboard &amp; Monitoring | Jiro</title>
-  <meta name="description" content="Interactive developer playground and health monitoring dashboard for Jiro Search: live query executor, engine status, and real-time GitHub sync.">
-  <link rel="canonical" href="${BASE_URL}/dashboard/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    ${SHARED_CSS}
-    .dash-wrap { max-width: 1160px; margin: 40px auto; padding: 0 24px; }
-    .dash-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 32px; gap: 16px; }
-    .dash-header h1 { font-family: var(--font-display); font-size: 36px; font-style: italic; color: #fff; }
-    .status-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); color: #4ade80; font-family: var(--font-code); font-size: 12px; padding: 5px 12px; border-radius: 999px; }
-    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 8px #4ade80; animation: blink 2s infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .metric-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-    .metric-label { font-size: 12px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-    .metric-val { font-size: 28px; font-weight: 700; color: #fff; font-family: var(--font-code); }
-    .dash-workbench { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 860px) { .dash-workbench { grid-template-columns: 1fr 1.2fr; } }
-    .bench-panel { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
-    .bench-panel h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 16px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
-    .form-control { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 8px; color: #fff; padding: 10px 14px; font-size: 13px; outline: none; }
-    .form-control:focus { border-color: var(--gold-base); }
-    .btn-submit { background: var(--gold-base); color: #000; border: none; font-weight: 600; font-size: 13px; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
-    .btn-submit:hover { background: var(--gold-hover); }
-    .json-output { background: #080808; border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: var(--font-code); font-size: 12px; color: #a3e635; height: 320px; overflow: auto; white-space: pre-wrap; }
-    .engine-status-list { list-style: none; }
-    .engine-status-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
-  </style>
-</head>
-<body>
-  ${renderHeader('dashboard')}
-
-  <div class="dash-wrap">
-    <div class="dash-header">
-      <div>
-        <h1>Jiro Cluster Dashboard</h1>
-        <p style="color: rgba(255,255,255,0.6); font-size: 14px;">Local Search Engine &amp; Proxy Fleet Monitor</p>
-      </div>
-      <div class="status-badge">
-        <div class="pulse-dot"></div>
-        <span>GitHub Live Synced &bull; v0.2.8</span>
-      </div>
-    </div>
-
-    <!-- METRICS -->
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-label">Active Engines</div>
-        <div class="metric-val">9 / 9</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Avg P95 Latency</div>
-        <div class="metric-val" style="color: #4ade80;">142ms</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Social Platforms</div>
-        <div class="metric-val">12</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Circuit Breakers</div>
-        <div class="metric-val" style="color: var(--gold-light);">0 Tripped</div>
-      </div>
-    </div>
-
-    <!-- WORKBENCH -->
-    <div class="dash-workbench">
-      <div class="bench-panel">
-        <h3>Live Query Workbench</h3>
-        <div class="form-group">
-          <label>Query</label>
-          <input type="text" id="workbenchQuery" class="form-control" value="python async web scraping">
-        </div>
-        <div class="form-group">
-          <label>Search Engine</label>
-          <select id="workbenchEngine" class="form-control">
-            <option value="google">Google (Fast SERP)</option>
-            <option value="duckduckgo">DuckDuckGo (Zero-Token)</option>
-            <option value="bing">Bing Web</option>
-            <option value="brave">Brave Independent</option>
-            <option value="hybrid">Hybrid Multi-Engine Fusion</option>
-          </select>
-        </div>
-        <div class="form-group" style="display: flex; gap: 16px;">
-          <label><input type="checkbox" id="wbAnswer" checked> CPU Answer Synthesis</label>
-          <label><input type="checkbox" id="wbRRF" checked> Reciprocal Rank Fusion</label>
-        </div>
-        <button class="btn-submit" onclick="runWorkbenchQuery()">Execute Query</button>
-      </div>
-
-      <div class="bench-panel">
-        <h3>Live JSON Response</h3>
-        <div id="workbenchOutput" class="json-output">// Click 'Execute Query' to inspect normalized search payload...</div>
-      </div>
-    </div>
-  </div>
-
-  ${renderFooter()}
-
-  <script>
-    function runWorkbenchQuery() {
-      const q = document.getElementById('workbenchQuery').value;
-      const eng = document.getElementById('workbenchEngine').value;
-      const ans = document.getElementById('wbAnswer').checked;
-      const output = document.getElementById('workbenchOutput');
-
-      output.innerText = "// Querying engine: " + eng + "...\\n// Performing Reciprocal Rank Fusion on CPU...";
-
-      setTimeout(() => {
-        const mockPayload = {
-          status: "success",
-          query: q,
-          engine: eng,
-          latency_ms: Math.floor(Math.random() * 80) + 110,
-          intent: {
-            classified: "technical_tutorial",
-            confidence: 0.96
-          },
-          answer: ans ? "Modern Python web scraping utilizes httpx with HTTP/2 multiplexing, rotating TLS fingerprints, and asynchronous concurrency to evade IP bans without browser automation overhead." : null,
-          results_count: 5,
-          results: [
-            {
-              rank: 1,
-              title: "Python Web Scraping in 2026: The Complete Guide",
-              url: "https://jiro.dev/blog/python-web-scraping-2026/",
-              snippet: "Master modern web scraping patterns: HTTP/2 multiplexing, TLS fingerprint impersonation, resilient proxy rotation..."
-            },
-            {
-              rank: 2,
-              title: "Designing High-Concurrency Async Python SDKs",
-              url: "https://jiro.dev/blog/async-python-search-sdk/",
-              snippet: "Learn how Jiro Python client achieves 1,200 requests/sec with async connection pooling and Pydantic validation..."
-            }
-          ]
-        };
-        output.innerText = JSON.stringify(mockPayload, null, 2);
-      }, 450);
-    }
-  </script>
-</body>
-</html>`;
-
-  fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf-8');
-  console.log("Generated /dashboard/index.html");
-}
-
-// 3. CHANGELOG PAGE (AUTO-SYNC FROM GITHUB)
+// 2. CHANGELOG PAGE (AUTO-SYNC FROM GITHUB)
 function generateChangelog() {
   const dir = path.join(process.cwd(), 'public/changelog');
   ensureDir(dir);
@@ -466,7 +307,7 @@ function generateRoadmap() {
     .phase-status { font-family: var(--font-code); font-size: 11px; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; font-weight: 600; }
     .phase-status.shipped { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
     .phase-status.active { background: rgba(234, 179, 8, 0.15); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.3); }
-    .phase-status.planned { background: rgba(167, 139, 113, 0.15); color: var(--gold-light); border: 1px solid rgba(167, 139, 113, 0.3); }
+    .phase-status.planned { background: rgba(255, 102, 0, 0.15); color: var(--gold-light); border: 1px solid rgba(255, 102, 0, 0.3); }
     .phase-title { font-family: var(--font-display); font-size: 26px; font-style: italic; color: #fff; margin: 12px 0; }
     .phase-list { list-style: none; margin-top: 16px; }
     .phase-list li { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
@@ -779,7 +620,6 @@ SOFTWARE.</code></pre>
 }
 
 generatePricing();
-generateDashboard();
 generateChangelog();
 generateRoadmap();
 generateContributing();

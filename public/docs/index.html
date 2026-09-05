@@ -4,26 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documentation &amp; API Reference | Jiro Search Intelligence</title>
-  <meta name="description" content="Complete documentation for Jiro: Quick start, Python SDK, CLI reference, 9 search engines, 12 social scrapers, MCP server, and Docker deployment.">
+  <meta name="description" content="Official documentation for Jiro: Architecture, Python SDK, REST API, 9 search engines, 12 social scrapers, 17 MCP tools, hybrid search RRF, Docker, Helm, and rate limits.">
   <link rel="canonical" href="https://jiro.dev/docs/">
-  <meta property="og:title" content="Jiro Documentation &amp; Developer Guide">
-  <meta property="og:description" content="Local-first search intelligence documentation: Python SDK, REST API, MCP server, and self-hosted deployment.">
+  <meta property="og:title" content="Jiro Documentation — Local-First Search Intelligence">
+  <meta property="og:description" content="Complete documentation and reference for Jiro search API, scrapers, MCP server, and self-hosted deployment.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     
   :root {
-    --gold-base: #a78b71;
-    --gold-light: #c4ab92;
-    --gold-hover: #bda287;
+    --brand-orange: #ff6600;
+    --brand-orange-light: #ff8533;
+    --brand-orange-hover: #ff751a;
+    --brand-orange-dark: #e65c00;
+    --brand-orange-border: rgba(255, 102, 0, 0.35);
+    --brand-orange-bg: rgba(255, 102, 0, 0.08);
+    --brand-orange-glow: rgba(255, 102, 0, 0.25);
+    
+    /* Semantic aliases matching new orange brand theme */
+    --gold-base: #ff6600;
+    --gold-light: #ff8533;
+    --gold-hover: #ff751a;
+    --gold-border: rgba(255, 102, 0, 0.35);
+    
     --bg-dark: #000000;
     --surface-1: rgba(255, 255, 255, 0.03);
     --surface-2: rgba(255, 255, 255, 0.06);
     --border: rgba(255, 255, 255, 0.08);
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-code: 'JetBrains Mono', monospace;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -35,53 +47,68 @@
   }
   a { color: var(--gold-light); text-decoration: none; transition: color 0.2s; }
   a:hover { color: var(--gold-hover); text-decoration: underline; }
-  .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
   
-  /* HEADER */
+  /* UNIFIED HEADER */
   header.site-nav {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(12px);
+    z-index: 1000;
+    background: rgba(8, 8, 8, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 68px;
   }
   .nav-brand {
     display: flex;
     align-items: center;
     gap: 12px;
   }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 26px;
-    font-weight: 700;
-    font-style: italic;
-    color: #ffffff;
+  
+  /* UNIFIED VECTOR LOGO */
+  .nav-logo, .footer-logo {
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
+  .nav-logo:hover, .footer-logo:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+  .jiro-logo-svg {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+  
   .nav-badge {
     font-family: var(--font-code);
     font-size: 11px;
-    background: rgba(167, 139, 113, 0.12);
+    background: rgba(255, 102, 0, 0.12);
     color: var(--gold-light);
-    border: 1px solid rgba(167, 139, 113, 0.25);
+    border: 1px solid rgba(255, 102, 0, 0.28);
     padding: 2px 8px;
     border-radius: 999px;
   }
+  @media (max-width: 520px) {
+    .nav-badge { display: none; }
+  }
+
   .nav-menu {
     display: none;
     align-items: center;
-    gap: 24px;
+    gap: 26px;
     list-style: none;
   }
-  @media (min-width: 860px) {
+  @media (min-width: 900px) {
     .nav-menu { display: flex; }
   }
   .nav-menu a {
@@ -89,10 +116,16 @@
     font-size: 13px;
     font-weight: 500;
     text-decoration: none;
+    transition: color 0.15s;
   }
   .nav-menu a:hover, .nav-menu a.active {
     color: #ffffff;
     text-decoration: none;
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
   .nav-cta {
     display: inline-flex;
@@ -105,17 +138,177 @@
     font-weight: 600;
     padding: 7px 14px;
     border-radius: 999px;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .nav-cta:hover {
-    background: rgba(255, 255, 255, 0.15);
+    transition: all 0.2s;
     text-decoration: none;
   }
+  .nav-cta:hover {
+    background: rgba(255, 102, 0, 0.15);
+    border-color: var(--brand-orange-border);
+    color: #ffffff;
+    text-decoration: none;
+  }
+  @media (max-width: 480px) {
+    .nav-cta span { display: none; }
+  }
+
+  /* MOBILE HAMBURGER TOGGLE */
+  .mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.2s ease;
+  }
+  .mobile-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--brand-orange-border);
+  }
+  @media (min-width: 900px) {
+    .mobile-toggle {
+      display: none;
+    }
+  }
+  .hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* MOBILE DRAWER OVERLAY */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .mobile-drawer.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .mobile-drawer-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 82%;
+    max-width: 320px;
+    height: 100%;
+    background: #080808;
+    border-left: 1px solid var(--border);
+    padding: 24px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+  }
+  .mobile-drawer.open .mobile-drawer-inner {
+    transform: translateX(0);
+  }
+  .mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 24px;
+  }
+  .mobile-close-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mobile-close-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--brand-orange-light);
+  }
+  .mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: auto;
+  }
+  .mobile-nav-links a {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 12px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .mobile-nav-links a:hover, .mobile-nav-links a.active {
+    background: rgba(255, 102, 0, 0.12);
+    color: var(--brand-orange-light);
+  }
+  .mobile-drawer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mobile-btn-github, .mobile-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .mobile-btn-github {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+  .mobile-btn-primary {
+    background: var(--brand-orange);
+    color: #000000;
+    border: 1px solid var(--brand-orange);
+  }
+  .mobile-btn-primary:hover {
+    background: var(--brand-orange-hover);
+    color: #000000;
+  }
   
-  /* FOOTER */
+  /* UNIFIED FOOTER */
   .site-footer {
     border-top: 1px solid var(--border);
-    background: rgba(10, 10, 10, 0.95);
+    background: rgba(6, 6, 6, 0.98);
     margin-top: 80px;
     padding: 60px 0 0;
   }
@@ -134,7 +327,7 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
-    color: var(--gold-light);
+    color: var(--brand-orange-light);
     text-transform: uppercase;
     margin-bottom: 16px;
   }
@@ -142,7 +335,6 @@
   .footer-col ul li { margin-bottom: 9px; font-size: 13px; }
   .footer-col ul li a { color: rgba(255, 255, 255, 0.65); text-decoration: none; }
   .footer-col ul li a:hover { color: #ffffff; text-decoration: underline; }
-  .footer-logo { font-family: var(--font-display); font-size: 26px; font-style: italic; font-weight: 700; color: #fff; }
   .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin: 12px 0 16px; max-width: 280px; }
   .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -163,17 +355,21 @@
   }
   .footer-sublinks { display: flex; gap: 16px; }
   .footer-sublinks a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
-  .footer-sublinks a:hover { color: var(--gold-light); }
+  .footer-sublinks a:hover { color: var(--brand-orange-light); }
 
-    
+
     .docs-layout {
       display: flex;
       min-height: calc(100vh - 64px);
+      max-width: 1540px;
+      margin: 0 auto;
     }
+    
     .docs-sidebar {
-      width: 280px;
+      width: 310px;
       border-right: 1px solid var(--border);
-      background: rgba(10, 10, 10, 0.6);
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(12px);
       padding: 32px 20px;
       position: sticky;
       top: 64px;
@@ -181,141 +377,307 @@
       overflow-y: auto;
       flex-shrink: 0;
     }
-    @media (max-width: 860px) {
+    
+    @media (max-width: 960px) {
       .docs-sidebar { display: none; }
     }
+    
+    .sidebar-search-box {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    
     .sidebar-search {
       width: 100%;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
       color: #fff;
-      padding: 10px 14px;
+      padding: 10px 14px 10px 34px;
       border-radius: 8px;
       font-size: 13px;
-      margin-bottom: 24px;
       outline: none;
+      transition: all 0.2s;
     }
+    
     .sidebar-search:focus {
       border-color: var(--gold-base);
+      background: rgba(255, 255, 255, 0.07);
     }
+    
+    .sidebar-search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+    
     .sidebar-nav-group {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
+    
     .sidebar-group-title {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--gold-light);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    
     .sidebar-links {
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
-    .sidebar-links li {
-      margin-bottom: 6px;
-    }
+    
     .sidebar-links a {
       font-size: 13px;
       color: rgba(255, 255, 255, 0.65);
-      display: block;
-      padding: 5px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
       border-radius: 6px;
-      transition: all 0.15s;
-    }
-    .sidebar-links a:hover, .sidebar-links a.active {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.15s ease;
       text-decoration: none;
     }
+    
+    .sidebar-links a:hover, .sidebar-links a.active {
+      color: #fff;
+      background: rgba(255, 102, 0, 0.12);
+      border-left: 2px solid var(--gold-base);
+      padding-left: 12px;
+    }
+    
+    .sidebar-tag {
+      font-family: var(--font-code);
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-tertiary);
+    }
+
     .docs-content {
       flex: 1;
-      max-width: 900px;
-      padding: 40px 48px;
+      max-width: 1050px;
+      padding: 48px 64px 96px;
     }
-    @media (max-width: 860px) {
-      .docs-content { padding: 24px 16px; }
+    
+    @media (max-width: 960px) {
+      .docs-content { padding: 32px 20px 64px; }
     }
+    
     .docs-content h1 {
       font-family: var(--font-display);
-      font-size: 36px;
+      font-size: 40px;
       font-style: italic;
       color: #fff;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      line-height: 1.2;
     }
+    
     .docs-content h2 {
       font-family: var(--font-display);
-      font-size: 26px;
+      font-size: 28px;
       color: #fff;
-      margin: 40px 0 16px;
+      margin: 56px 0 20px;
       font-style: italic;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
+      padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
+    
     .docs-content h3 {
-      font-size: 18px;
+      font-size: 19px;
+      font-weight: 600;
       color: var(--gold-light);
-      margin: 24px 0 12px;
+      margin: 32px 0 14px;
     }
+    
+    .docs-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 20px 0 8px;
+    }
+    
     .docs-content p {
       font-size: 15px;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.82);
       margin-bottom: 16px;
+      line-height: 1.75;
     }
+    
+    .docs-content ul, .docs-content ol {
+      margin: 14px 0 24px 24px;
+      color: rgba(255, 255, 255, 0.82);
+    }
+    
+    .docs-content li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    
     .docs-content pre {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(12, 12, 12, 0.95);
       border: 1px solid var(--border);
-      padding: 16px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 12px;
       font-family: var(--font-code);
       font-size: 13px;
-      margin: 16px 0 24px;
+      line-height: 1.6;
+      margin: 18px 0 26px;
       overflow-x: auto;
       position: relative;
     }
+    
+    .docs-content code {
+      font-family: var(--font-code);
+      font-size: 13px;
+      color: var(--gold-light);
+      background: rgba(255, 102, 0, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    .docs-content pre code {
+      background: transparent;
+      padding: 0;
+      color: #e5e5e5;
+      font-size: 13px;
+    }
+    
     .copy-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 12px;
+      right: 12px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: rgba(255, 255, 255, 0.8);
       font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: all 0.2s;
     }
-    .copy-btn:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
-    .badge-pill {
-      font-family: var(--font-code);
-      font-size: 11px;
-      color: var(--gold-light);
-      background: rgba(167, 139, 113, 0.1);
-      border: 1px solid rgba(167, 139, 113, 0.2);
-      padding: 3px 8px;
-      border-radius: 999px;
-      display: inline-block;
-      margin-bottom: 16px;
-    }
-    .tab-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: -1px;
-    }
-    .tab-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-bottom: none;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 12px;
-      padding: 6px 14px;
-      border-radius: 6px 6px 0 0;
-      cursor: pointer;
-    }
-    .tab-btn.active {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+    
+    .copy-btn:hover {
+      background: var(--gold-base);
+      color: #0a0a0a;
       border-color: var(--gold-base);
+    }
+    
+    .docs-table-wrapper {
+      overflow-x: auto;
+      margin: 20px 0 32px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+    
+    .docs-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    
+    .docs-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      font-weight: 600;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+    
+    .docs-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.8);
+      vertical-align: top;
+    }
+    
+    .docs-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .docs-callout {
+      background: rgba(255, 102, 0, 0.06);
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    
+    .docs-callout-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .docs-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0 32px;
+    }
+    
+    .docs-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+    
+    .docs-card:hover {
+      border-color: var(--gold-border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    
+    .docs-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .docs-card-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.6;
+    }
+    
+    .section-anchor {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    h2:hover .section-anchor, h3:hover .section-anchor {
+      opacity: 1;
     }
   </style>
 </head>
@@ -324,7 +686,19 @@
   <header class="site-nav" role="banner">
     <div class="container nav-inner">
       <div class="nav-brand">
-        <a href="/" class="nav-logo" rel="home">Jiro</a>
+        <a href="/" class="nav-logo" rel="home" aria-label="jiro home">
+          <svg viewBox="0 0 134 58" fill="none" class="jiro-logo-svg" height="28" aria-label="jiro" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17.5" cy="11.5" r="5.5" fill="#FFFFFF" />
+  <path d="M12 21 H23 V45 C23 52 18.5 56 10.5 56 C5.5 56 1.8 54 0 52 L2.4 44.5 C3.8 45.8 6.5 47.5 9.5 47.5 C12.8 47.5 14.5 45.5 14.5 41.5 V21 H12 Z" fill="#FFFFFF" />
+  <rect x="35" y="21" width="11" height="29" fill="#FFFFFF" rx="0.5" />
+  <g class="jiro-lens">
+    <circle cx="41.5" cy="11" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+    <path d="M47 16.5 L54 23.5" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+  </g>
+  <path d="M62 21 H72.5 V26 C75 22.5 79.5 20.5 85 20.5 C88 20.5 90.5 21.2 92 22.2 L88.5 29.8 C87.2 29 85.2 28.5 83 28.5 C77.5 28.5 73 32.5 73 40 V50 H62 V21 Z" fill="#FFFFFF" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M113 20.5 C122.5 20.5 130 27.2 130 35.5 C130 43.8 122.5 50.5 113 50.5 C103.5 50.5 96 43.8 96 35.5 C96 27.2 103.5 20.5 113 20.5 Z M113 28.8 C108.2 28.8 104.5 31.8 104.5 35.5 C104.5 39.2 108.2 42.2 113 42.2 C117.8 42.2 121.5 39.2 121.5 35.5 C121.5 31.8 117.8 28.8 113 28.8 Z" fill="#FFFFFF" />
+</svg>
+        </a>
         <span class="nav-badge" id="nav-release-tag">v0.2.8</span>
       </div>
 
@@ -333,170 +707,412 @@
           <li role="menuitem"><a href="/#features" class="">Features</a></li>
           <li role="menuitem"><a href="/docs/" class="active">Docs</a></li>
           <li role="menuitem"><a href="/pricing/" class="">Pricing</a></li>
-          <li role="menuitem"><a href="/dashboard/" class="">Dashboard</a></li>
           <li role="menuitem"><a href="/blog/" class="">Blog</a></li>
           <li role="menuitem"><a href="/changelog/" class="">Changelog</a></li>
           <li role="menuitem"><a href="/roadmap/" class="">Roadmap</a></li>
         </ul>
       </nav>
 
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="nav-actions">
         <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="nav-cta" aria-label="GitHub repository">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           <span id="nav-star-count">Star</span>
         </a>
+        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleMobileNav()">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-inner">
+      <div class="mobile-drawer-header">
+        <a href="/" class="nav-logo" rel="home" aria-label="jiro home">
+          <svg viewBox="0 0 134 58" fill="none" class="jiro-logo-svg" height="28" aria-label="jiro" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17.5" cy="11.5" r="5.5" fill="#FFFFFF" />
+  <path d="M12 21 H23 V45 C23 52 18.5 56 10.5 56 C5.5 56 1.8 54 0 52 L2.4 44.5 C3.8 45.8 6.5 47.5 9.5 47.5 C12.8 47.5 14.5 45.5 14.5 41.5 V21 H12 Z" fill="#FFFFFF" />
+  <rect x="35" y="21" width="11" height="29" fill="#FFFFFF" rx="0.5" />
+  <g class="jiro-lens">
+    <circle cx="41.5" cy="11" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+    <path d="M47 16.5 L54 23.5" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+  </g>
+  <path d="M62 21 H72.5 V26 C75 22.5 79.5 20.5 85 20.5 C88 20.5 90.5 21.2 92 22.2 L88.5 29.8 C87.2 29 85.2 28.5 83 28.5 C77.5 28.5 73 32.5 73 40 V50 H62 V21 Z" fill="#FFFFFF" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M113 20.5 C122.5 20.5 130 27.2 130 35.5 C130 43.8 122.5 50.5 113 50.5 C103.5 50.5 96 43.8 96 35.5 C96 27.2 103.5 20.5 113 20.5 Z M113 28.8 C108.2 28.8 104.5 31.8 104.5 35.5 C104.5 39.2 108.2 42.2 113 42.2 C117.8 42.2 121.5 39.2 121.5 35.5 C121.5 31.8 117.8 28.8 113 28.8 Z" fill="#FFFFFF" />
+</svg>
+        </a>
+        <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu" onclick="toggleMobileNav(false)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="/#features" class="">Features</a></li>
+        <li><a href="/docs/" class="active">Documentation</a></li>
+        <li><a href="/pricing/" class="">Pricing</a></li>
+        <li><a href="/blog/" class="">Blog (24 Guides)</a></li>
+        <li><a href="/changelog/" class="">Changelog</a></li>
+        <li><a href="/roadmap/" class="">Roadmap</a></li>
+      </ul>
+      <div class="mobile-drawer-actions">
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="mobile-btn-github">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span>Star on GitHub</span>
+        </a>
+        <a href="/docs/#quickstart" class="mobile-btn-primary">Get Started</a>
+      </div>
+    </div>
+  </div>
   
 
   <div class="docs-layout">
     <!-- SIDEBAR -->
     <aside class="docs-sidebar" role="navigation" aria-label="Documentation Sidebar">
-      <input type="text" id="docSearchInput" class="sidebar-search" placeholder="Search documentation...">
+      <div class="sidebar-search-box">
+        <svg class="sidebar-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="docSearchInput" class="sidebar-search" placeholder="Search documentation..." autocomplete="off">
+      </div>
 
       <div class="sidebar-nav-group">
         <div class="sidebar-group-title">GETTING STARTED</div>
         <ul class="sidebar-links">
-          <li><a href="#overview" class="active">Overview &amp; Architecture</a></li>
-          <li><a href="#installation">Installation (PyPI &amp; Source)</a></li>
-          <li><a href="#quickstart">Quick Start &amp; CLI</a></li>
-          <li><a href="#cli-update">Check &amp; Auto-Update</a></li>
+          <li><a href="#overview" class="active"><span>Overview &amp; Architecture</span></a></li>
+          <li><a href="#installation"><span>Installation (PyPI &amp; Source)</span></a></li>
+          <li><a href="#quickstart"><span>Quick Start &amp; CLI</span></a></li>
+          <li><a href="#cli-update"><span>Check &amp; Auto-Update</span><span class="sidebar-tag">v0.2.8</span></a></li>
         </ul>
       </div>
 
       <div class="sidebar-nav-group">
         <div class="sidebar-group-title">CORE CAPABILITIES</div>
         <ul class="sidebar-links">
-          <li><a href="#python-sdk">Python SDK Guide</a></li>
-          <li><a href="#rest-api">REST API Endpoints</a></li>
-          <li><a href="#engines">9 Search Engines</a></li>
-          <li><a href="#social-scrapers">12 Social Media Scrapers</a></li>
-          <li><a href="#mcp-protocol">Model Context Protocol (MCP)</a></li>
-          <li><a href="#extractive-answers">Extractive AI Answers (0-Key)</a></li>
-          <li><a href="#hybrid-search">Hybrid Search &amp; Reranking</a></li>
+          <li><a href="#python-sdk"><span>Python SDK Guide</span></a></li>
+          <li><a href="#rest-api"><span>REST API Endpoints</span><span class="sidebar-tag">OpenAPI 3.1</span></a></li>
+          <li><a href="#engines"><span>9 Search Engines</span><span class="sidebar-tag">9 backends</span></a></li>
+          <li><a href="#social-scrapers"><span>12 Social Media Scrapers</span><span class="sidebar-tag">0 keys</span></a></li>
+          <li><a href="#mcp-protocol"><span>Model Context Protocol (MCP)</span><span class="sidebar-tag">17 tools</span></a></li>
+          <li><a href="#extractive-answers"><span>Extractive AI Answers (0-Key)</span></a></li>
+          <li><a href="#hybrid-search"><span>Hybrid Search &amp; Reranking</span><span class="sidebar-tag">RRF</span></a></li>
         </ul>
       </div>
 
       <div class="sidebar-nav-group">
         <div class="sidebar-group-title">PRODUCTION &amp; DEVOPS</div>
         <ul class="sidebar-links">
-          <li><a href="#docker-deployment">Docker &amp; Compose</a></li>
-          <li><a href="#kubernetes-helm">Kubernetes Helm Chart</a></li>
-          <li><a href="#auth-rate-limiting">API Key &amp; Rate Limits</a></li>
-          <li><a href="#legal-compliance">robots.txt &amp; Compliance</a></li>
+          <li><a href="#docker-deployment"><span>Docker &amp; Compose</span></a></li>
+          <li><a href="#kubernetes-helm"><span>Kubernetes Helm Chart</span></a></li>
+          <li><a href="#auth-rate-limiting"><span>API Key &amp; Rate Limits</span><span class="sidebar-tag">Pro Tier</span></a></li>
+          <li><a href="#legal-compliance"><span>robots.txt &amp; Compliance</span></a></li>
         </ul>
       </div>
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="docs-content" role="main">
-      <div class="badge-pill">OFFICIAL JIRO DEVELOPER DOCUMENTATION &bull; VERSION 0.2.8</div>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+        <span style="font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(255, 102, 0, 0.1); border: 1px solid rgba(255, 102, 0, 0.2); padding: 4px 10px; border-radius: 999px;">
+          OFFICIAL REPOSITORY SPECIFICATION &bull; JIRO v0.2.8
+        </span>
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-tertiary); text-decoration: none;">GitHub Repository &rarr;</a>
+      </div>
+
       <h1>Jiro Search Intelligence Platform</h1>
-      <p>
-        Jiro is an open-source, local-first web search and scraping API designed from the ground up for autonomous AI agents, LLM tool loops, and high-concurrency developer pipelines.
+      <p style="font-size: 17px; color: var(--gold-light); margin-bottom: 28px;">
+        Local-first, AI-native web search, social scraping, and hybrid intelligence engine built in Python for autonomous agents and developer pipelines.
       </p>
 
-      <!-- SECTION: OVERVIEW -->
+      <!-- ========================================================== -->
+      <!-- SECTION 1: OVERVIEW & ARCHITECTURE -->
+      <!-- ========================================================== -->
       <section id="overview">
-        <h2>1. Overview &amp; Architecture</h2>
+        <h2>
+          <span>Overview &amp; Architecture</span>
+          <a href="#overview" class="section-anchor">#</a>
+        </h2>
         <p>
-          Unlike legacy scraping services that lock developers into costly per-query fees ($50–$500/month), Jiro runs entirely on your infrastructure (or managed cloud clusters). It aggregates results across 9 distinct search backends, scrapes 12 social media platforms, executes 8ms CPU extractive synthesis, and seamlessly exposes 17 native tools to Claude Desktop and Cursor via the Model Context Protocol.
+          Jiro is designed from first principles as a self-hosted, MIT-licensed alternative to proprietary search APIs like SerpAPI, Tavily, and Apify. Rather than routing queries through a metered third-party cloud that bills $50–$500 per month, Jiro executes high-concurrency requests locally, orchestrating 9 search engines, 12 social platforms, and CPU-based semantic rerankers.
         </p>
+
+        <div class="docs-callout">
+          <div class="docs-callout-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Core Design Philosophy: Local-First &amp; Zero Lock-in</span>
+          </div>
+          <p style="font-size: 14px; margin-bottom: 0;">
+            1. <strong>No Mandatory External Tokens:</strong> Search and extractive answer synthesis execute entirely with Python and lightweight on-device models.<br>
+            2. <strong>Circuit-Breaker Fallback:</strong> If Google challenges with a CAPTCHA, Jiro auto-fails over to Bing, DuckDuckGo, or Brave within milliseconds.<br>
+            3. <strong>Agent Protocol Native:</strong> Built-in 17-tool Model Context Protocol (MCP) server supporting stdio, HTTP, and SSE for Claude Desktop, Cursor, and Continue.dev.
+          </p>
+        </div>
+
+        <h3>Directory Structure from the GitHub Repository</h3>
+        <p>The Jiro codebase is organized into modular components with clean boundaries:</p>
+
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>jiro/
+├── server/           # FastAPI application &amp; OpenAPI 3.1 router
+│   ├── routers/      # /v1/search, /v1/social, /v1/smart, /v1/structured, /v1/pro
+│   └── deps.py       # Dependency injection, rate-limit guards, API key validator
+├── search/           # Search intelligence engine
+│   ├── hybrid.py     # Hybrid search orchestrator (keyword + dense semantic + RRF)
+│   ├── reranker.py   # CPU-quantized Cross-Encoder reranker (80MB ONNX)
+│   ├── embeddings.py # Local embedding models for dense vector scoring
+│   ├── relevance.py  # Multi-signal BM25 + freshness + authority scoring
+│   ├── filters.py    # Domain include/exclude, date ranges, content categories
+│   ├── highlights.py # Query-aware snippet highlights &amp; token extraction
+│   ├── answer.py     # Answer synthesis (extractive 0-key &amp; optional LLM mode)
+│   ├── multiquery.py # Parallel query expansion &amp; decomposition
+│   ├── structured.py # JSON Schema-enforced structured extraction
+│   └── intent.py     # 16-class sub-millisecond intent classification heuristic
+├── scraping/         # Web scraping backends &amp; engine registry
+│   ├── engines.py    # Engine registry: Google, Bing, DDG, Brave, YouTube, Amazon, etc.
+│   ├── client.py     # High-concurrency HTTP/2 client with TLS fingerprint emulation
+│   └── social/       # 12 social media scrapers (Reddit, Twitter, YouTube, TikTok, etc.)
+│       ├── normalizer.py   # Unified SocialPost schema normalization
+│       ├── router.py       # URL pattern dispatcher &amp; auto-detection
+│       └── self_healing.py # AST-based DOM repair &amp; selector auto-fallback
+├── plugins/          # Extensible plugin system (engine, search, datasource)
+├── ai/               # Optional LLM integration (OpenAI, Anthropic, Gemini)
+├── mcp.py            # Model Context Protocol stdio server (17 agent tools)
+├── mcp_http.py       # MCP HTTP &amp; Server-Sent Events (SSE) streaming transport
+├── pro.py            # Pro tier: Token-bucket rate limiting, quota tracking, API keys
+├── robots.py         # Async robots.txt parsing &amp; polite crawl-delay enforcement
+├── compliance.py     # Legal terms of service metadata &amp; attribution verification
+├── security.py       # SSRF protection, CIDR blocklist, host sanitizer
+├── db.py             # SQLite persistence for cache &amp; keys
+└── telemetry.py      # Prometheus &amp; OpenTelemetry metrics exporter</code></pre>
       </section>
 
-      <!-- SECTION: INSTALLATION -->
+      <!-- ========================================================== -->
+      <!-- SECTION 2: INSTALLATION (PYPI & SOURCE) -->
+      <!-- ========================================================== -->
       <section id="installation">
-        <h2>2. Installation</h2>
-        <p>Install the official package directly from PyPI, or clone the repository from GitHub:</p>
+        <h2>
+          <span>Installation (PyPI &amp; Source)</span>
+          <a href="#installation" class="section-anchor">#</a>
+        </h2>
+        <p>Jiro requires <strong>Python 3.10+</strong>. You can install the pre-compiled package from PyPI or install from source for development.</p>
 
-        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Install from PyPI
-pip install jirosearch
+        <h3>Option A: Install via PyPI (Recommended)</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Create and activate an isolated virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Or clone and install in editable mode
+# Install the official Jiro package
+pip install --upgrade jirosearch</code></pre>
+
+        <h3>Option B: Install from GitHub Source</h3>
+        <p>Clone the official repository to develop custom plugins, scrapers, or engine adapters:</p>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Clone the GitHub repository
 git clone https://github.com/DevAnimecx/jiro.git
 cd jiro
-pip install -e .</code></pre>
+
+# Install in editable mode with development dependencies
+pip install -e ".[dev]"
+
+# Verify the test suite (494 tests)
+pytest tests/ -v</code></pre>
       </section>
 
-      <!-- SECTION: QUICKSTART & CLI -->
+      <!-- ========================================================== -->
+      <!-- SECTION 3: QUICK START & CLI -->
+      <!-- ========================================================== -->
       <section id="quickstart">
-        <h2>3. Quick Start &amp; CLI Reference</h2>
-        <p>Jiro features an intuitive CLI for local server management, updates, and dashboard hosting:</p>
+        <h2>
+          <span>Quick Start &amp; CLI Reference</span>
+          <a href="#quickstart" class="section-anchor">#</a>
+        </h2>
+        <p>Jiro provides a comprehensive command-line interface via the <code>jiro</code> binary:</p>
 
-        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Start the REST API server (port 8000)
-jiro serve
+        <div class="docs-table-wrapper">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Flags / Arguments</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>jiro serve</code></td>
+                <td><code>--host 0.0.0.0 --port 8000 --reload</code></td>
+                <td>Starts the FastAPI REST API server with OpenAPI docs at <code>/docs</code></td>
+              </tr>
+              <tr>
+                <td><code>jiro dashboard</code></td>
+                <td><code>--port 3000 --api-url http://localhost:8000</code></td>
+                <td>Launches the live developer UI dashboard on port 3000</td>
+              </tr>
+              <tr>
+                <td><code>jiro mcp</code></td>
+                <td><code>--transport stdio|sse|http</code></td>
+                <td>Starts the Model Context Protocol server for Claude Desktop / Cursor</td>
+              </tr>
+              <tr>
+                <td><code>jiro search &lt;query&gt;</code></td>
+                <td><code>--engine google --limit 5 --hybrid</code></td>
+                <td>Executes an instant terminal search and prints JSON results</td>
+              </tr>
+              <tr>
+                <td><code>jiro check-update</code></td>
+                <td><code>--channel stable|beta</code></td>
+                <td>Checks PyPI and GitHub releases for newer version tags</td>
+              </tr>
+              <tr>
+                <td><code>jiro update</code></td>
+                <td><code>--no-tests --force</code></td>
+                <td>Downloads update, executes unit verification, and updates binary</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-# Start on custom host &amp; port
-jiro serve --host 0.0.0.0 --port 8000
-
-# Launch the live developer dashboard
-jiro dashboard
-
-# Start the Model Context Protocol (MCP) server for Claude Desktop
-jiro mcp --transport stdio</code></pre>
+        <h3>Configuration via Environment Variables &amp; YAML</h3>
+        <p>Create a <code>jiro.yaml</code> file or configure environment variables in your deployment:</p>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># jiro.yaml
+server:
+  host: "0.0.0.0"
+  port: 8000
+engines:
+  - google
+  - bing
+  - brave
+  - duckduckgo
+cache:
+  type: sqlite       # sqlite | redis | memory
+  ttl: 3600          # 1 hour default
+pro:
+  enabled: true
+  default_tier: free</code></pre>
       </section>
 
-      <!-- SECTION: UPDATE MECHANISM -->
+      <!-- ========================================================== -->
+      <!-- SECTION 4: CHECK & AUTO-UPDATE -->
+      <!-- ========================================================== -->
       <section id="cli-update">
-        <h2>4. Automatic Updates from GitHub</h2>
-        <p>Jiro includes built-in commands to query the GitHub repository for updates and perform verified self-updates:</p>
+        <h2>
+          <span>Check &amp; Auto-Update</span>
+          <a href="#cli-update" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Jiro features an automated update manager that queries both the GitHub API (<code>DevAnimecx/jiro</code>) and PyPI repository. It ensures mission-critical installations remain secure with the latest scraper selector heuristics without manual git pulls.
+        </p>
 
-        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Check if a new version is released on GitHub / PyPI
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># 1. Check current vs latest available release
 jiro check-update
 
-# Update to latest version with automated health checks
+# Output example:
+# Current version: v0.2.8
+# Latest release:  v0.2.8 (Up to date!)
+
+# 2. Perform verified auto-update
+# Downloads wheel, runs pytest test-suite locally, and swaps binary atomically
 jiro update
 
-# Force reinstall current version without running tests
+# 3. Emergency bypass (skips test suite verification if upstream site changes)
 jiro update --no-tests --force</code></pre>
+
+        <div class="docs-callout">
+          <div class="docs-callout-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Automated Health-Check Rollback Guarantee</span>
+          </div>
+          <p style="font-size: 14px; margin-bottom: 0;">
+            When <code>jiro update</code> runs, it spins up a test subprocess on a randomized port, performs a mock search query through the fallback chain, and verifies that the output schema conforms to OpenAPI 3.1. If any test fails, Jiro aborts the update and rolls back the binary to the previous working state.
+          </p>
+        </div>
       </section>
 
-      <!-- SECTION: PYTHON SDK -->
+      <!-- ========================================================== -->
+      <!-- SECTION 5: PYTHON SDK GUIDE -->
+      <!-- ========================================================== -->
       <section id="python-sdk">
-        <h2>5. Python SDK Reference</h2>
-        <p>The <code>jiro</code> Python library provides both synchronous and asynchronous clients:</p>
+        <h2>
+          <span>Python SDK Guide</span>
+          <a href="#python-sdk" class="section-anchor">#</a>
+        </h2>
+        <p>
+          The <code>jiro</code> Python library provides both synchronous and asynchronous clients with full Pydantic v2 type hints:
+        </p>
 
+        <h3>Synchronous Client Usage</h3>
         <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>from jiro import JiroClient
 
-client = JiroClient(base_url="http://localhost:8000")
+# Initialize client
+client = JiroClient(base_url="http://localhost:8000", api_key="YOUR_API_KEY")
 
-# 1. Standard Web Search
+# 1. Multi-engine search with answer synthesis
 response = client.search(
-    q="latest developments in quantum computing",
-    engine="google",
+    q="reciprocal rank fusion python implementation",
+    engine="bing",
     max_results=5,
-    answer=True
+    hybrid=True,
+    answer=True,
+    highlights=True
 )
-print("Answer:", response.answer)
-for r in response.results:
-    print(f"- {r.title} ({r.url})")
 
-# 2. Scrape Social Media Post
-reddit_post = client.scrape_social("https://reddit.com/r/MachineLearning/comments/example")
-print("Post Title:", reddit_post["title"])
-print("Upvotes:", reddit_post["score"])</code></pre>
+print(f"Status: {response.status} (took {response.latency_ms}ms)")
+print("Extractive Answer:", response.answer.summary)
+for r in response.results:
+    print(f"- [{r.engine}] {r.title}: {r.url}")
+
+# 2. Social Media Scraping
+post = client.scrape_social("https://reddit.com/r/MachineLearning/comments/1example")
+print("Title:", post.title)
+print("Author:", post.author)
+print("Upvotes:", post.score)
+print("Top Comments:", len(post.comments))</code></pre>
+
+        <h3>Asynchronous Client for Concurrency</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>import asyncio
+from jiro import AsyncJiroClient
+
+async def main():
+    async with AsyncJiroClient(base_url="http://localhost:8000") as client:
+        # Search multiple topics in parallel
+        queries = ["LLM agent architectures", "vector database benchmarks", "MCP server tutorial"]
+        tasks = [client.search(q=q, hybrid=True) for q in queries]
+        
+        results = await asyncio.gather(*tasks)
+        for q, res in zip(queries, results):
+            print(f"Query '{q}' returned {len(res.results)} results")
+
+asyncio.run(main())</code></pre>
       </section>
 
-      <!-- SECTION: REST API -->
+      <!-- ========================================================== -->
+      <!-- SECTION 6: REST API ENDPOINTS -->
+      <!-- ========================================================== -->
       <section id="rest-api">
-        <h2>6. REST API Endpoints</h2>
-        <h3>POST /v1/search</h3>
-        <p>Executes multi-engine search with optional hybrid fusion and extractive answer generation.</p>
+        <h2>
+          <span>REST API Endpoints (OpenAPI 3.1)</span>
+          <a href="#rest-api" class="section-anchor">#</a>
+        </h2>
+        <p>All endpoints accept and return JSON. When self-hosting, full interactive Swagger UI is available at <code>http://localhost:8000/docs</code>.</p>
+
+        <h3>POST /v1/search &mdash; Universal Web &amp; Hybrid Search</h3>
+        <p>Dispatches search queries with optional RRF hybrid fusion and extractive answer generation.</p>
 
         <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>curl -X POST http://localhost:8000/v1/search \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: your_key_here" \
   -d '{
-    "q": "python web scraping best practices",
+    "q": "latest AI agent frameworks 2026",
     "engine": "google",
     "max_results": 10,
     "hybrid": true,
     "answer": true,
-    "highlights": true
+    "highlights": true,
+    "filters": {
+      "time_range": "m",
+      "domains_exclude": ["pinterest.com"]
+    }
   }'</code></pre>
 
-        <h3>POST /v1/social</h3>
-        <p>Scrapes any supported social platform URL into a clean, normalized JSON schema without requiring platform API keys.</p>
+        <h3>POST /v1/social &mdash; Social Media Scraper</h3>
+        <p>Scrapes any supported social platform URL without requiring platform API credentials.</p>
 
         <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>curl -X POST http://localhost:8000/v1/social \
   -H "Content-Type: application/json" \
@@ -504,69 +1120,612 @@ print("Upvotes:", reddit_post["score"])</code></pre>
     "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "extract_transcript": true
   }'</code></pre>
+
+        <h3>POST /v1/smart/classify &mdash; Heuristic Intent Routing</h3>
+        <p>Classifies queries into one of 16 intent categories in sub-millisecond execution time:</p>
+
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>curl -X POST http://localhost:8000/v1/smart/classify \
+  -H "Content-Type: application/json" \
+  -d '{"query": "buy refurbished thinkpad x1 carbon"}'
+
+# Response:
+# {
+#   "query": "buy refurbished thinkpad x1 carbon",
+#   "intent": "commercial_purchase",
+#   "suggested_engines": ["amazon", "ebay", "google"],
+#   "latency_ms": 0.04
+# }</code></pre>
+
+        <h3>POST /v1/structured/extract &mdash; JSON Schema Enforcement</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>curl -X POST http://localhost:8000/v1/structured/extract \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "top python web frameworks",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "frameworks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "stars": {"type": "integer"},
+              "description": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }'</code></pre>
       </section>
 
-      <!-- SECTION: 9 ENGINES -->
+      <!-- ========================================================== -->
+      <!-- SECTION 7: 9 SEARCH ENGINES -->
+      <!-- ========================================================== -->
       <section id="engines">
-        <h2>7. The 9 Supported Search Engines</h2>
-        <p>Jiro routes queries dynamically or statically across 9 search providers:</p>
-        <ul style="margin: 16px 0 24px 24px; color: rgba(255,255,255,0.8);">
-          <li><strong>Google:</strong> Full web SERP, knowledge panels, and rich snippets.</li>
-          <li><strong>DuckDuckGo:</strong> Fast, privacy-oriented HTML endpoint.</li>
-          <li><strong>Bing:</strong> Enterprise-grade web index and technical documentation.</li>
-          <li><strong>Brave Search:</strong> Independent index with no search tracking.</li>
-          <li><strong>Yahoo:</strong> Traditional web index with strong international localized results.</li>
-          <li><strong>Mojeek:</strong> Completely independent European index crawler.</li>
-          <li><strong>SearXNG:</strong> Metasearch proxy aggregation.</li>
-          <li><strong>Startpage:</strong> Google-powered search with enhanced privacy proxying.</li>
-          <li><strong>Qwant:</strong> European search engine prioritizing strict privacy standards.</li>
-        </ul>
-      </section>
+        <h2>
+          <span>9 Search Engines</span>
+          <a href="#engines" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Configured directly in <code>jiro/scraping/engines.py</code> under <code>ENGINE_TYPES</code> and <code>ENGINE_DESCRIPTIONS</code>:
+        </p>
 
-      <!-- SECTION: 12 SOCIAL SCRAPERS -->
-      <section id="social-scrapers">
-        <h2>8. The 12 Social Media Scrapers</h2>
-        <p>Extract public metadata, transcripts, threads, and engagement statistics from:</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0 24px;">
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Reddit Discussions</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Hacker News</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; YouTube &amp; Transcripts</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Bluesky Social</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Twitter / X</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Threads by Meta</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Instagram Reels</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; TikTok Subtitles</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; LinkedIn Public Posts</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Facebook Public Feeds</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Telegram Channels</div>
-          <div style="background: rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px; border-radius:8px;">&bull; Pinterest Boards</div>
+        <div class="docs-table-wrapper">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th>Engine Key</th>
+                <th>Supported Search Types</th>
+                <th>Engine Description &amp; Behavioral Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>google</code></td>
+                <td><code>web, images, news, videos, shopping, places</code></td>
+                <td>Google web SERP with knowledge panels and rich snippets (supports proxy rotation for datacenter IPs).</td>
+              </tr>
+              <tr>
+                <td><code>bing</code></td>
+                <td><code>web, images, news, videos</code></td>
+                <td>Bing web search &mdash; highest reliability for direct HTTP scraping across enterprise documentation.</td>
+              </tr>
+              <tr>
+                <td><code>duckduckgo</code></td>
+                <td><code>web, images, news</code></td>
+                <td>DuckDuckGo HTML / lite endpoints + vqd tokenized JSON API for zero-footprint anonymous querying.</td>
+              </tr>
+              <tr>
+                <td><code>brave</code></td>
+                <td><code>web, videos</code></td>
+                <td>Brave Search independent crawler with privacy indexing and no tracking telemetry.</td>
+              </tr>
+              <tr>
+                <td><code>youtube</code></td>
+                <td><code>videos</code></td>
+                <td>YouTube video search &mdash; extracts video metadata, channel, duration, view count, and transcripts.</td>
+              </tr>
+              <tr>
+                <td><code>amazon</code></td>
+                <td><code>web, shopping</code></td>
+                <td>Amazon product search &mdash; extracts title, price, star rating, total reviews, ASIN, and Prime eligibility.</td>
+              </tr>
+              <tr>
+                <td><code>ebay</code></td>
+                <td><code>web, shopping</code></td>
+                <td>eBay product search &mdash; extracts buy-it-now/bid price, item condition, seller feedback, and shipping costs.</td>
+              </tr>
+              <tr>
+                <td><code>yandex</code></td>
+                <td><code>web</code></td>
+                <td>Yandex search engine &mdash; specialized in Russian, Eastern European, and CIS regional search indexing.</td>
+              </tr>
+              <tr>
+                <td><code>baidu</code></td>
+                <td><code>web</code></td>
+                <td>Baidu search engine &mdash; primary Chinese market web index with source domain validation and ICP tags.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
-      <!-- SECTION: MCP PROTOCOL -->
+      <!-- ========================================================== -->
+      <!-- SECTION 8: 12 SOCIAL MEDIA SCRAPERS -->
+      <!-- ========================================================== -->
+      <section id="social-scrapers">
+        <h2>
+          <span>12 Social Media Scrapers</span>
+          <a href="#social-scrapers" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Implemented in <code>jiro/scraping/social/</code> with automated fallback chains, DOM repair (<code>self_healing.py</code>), and schema normalization into the unified <code>SocialPost</code> model:
+        </p>
+
+        <div class="docs-card-grid">
+          <div class="docs-card">
+            <div class="docs-card-title"><span>1. Reddit</span><span class="sidebar-tag">JSON / HTML</span></div>
+            <div class="docs-card-desc">Subreddit hot/new feeds, post bodies, upvote scores, author karma, and nested comment trees without OAuth tokens.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>2. Hacker News</span><span class="sidebar-tag">Firebase / Algolia</span></div>
+            <div class="docs-card-desc">Front page stories, Ask HN, Show HN, point tallies, and threaded technical discussions with sub-10ms response.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>3. YouTube</span><span class="sidebar-tag">Captions API</span></div>
+            <div class="docs-card-desc">Video title, description, timestamped transcript extraction, duration, view counts, and channel metadata.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>4. Bluesky</span><span class="sidebar-tag">AT Protocol</span></div>
+            <div class="docs-card-desc">Public DID post resolution, text snippets, embedded images, author handles, like counts, and repost tracking.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>5. Twitter / X</span><span class="sidebar-tag">FxTwitter / Nitter</span></div>
+            <div class="docs-card-desc">Public tweets, quote tweets, engagement metrics, media URLs, and Playwright headless fallback on challenge.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>6. Threads</span><span class="sidebar-tag">Meta Web</span></div>
+            <div class="docs-card-desc">Public profiles, threaded replies, follower counts, and verified author badges.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>7. Instagram</span><span class="sidebar-tag">Reels / Post</span></div>
+            <div class="docs-card-desc">Public posts, Reels captions, view counts, like counts, and timestamp extraction.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>8. TikTok</span><span class="sidebar-tag">Video Feed</span></div>
+            <div class="docs-card-desc">Short-form video descriptions, audio/sound ID, view tallies, share metrics, and closed captions.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>9. LinkedIn</span><span class="sidebar-tag">Public Feed</span></div>
+            <div class="docs-card-desc">Public company updates, shared articles, reaction counters, and author profile details.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>10. Facebook</span><span class="sidebar-tag">Public Pages</span></div>
+            <div class="docs-card-desc">Public community group posts, verified page updates, timestamp anchors, and shared links.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>11. Telegram</span><span class="sidebar-tag">t.me Preview</span></div>
+            <div class="docs-card-desc">Public channel broadcast messages, view counts, forward counts, and photo/video attachments.</div>
+          </div>
+          <div class="docs-card">
+            <div class="docs-card-title"><span>12. Pinterest</span><span class="sidebar-tag">Pin Data</span></div>
+            <div class="docs-card-desc">Pin boards, image URLs, original outbound sources, repin counters, and visual descriptions.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 9: MODEL CONTEXT PROTOCOL (MCP) -->
+      <!-- ========================================================== -->
       <section id="mcp-protocol">
-        <h2>9. Model Context Protocol (MCP) Setup</h2>
-        <p>Give Claude Desktop or Cursor native search capabilities by editing your configuration file:</p>
+        <h2>
+          <span>Model Context Protocol (MCP)</span>
+          <a href="#mcp-protocol" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Jiro implements the official Anthropic Model Context Protocol (MCP) standard in <code>jiro/mcp.py</code> and <code>jiro/mcp_http.py</code>, exposing 17 specialized tools directly to Claude Desktop, Cursor, and any MCP-compliant agent.
+        </p>
+
+        <h3>Claude Desktop Configuration</h3>
+        <p>Add Jiro to your <code>claude_desktop_config.json</code>:</p>
 
         <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>{
   "mcpServers": {
     "jiro": {
       "command": "jiro",
-      "args": ["mcp", "--transport", "stdio"]
+      "args": ["mcp", "--transport", "stdio"],
+      "env": {
+        "JIRO_ENGINES": "google,bing,brave,duckduckgo",
+        "JIRO_CACHE_TYPE": "sqlite"
+      }
     }
   }
 }</code></pre>
+
+        <h3>The 17 Available MCP Tools</h3>
+        <div class="docs-table-wrapper">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th>MCP Tool Name</th>
+                <th>Arguments Schema</th>
+                <th>Tool Purpose &amp; Capability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>search</code></td>
+                <td><code>q, engine?, limit?</code></td>
+                <td>Search the web via 9 engines with automatic fallback.</td>
+              </tr>
+              <tr>
+                <td><code>scrape</code></td>
+                <td><code>url, selector?, format?</code></td>
+                <td>Scrapes URL content and returns clean markdown or text.</td>
+              </tr>
+              <tr>
+                <td><code>ai_search</code></td>
+                <td><code>query, max_sources?</code></td>
+                <td>Executes research loop and returns extractive summary with citations.</td>
+              </tr>
+              <tr>
+                <td><code>search_hybrid</code></td>
+                <td><code>q, k?, rerank?</code></td>
+                <td>Hybrid search combining keyword BM25 + dense semantic vectors + RRF.</td>
+              </tr>
+              <tr>
+                <td><code>search_structured</code></td>
+                <td><code>query, schema</code></td>
+                <td>Extracts structured data adhering strictly to a JSON Schema.</td>
+              </tr>
+              <tr>
+                <td><code>social_scrape</code></td>
+                <td><code>url, extract_transcript?</code></td>
+                <td>Scrapes any of the 12 social media URLs into normalized JSON.</td>
+              </tr>
+              <tr>
+                <td><code>social_search</code></td>
+                <td><code>platform, query, limit?</code></td>
+                <td>Executes keyword search across a target social platform.</td>
+              </tr>
+              <tr>
+                <td><code>social_batch</code></td>
+                <td><code>urls: List[str]</code></td>
+                <td>Parallel scraping across multiple social URLs.</td>
+              </tr>
+              <tr>
+                <td><code>smart_search</code></td>
+                <td><code>query</code></td>
+                <td>Auto-detects query intent (16 classes) and routes to optimal backend.</td>
+              </tr>
+              <tr>
+                <td><code>smart_classify</code></td>
+                <td><code>query</code></td>
+                <td>Returns classification heuristics without executing query.</td>
+              </tr>
+              <tr>
+                <td><code>compare_engines</code></td>
+                <td><code>query, engines: List[str]</code></td>
+                <td>Runs search in parallel across multiple engines to compare SERP rankings.</td>
+              </tr>
+              <tr>
+                <td><code>monitor_status</code></td>
+                <td><code>none</code></td>
+                <td>Retrieves server health, uptime, latency percentiles, and memory use.</td>
+              </tr>
+              <tr>
+                <td><code>health_check</code></td>
+                <td><code>none</code></td>
+                <td>Validates connectivity to all active search engine backends.</td>
+              </tr>
+              <tr>
+                <td><code>cache_stats</code></td>
+                <td><code>none</code></td>
+                <td>Returns cache hit rates, total keys, and storage volume.</td>
+              </tr>
+              <tr>
+                <td><code>list_engines</code></td>
+                <td><code>none</code></td>
+                <td>Lists all registered search engines and supported query types.</td>
+              </tr>
+              <tr>
+                <td><code>list_social_platforms</code></td>
+                <td><code>none</code></td>
+                <td>Lists all 12 social scrapers and active selector health status.</td>
+              </tr>
+              <tr>
+                <td><code>resources/prompts</code></td>
+                <td><code>prompt_id</code></td>
+                <td>Exposes built-in research and synthesis prompt templates.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
-      <!-- SECTION: DOCKER DEPLOYMENT -->
+      <!-- ========================================================== -->
+      <!-- SECTION 10: EXTRACTIVE AI ANSWERS (0-KEY) -->
+      <!-- ========================================================== -->
+      <section id="extractive-answers">
+        <h2>
+          <span>Extractive AI Answers (0-Key)</span>
+          <a href="#extractive-answers" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Implemented in <code>jiro/search/answer.py</code> under the <code>AnswerSynthesizer</code> class. Jiro solves the token cost dilemma of modern AI search by providing an ultra-fast extractive answer engine that requires <strong>zero OpenAI or Anthropic API keys</strong>.
+        </p>
+
+        <h3>How 0-Key Extractive Synthesis Works:</h3>
+        <ol>
+          <li><strong>Sentence Boundary Tokenization:</strong> Retrieved SERP snippets and page bodies are parsed into discrete proposition statements.</li>
+          <li><strong>TF-IDF &amp; Semantic Intersection:</strong> Sentences are scored based on query term density, lexical rarity (inverse document frequency), and position heuristics.</li>
+          <li><strong>Citation Binding:</strong> High-scoring propositions are compiled into a cohesive summary paragraph, appending verified markdown citation links (e.g. <code>[1]</code>, <code>[2]</code>) pointing back to original canonical URLs.</li>
+          <li><strong>Latency Profile:</strong> Average synthesis execution completes in <strong>0.03ms to 0.08ms</strong> on CPU.</li>
+        </ol>
+
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>from jiro.search.answer import AnswerSynthesizer
+from jiro.config import Settings
+
+synthesizer = AnswerSynthesizer(Settings())
+
+# Synthesize answer from raw search results
+answer_result = await synthesizer.synthesize(
+    query="what is reciprocal rank fusion?",
+    results=search_results
+)
+
+print(answer_result.answer)
+# "Reciprocal Rank Fusion (RRF) is an algorithmic method combining multiple ranked
+# lists into a single unified result without requiring calibrated relevance scores. [1]"
+
+print(answer_result.citations)
+# [{"id": 1, "url": "https://arxiv.org/abs/2401.034", "title": "RRF Benchmark"}]</code></pre>
+      </section>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 11: HYBRID SEARCH & RERANKING -->
+      <!-- ========================================================== -->
+      <section id="hybrid-search">
+        <h2>
+          <span>Hybrid Search &amp; Reranking</span>
+          <a href="#hybrid-search" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Located in <code>jiro/search/hybrid.py</code>, <code>jiro/search/reranker.py</code>, and <code>jiro/search/embeddings.py</code>. Hybrid search reconciles the precision of lexical search with the nuance of semantic vector embeddings.
+        </p>
+
+        <h3>Reciprocal Rank Fusion (RRF) Formulation</h3>
+        <p>
+          To merge disparate ranking scores across search engines without requiring arbitrary score normalization, Jiro implements standard RRF:
+        </p>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>RRF_score(d) = sum( 1 / (k + rank_i(d)) )</code></pre>
+        <p>Where <code>k = 60</code> (configurable via <code>search.hybrid.rrf_k</code>) and <code>rank_i(d)</code> is the 1-indexed position of document <em>d</em> in result list <em>i</em>.</p>
+
+        <h3>CPU-Quantized Cross-Encoder Reranker</h3>
+        <p>
+          Following RRF signal aggregation, the top 20 candidate documents are passed to <code>CrossEncoderReranker</code>. Powered by an 80MB INT8-quantized MiniLM transformer running on ONNX Runtime, it evaluates deep query-document cross-attention in under 15ms on standard CPU cores with no GPU dependencies.
+        </p>
+      </section>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 12: DOCKER & COMPOSE -->
+      <!-- ========================================================== -->
       <section id="docker-deployment">
-        <h2>10. Docker &amp; Kubernetes Deployment</h2>
-        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Run pre-built Docker image
-docker run -d -p 8000:8000 --name jiro devanimecx/jiro:latest
+        <h2>
+          <span>Docker &amp; Compose Deployment</span>
+          <a href="#docker-deployment" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Jiro includes complete multi-container production orchestration in <code>docker-compose.yml</code>:
+        </p>
 
-# Deploy via Docker Compose
-docker-compose up -d</code></pre>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>version: '3.8'
+
+services:
+  jiro:
+    build: .
+    container_name: jiro
+    ports:
+      - "8000:8000"
+    volumes:
+      - jiro-data:/data
+    environment:
+      - JIRO_DB_PATH=/data/jiro.db
+      - JIRO_CACHE_TYPE=sqlite
+      - JIRO_SECRET_KEY=${JIRO_SECRET_KEY:-change-me-in-production}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/v1/monitor/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  dashboard:
+    build: .
+    container_name: jiro-dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      - jiro-data:/data
+    environment:
+      - JIRO_API_URL=http://jiro:8000
+    command: python -m jiro.dashboard
+    restart: unless-stopped
+
+  # Optional: Distributed Redis cache
+  redis:
+    image: redis:7-alpine
+    container_name: jiro-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    profiles:
+      - redis
+
+volumes:
+  jiro-data:
+  redis-data:</code></pre>
+
+        <h3>One-Command Launch</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Launch core API and developer dashboard
+docker-compose up -d
+
+# Check live logs
+docker-compose logs -f jiro</code></pre>
       </section>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 13: KUBERNETES HELM CHART -->
+      <!-- ========================================================== -->
+      <section id="kubernetes-helm">
+        <h2>
+          <span>Kubernetes Helm Chart</span>
+          <a href="#kubernetes-helm" class="section-anchor">#</a>
+        </h2>
+        <p>
+          The official Helm chart is located in the <code>helm/</code> directory of the GitHub repository. It provisions high-availability deployments, persistent volume claims, and ingress configurations.
+        </p>
+
+        <h3>Deploy via Helm</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># Install Jiro chart from repository
+helm install jiro ./helm \
+  --set replicaCount=2 \
+  --set persistence.size=10Gi \
+  --set config.env.JIRO_CACHE__TYPE="redis"</code></pre>
+
+        <h3>Values.yaml Configuration Reference</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># helm/values.yaml excerpt
+replicaCount: 1
+
+image:
+  repository: devanimecx/jiro
+  tag: "0.2.8"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi
+
+persistence:
+  enabled: true
+  size: 2Gi
+  storageClass: ""
+
+config:
+  env:
+    JIRO_SERVER__HOST: "0.0.0.0"
+    JIRO_SERVER__PORT: "8000"
+    JIRO_DB__PATH: "/data/jiro/jiro.db"
+    JIRO_CACHE__PATH: "/data/jiro/cache.db"
+    JIRO_CACHE__TYPE: "sqlite"
+    JIRO_AUTH__ENABLED: "false"</code></pre>
+      </section>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 14: API KEY & RATE LIMITS -->
+      <!-- ========================================================== -->
+      <section id="auth-rate-limiting">
+        <h2>
+          <span>API Key &amp; Rate Limits (Pro Tier)</span>
+          <a href="#auth-rate-limiting" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Defined in <code>jiro/pro.py</code>, Jiro features an industrial-grade token-bucket rate limiter and quota management system supporting multi-tenant access control and tiered subscriptions:
+        </p>
+
+        <div class="docs-table-wrapper">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Pricing</th>
+                <th>RPM (Global)</th>
+                <th>RPD (Daily)</th>
+                <th>Concurrent</th>
+                <th>Feature Entitlements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Free</strong></td>
+                <td>$0 (Forever)</td>
+                <td>10 RPM</td>
+                <td>100 RPD</td>
+                <td>2</td>
+                <td>Basic search, social scraping, local SQLite cache</td>
+              </tr>
+              <tr>
+                <td><strong>Starter</strong></td>
+                <td>$29 / mo</td>
+                <td>60 RPM</td>
+                <td>5,000 RPD</td>
+                <td>5</td>
+                <td>Hybrid search, structured extraction, smart intent routing, webhook alerts</td>
+              </tr>
+              <tr>
+                <td><strong>Pro</strong></td>
+                <td>$99 / mo</td>
+                <td>300 RPM</td>
+                <td>50,000 RPD</td>
+                <td>10</td>
+                <td>All features, proxy rotation, custom models, priority queue (level 2)</td>
+              </tr>
+              <tr>
+                <td><strong>Enterprise</strong></td>
+                <td>$499 / mo</td>
+                <td>1,000 RPM</td>
+                <td>500,000 RPD</td>
+                <td>50</td>
+                <td>Dedicated clusters, custom scrapers, 99.9% uptime SLA, priority queue (level 3)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Managing API Keys via REST API</h3>
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code># 1. Create a new API key for an application
+curl -X POST http://localhost:8000/v1/pro/keys \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Agent Pipeline Alpha", "tier": "starter"}'
+
+# 2. Query usage statistics for a key
+curl "http://localhost:8000/v1/pro/usage?key_id=KEY_ID&days=30"
+
+# 3. Upgrade tier dynamically
+curl -X PUT http://localhost:8000/v1/pro/keys/KEY_ID/upgrade \
+  -H "Content-Type: application/json" \
+  -d '{"tier": "pro"}'</code></pre>
+      </section>
+
+      <!-- ========================================================== -->
+      <!-- SECTION 15: ROBOTS.TXT & COMPLIANCE -->
+      <!-- ========================================================== -->
+      <section id="legal-compliance">
+        <h2>
+          <span>robots.txt &amp; Legal Compliance</span>
+          <a href="#legal-compliance" class="section-anchor">#</a>
+        </h2>
+        <p>
+          Jiro implements strict ethical crawling safeguards in <code>jiro/robots.py</code>, <code>jiro/compliance.py</code>, and <code>jiro/security.py</code> to ensure compliance with web standards:
+        </p>
+
+        <h3>1. Async robots.txt Verification (<code>RobotsManager</code>)</h3>
+        <p>
+          Before executing direct HTTP extraction against origin servers, Jiro checks the target host's <code>robots.txt</code>. Rules are cached with intelligent TTLs. Jiro strictly obeys:
+        </p>
+        <ul>
+          <li><strong>Disallow Paths:</strong> Respects disallowed directories and wildcard path boundaries.</li>
+          <li><strong>Crawl-Delay:</strong> Automatically throttles concurrency to match the host's requested inter-request delay.</li>
+          <li><strong>Request-Rate:</strong> Enforces windowed token bucket limits specified by webmasters (e.g. <code>1/10s</code>).</li>
+        </ul>
+
+        <h3>2. Server-Side Request Forgery (SSRF) Protection</h3>
+        <p>
+          The <code>SecurityManager</code> prevents malicious search or scraping targets from probing internal private subnets, blocking requests directed at:
+        </p>
+        <ul>
+          <li><code>127.0.0.0/8</code> (Localhost)</li>
+          <li><code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code> (Private RFC1918 networks)</li>
+          <li><code>169.254.169.254</code> (AWS/GCP cloud metadata endpoints)</li>
+        </ul>
+
+        <h3>3. Engine Terms of Service Metadata Tracking</h3>
+        <p>
+          <code>jiro/compliance.py</code> tracks attribution requirements, allowed usage, and legal notes across all 9 search backends, ensuring programmatic audit logs satisfy enterprise compliance regimes.
+        </p>
+      </section>
+
     </main>
   </div>
 
@@ -574,11 +1733,23 @@ docker-compose up -d</code></pre>
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-grid">
       <div class="footer-col brand-col">
-        <a href="/" class="footer-logo">Jiro</a>
+        <a href="/" class="footer-logo" aria-label="jiro home">
+          <svg viewBox="0 0 134 58" fill="none" class="jiro-logo-svg" height="28" aria-label="jiro" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17.5" cy="11.5" r="5.5" fill="#FFFFFF" />
+  <path d="M12 21 H23 V45 C23 52 18.5 56 10.5 56 C5.5 56 1.8 54 0 52 L2.4 44.5 C3.8 45.8 6.5 47.5 9.5 47.5 C12.8 47.5 14.5 45.5 14.5 41.5 V21 H12 Z" fill="#FFFFFF" />
+  <rect x="35" y="21" width="11" height="29" fill="#FFFFFF" rx="0.5" />
+  <g class="jiro-lens">
+    <circle cx="41.5" cy="11" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+    <path d="M47 16.5 L54 23.5" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+  </g>
+  <path d="M62 21 H72.5 V26 C75 22.5 79.5 20.5 85 20.5 C88 20.5 90.5 21.2 92 22.2 L88.5 29.8 C87.2 29 85.2 28.5 83 28.5 C77.5 28.5 73 32.5 73 40 V50 H62 V21 Z" fill="#FFFFFF" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M113 20.5 C122.5 20.5 130 27.2 130 35.5 C130 43.8 122.5 50.5 113 50.5 C103.5 50.5 96 43.8 96 35.5 C96 27.2 103.5 20.5 113 20.5 Z M113 28.8 C108.2 28.8 104.5 31.8 104.5 35.5 C104.5 39.2 108.2 42.2 113 42.2 C117.8 42.2 121.5 39.2 121.5 35.5 C121.5 31.8 117.8 28.8 113 28.8 Z" fill="#FFFFFF" />
+</svg>
+        </a>
         <p class="footer-desc">
           Local-first, AI-native web search &amp; scraping API. Self-hosted SerpAPI alternative with MCP server, 9 search engines, and 12 social scrapers.
         </p>
-        <div style="font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(167, 139, 113, 0.1); border: 1px solid rgba(167, 139, 113, 0.2); border-radius: 999px; padding: 4px 12px; display: inline-block;">
+        <div style="font-family: var(--font-code); font-size: 11px; color: var(--brand-orange-light); background: rgba(255, 102, 0, 0.1); border: 1px solid rgba(255, 102, 0, 0.25); border-radius: 999px; padding: 4px 12px; display: inline-block;">
           MIT Licensed &bull; Controlled Software
         </div>
       </div>
@@ -588,7 +1759,6 @@ docker-compose up -d</code></pre>
         <ul>
           <li><a href="/#features">Features</a></li>
           <li><a href="/pricing/">Pricing &amp; Plans</a></li>
-          <li><a href="/dashboard/">Live Dashboard</a></li>
           <li><a href="/changelog/">Changelog (Auto-Sync)</a></li>
           <li><a href="/roadmap/">Product Roadmap</a></li>
         </ul>
@@ -612,7 +1782,7 @@ docker-compose up -d</code></pre>
         <h4>COMMUNITY</h4>
         <ul>
           <li><a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://discord.gg/jirosearch" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://discord.gg/jiro" target="_blank" rel="noopener">Discord</a></li>
           <li><a href="https://github.com/DevAnimecx/jiro/issues" target="_blank" rel="noopener">Issues</a></li>
           <li><a href="https://github.com/DevAnimecx/jiro/discussions" target="_blank" rel="noopener">Discussions</a></li>
           <li><a href="/contributing/">Contributing Guide</a></li>
@@ -631,57 +1801,47 @@ docker-compose up -d</code></pre>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <div>&copy; 2026 Jiro Search. Built by Blackvault Technology. MIT Licensed.</div>
+    <div class="container footer-bottom">
+      <div class="footer-bottom-inner">
+        <div>&copy; 2026 Jiro Search. MIT Licensed. Built by Blackvault Technology.</div>
         <div class="footer-sublinks">
-          <a href="/docs/">Docs</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/dashboard/">Dashboard</a>
-          <a href="/changelog/">Changelog</a>
-          <a href="/blog/">Blog</a>
-          <a href="/license/">License</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/security/">Security</a>
+          <span style="font-family: var(--font-code); color: var(--gold-light);">v0.2.8</span>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Live GitHub Auto-Sync Script
-    (function() {
-      async function syncGitHub() {
-        try {
-          const cached = sessionStorage.getItem('jiro_gh_stats');
-          if (cached) {
-            const data = JSON.parse(cached);
-            updateBadges(data);
-            return;
-          }
-          const res = await fetch('https://api.github.com/repos/DevAnimecx/jiro');
-          if (res.ok) {
-            const repo = await res.json();
-            const payload = {
-              stars: repo.stargazers_count,
-              forks: repo.forks_count,
-              updated: repo.pushed_at
-            };
-            sessionStorage.setItem('jiro_gh_stats', JSON.stringify(payload));
-            updateBadges(payload);
-          }
-        } catch (e) {
-          // Graceful fallback
-        }
+    function toggleMobileNav(forceState) {
+      const drawer = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (!drawer) return;
+      const isOpen = typeof forceState === 'boolean' ? forceState : !drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden', 'false');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       }
-
-      function updateBadges(data) {
-        const starEl = document.getElementById('nav-star-count');
-        if (starEl && data.stars !== undefined) {
-          starEl.textContent = '★ ' + data.stars;
-        }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const drawer = document.getElementById('mobileDrawer');
+      if (drawer) {
+        drawer.addEventListener('click', (e) => {
+          if (e.target === drawer) toggleMobileNav(false);
+        });
+        const links = drawer.querySelectorAll('a');
+        links.forEach(l => l.addEventListener('click', () => toggleMobileNav(false)));
       }
-
-      syncGitHub();
-    })();
+    });
   </script>
   
 
@@ -689,16 +1849,59 @@ docker-compose up -d</code></pre>
     function copyCode(btn) {
       const code = btn.parentElement.querySelector('code').innerText;
       navigator.clipboard.writeText(code);
+      const orig = btn.innerText;
       btn.innerText = 'Copied!';
-      setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
+      btn.style.color = '#62c073';
+      setTimeout(() => {
+        btn.innerText = orig;
+        btn.style.color = '';
+      }, 2000);
     }
 
-    // Sidebar search filter
-    document.getElementById('docSearchInput').addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      document.querySelectorAll('.sidebar-links li').forEach(li => {
-        const text = li.innerText.toLowerCase();
-        li.style.display = text.includes(q) ? 'block' : 'none';
+    // Sidebar search filter across documentation
+    const searchInput = document.getElementById('docSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        const links = document.querySelectorAll('.sidebar-links li');
+        
+        links.forEach(li => {
+          const text = li.innerText.toLowerCase();
+          li.style.display = (!q || text.includes(q)) ? 'block' : 'none';
+        });
+
+        // Highlight matching sections in main content if user hits enter
+        if (q.length > 2) {
+          const sections = document.querySelectorAll('.docs-content section');
+          for (let sec of sections) {
+            if (sec.innerText.toLowerCase().includes(q)) {
+              sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              break;
+            }
+          }
+        }
+      });
+    }
+
+    // Active link highlighting on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.docs-content section');
+      const navLinks = document.querySelectorAll('.sidebar-links a');
+      
+      let currentSectionId = '';
+      const scrollPos = window.scrollY + 120;
+      
+      sections.forEach(section => {
+        if (section.offsetTop <= scrollPos) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (currentSectionId && link.getAttribute('href') === '#' + currentSectionId) {
+          link.classList.add('active');
+        }
       });
     });
   </script>

@@ -368,7 +368,6 @@ function generateSitemap() {
     '',
     'docs/',
     'pricing/',
-    'dashboard/',
     'changelog/',
     'roadmap/',
     'contributing/',

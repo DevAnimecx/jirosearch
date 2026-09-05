@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#000000" />
+  <!-- jiro mark: 'j' dot + stem -->
+  <circle cx="19" cy="18" r="4.5" fill="#FFFFFF" />
+  <path d="M15 25 H23 V43 C23 48 19.5 51 13 51 C9 51 6 49.5 4.5 48 L6.5 42.5 C8 43.5 10 44.5 12.5 44.5 C14.8 44.5 16 43 16 40 V25 H15 Z" fill="#FFFFFF" />
+  <!-- i stem -->
+  <rect x="31" y="25" width="8" height="25" fill="#FFFFFF" rx="0.5" />
+  <!-- orange search glass -->
+  <circle cx="37" cy="15" r="7.5" stroke="#FF6600" stroke-width="3.5" fill="none" />
+  <path d="M42.5 20.5 L50 28" stroke="#FF6600" stroke-width="4.2" stroke-linecap="round" />
+</svg>
