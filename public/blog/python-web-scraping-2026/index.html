@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Web Scraping in 2026: The Complete Developer's Guide | Jiro Blog</title>
+  <meta name="description" content="Master web scraping in 2026 with Python. Benchmark BeautifulSoup, Playwright, Scrapy, and Jiro. Overcome Cloudflare, TLS fingerprinting, and dynamic SPAs." />
+  <meta name="keywords" content="python web scraping 2026, playwright vs beautifulsoup, bypass cloudflare python, jiro scraping, tls fingerprinting python, scrape dynamic websites" />
+  <meta name="author" content="Adarsh Kushwah, Blackvault Technology" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://jiro.dev/blog/python-web-scraping-2026/" />
+  <link rel="alternate" type="application/rss+xml" title="Jiro Search Blog RSS" href="/blog/feed.xml" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Jiro Search" />
+  <meta property="og:title" content="Python Web Scraping in 2026: The Complete Developer's Guide" />
+  <meta property="og:description" content="The modern engineer's guide to web scraping: headless vs HTTP-level, TLS fingerprint spoofing, and ethical compliance." />
+  <meta property="og:url" content="https://jiro.dev/blog/python-web-scraping-2026/" />
+  <meta property="og:image" content="https://jiro.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Python Web Scraping in 2026: The Complete Developer's Guide",
+    "description": "Comprehensive benchmark and tutorial for extracting web data with Python 3.11+, addressing modern anti-bot hurdles.",
+    "datePublished": "2026-09-04T12:00:00Z",
+    "dateModified": "2026-09-05T12:00:00Z",
+    "author": { "@type": "Person", "name": "Adarsh Kushwah", "worksFor": { "@type": "Organization", "name": "Blackvault Technology" } },
+    "publisher": { "@type": "Organization", "name": "Blackvault Technology", "url": "https://jiro.dev" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://jiro.dev/blog/python-web-scraping-2026/" }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a;
+      --surface-1: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.1);
+      --gold-base: #a78b71;
+      --gold-light: #c9b8a0;
+      --gold-hover: #e8d5b7;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      color: #e5e5e5;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    a { color: var(--gold-light); text-decoration: none; }
+    a:hover { color: var(--gold-hover); text-decoration: underline; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    header[role="banner"] {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      height: 72px;
+      z-index: 50;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; font-style: italic; color: #fff; }
+    .nav-menu { display: flex; gap: 24px; list-style: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; }
+    .nav-menu a { color: rgba(255,255,255,0.6); }
+
+    .breadcrumbs { padding: 32px 0 16px; font-size: 12px; color: rgba(255,255,255,0.4); }
+    .breadcrumbs a { color: rgba(255,255,255,0.6); }
+
+    .article-header { padding: 32px 0 48px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 48px; }
+    .article-tag {
+      display: inline-block;
+      background: rgba(167, 139, 113, 0.15);
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      color: #ffffff;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .article-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-code);
+    }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 28px;
+      color: #ffffff;
+      margin: 48px 0 20px;
+      font-weight: 400;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 8px;
+    }
+    .article-content p { margin-bottom: 24px; color: rgba(255,255,255,0.8); }
+    .article-content ul { margin-bottom: 24px; padding-left: 24px; }
+    .article-content li { margin-bottom: 10px; color: rgba(255,255,255,0.75); }
+
+    .code-snippet {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 28px 0;
+      font-family: var(--font-code);
+      font-size: 13px;
+      overflow-x: auto;
+      color: #d1d5db;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 0 40px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 80px;
+    }
+  
+    /* AUTHOR BIO CARD */
+    .article-author-card {
+      margin: 48px 0 32px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .author-avatar-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-base), #3a2e22);
+      color: #ffffff;
+      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .author-details { flex: 1; }
+    .author-header-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+    .author-name { font-size: 16px; font-weight: 600; color: #ffffff; margin: 0; }
+    .author-role { font-size: 12px; color: var(--gold-light); font-weight: 400; }
+    .author-bio { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.6; margin-bottom: 12px; }
+    .author-links { display: flex; gap: 16px; font-size: 12px; }
+    .author-links a { color: var(--gold-light); font-weight: 500; text-decoration: none; }
+    .author-links a:hover { text-decoration: underline; color: var(--gold-hover); }
+
+    /* CLUSTER CALLOUT */
+    .blog-cluster-callout {
+      margin: 36px 0;
+      padding: 24px 28px;
+      background: linear-gradient(135deg, rgba(167, 139, 113, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(167, 139, 113, 0.25);
+      border-radius: 16px;
+    }
+    .cluster-callout-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    @media (min-width: 640px) {
+      .cluster-callout-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+    .cluster-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-base); text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .cluster-callout-text h3 { font-family: var(--font-display); font-size: 20px; color: #ffffff; margin-bottom: 6px; }
+    .cluster-callout-text p { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.5; margin: 0; max-width: 520px; }
+    .btn-cluster-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--gold-base);
+      color: #000000;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-cluster-explore:hover { background: var(--gold-hover); text-decoration: none; color: #000000; }
+
+    /* RELATED ARTICLES */
+    .related-section { margin-top: 52px; padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .related-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+    .related-header h3 { font-family: var(--font-display); font-size: 22px; font-style: italic; color: #ffffff; }
+    .related-see-all { font-size: 12px; color: var(--gold-light); text-decoration: none; }
+    .related-see-all:hover { text-decoration: underline; }
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 640px) {
+      .related-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .related-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .related-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(167, 139, 113, 0.4);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .related-category {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+    .related-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .related-excerpt {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .related-link-arrow {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gold-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+    }
+
+    /* BLOG RICH FOOTER */
+    .blog-rich-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 10, 10, 0.95);
+      margin-top: 80px;
+      padding: 60px 0 0;
+    }
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    @media (min-width: 640px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 992px) {
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+    }
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col ul li { margin-bottom: 10px; font-size: 13px; }
+    .footer-col ul li a { color: rgba(255, 255, 255, 0.65); text-decoration: none; }
+    .footer-col ul li a:hover { color: #ffffff; text-decoration: underline; }
+    .footer-logo { font-family: var(--font-display); font-size: 26px; font-style: italic; font-weight: 700; color: #fff; text-decoration: none; }
+    .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin: 12px 0 16px; max-width: 320px; }
+    .footer-meta-pill { display: inline-block; font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(167, 139, 113, 0.1); border: 1px solid rgba(167, 139, 113, 0.2); border-radius: 999px; padding: 4px 12px; }
+    .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 48px; padding: 24px 0; font-size: 12px; color: rgba(255, 255, 255, 0.4); }
+    .footer-bottom-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: space-between; }
+    @media (min-width: 640px) {
+      .footer-bottom-inner { flex-direction: row; }
+    }
+    .footer-sublinks { display: flex; gap: 18px; }
+    .footer-sublinks a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
+    .footer-sublinks a:hover { color: var(--gold-light); }
+
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://jiro.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://jiro.dev/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "python web scraping 2026",
+        "item": "https://jiro.dev/blog/python-web-scraping-2026/"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Jiro</a>
+      <ul class="nav-menu">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#social">Social</a></li>
+        <li><a href="/#mcp">MCP</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+      <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" style="font-size:12px; color:var(--gold-light);">GitHub &rarr;</a>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Python Web Scraping in 2026</span>
+    </nav>
+
+    <article>
+      <header class="article-header">
+        <span class="article-tag">Developer Tutorials</span>
+        <h1 class="article-title">Python Web Scraping in 2026: The Complete Developer's Guide</h1>
+        <div class="article-meta">
+          <span>By Adarsh Kushwah</span> &bull;
+          <time datetime="2026-09-04">September 4, 2026</time> &bull;
+          <span>9 min read</span>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>Web scraping has undergone a massive transformation. In 2018, fetching an HTML page with <code>requests</code> and parsing CSS selectors with <code>BeautifulSoup</code> was sufficient for 90% of tasks. In 2026, the modern web is protected by Cloudflare Turnstile, Akamai Bot Manager, HTTP/2 fingerprinting, and single-page applications rendered exclusively via client-side JavaScript.</p>
+
+        <p>This guide analyzes the state of Python web scraping tools in 2026 and demonstrates how to build resilient, resource-efficient extraction pipelines.</p>
+
+        <h2>Tool Comparison: Which One to Choose?</h2>
+        <ul>
+          <li><strong>BeautifulSoup / lxml:</strong> Lightning-fast HTML parsing, but zero JavaScript execution and no anti-bot bypass capabilities.</li>
+          <li><strong>Playwright:</strong> Excellent for full browser automation and clicking interactive UI elements, but extremely RAM-heavy (200MB+ per tab).</li>
+          <li><strong>Scrapy:</strong> High-throughput spider framework, but steep learning curve and requires extensive middleware for modern anti-bot bypassing.</li>
+          <li><strong>Jiro:</strong> Purpose-built for search engines, social media feeds, and LLM markdown extraction. Combines HTTP/2 TLS fingerprinting with zero-browser parsing, averaging 85ms per document.</li>
+        </ul>
+
+        <h2>Bypassing Modern TLS Fingerprinting</h2>
+        <p>Modern Web Application Firewalls (WAFs) inspect your TLS Client Hello packet (cipher suites, extensions, elliptic curves). If you make a request using standard Python <code>urllib</code> or <code>requests</code>, your JA3/JA4 fingerprint immediately betrays that you are a script.</p>
+
+        <p>Jiro solves this by incorporating <code>curl_cffi</code> under the hood, natively spoofing the TLS and HTTP/2 characteristics of the latest stable desktop Chrome and Safari browsers:</p>
+
+        <div class="code-snippet">
+<span class="keyword">from</span> jiro.scraper <span class="keyword">import</span> FastScraper
+
+scraper = FastScraper(impersonate=<span class="string">"chrome133"</span>)
+doc = scraper.fetch_markdown(<span class="string">"https://example.com/protected-page"</span>)
+
+print(f<span class="string">"Title: {doc.title}"</span>)
+print(f<span class="string">"Clean Markdown Length: {len(doc.markdown)} characters"</span>)
+        </div>
+
+        <h2>Ethical Compliance &amp; SSRF Protection</h2>
+        <p>Enterprise scrapers must ensure they do not access internal network services or violate published policies. Jiro enforces:</p>
+        <ul>
+          <li><strong>SSRF Guard:</strong> Prevents outgoing requests to RFC 1918 private IP ranges (e.g. <code>10.0.0.0/8</code>, <code>192.168.0.0/16</code>, AWS metadata <code>169.254.169.254</code>).</li>
+          <li><strong>Robots.txt Parser:</strong> Caches and evaluates host rules with sub-millisecond overhead.</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+        <p>Learn how to deploy your scraping workloads at scale in our post on <a href="/blog/docker-search-api/">Docker and Kubernetes Deployment</a>.</p>
+      
+
+        <!-- AUTHOR BIO BOX -->
+        <div class="article-author-card">
+          <div class="author-avatar-badge">AK</div>
+          <div class="author-details">
+            <div class="author-header-line">
+              <h4 class="author-name">Adarsh Kushwah</h4>
+              <span class="author-role">Lead Engineer &bull; Blackvault Technology</span>
+            </div>
+            <p class="author-bio">
+              Core contributor to Jiro Search and high-throughput scraping infrastructure. Specializing in autonomous agent tooling, Model Context Protocol (MCP), and cost-efficient search architectures.
+            </p>
+            <div class="author-links">
+              <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub &rarr;</a>
+              <a href="/blog/">Engineering Hub &rarr;</a>
+              <a href="/blog/feed.xml">RSS Feed &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOG HUB CALLOUT BANNER -->
+        <div class="blog-cluster-callout">
+          <div class="cluster-callout-inner">
+            <div class="cluster-callout-text">
+              <span class="cluster-tag">ENGINEERING BLOG &bull; 12 TECHNICAL GUIDES</span>
+              <h3>Explore More Search &amp; Scraping Architecture</h3>
+              <p>Compare SerpAPI and Tavily, configure Claude Desktop with MCP, or learn how hybrid search fuses BM25 and CPU embeddings.</p>
+            </div>
+            <a href="/blog/" class="btn-cluster-explore">
+              <span>View All 12 Articles</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RELATED ARTICLES SECTION -->
+        <section class="related-section" aria-labelledby="related-heading">
+          <div class="related-header">
+            <h3 id="related-heading">Related Engineering Guides</h3>
+            <a href="/blog/" class="related-see-all">Browse all 12 articles &rarr;</a>
+          </div>
+          <div class="related-grid">
+
+            <a href="/blog/social-media-scraping/" class="related-card">
+              <div>
+                <span class="related-category">Scraping</span>
+                <h4 class="related-title">Scraping 12 Social Platforms with One Python API (No API Keys)</h4>
+                <p class="related-excerpt">Extract Reddit, Twitter, TikTok, and Instagram without API keys or tokens.</p>
+              </div>
+              <span class="related-link-arrow">Read article &rarr;</span>
+            </a>
+  
+
+            <a href="/blog/web-scraping-compliance/" class="related-card">
+              <div>
+                <span class="related-category">Security</span>
+                <h4 class="related-title">Web Scraping Compliance in 2026: robots.txt, ToS, and SSRF</h4>
+                <p class="related-excerpt">Avoid IP bans, legal pitfalls, and server-side request forgery risks.</p>
+              </div>
+              <span class="related-link-arrow">Read article &rarr;</span>
+            </a>
+  
+
+            <a href="/blog/docker-search-api/" class="related-card">
+              <div>
+                <span class="related-category">DevOps</span>
+                <h4 class="related-title">Deploying a Search API with Docker and Kubernetes</h4>
+                <p class="related-excerpt">Containerize your scraping workers with automated proxy rotation.</p>
+              </div>
+              <span class="related-link-arrow">Read article &rarr;</span>
+            </a>
+  
+          </div>
+        </section>
+  
+      </div>
+    </article>
+  </main>
+
+  
+  <footer class="blog-rich-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col brand-col">
+        <a href="/" class="footer-logo">Jiro</a>
+        <p class="footer-desc">
+          Open-source, self-hosted search API with 9 engines, 12 social media scrapers, MCP server, and zero-key AI synthesis.
+        </p>
+        <div class="footer-meta-pill">MIT Licensed &bull; Free &amp; Self-Hosted</div>
+      </div>
+
+      <div class="footer-col">
+        <h4>TOP COMPARISONS</h4>
+        <ul>
+          <li><a href="/blog/serpapi-alternative/">SerpAPI Alternative (2026)</a></li>
+          <li><a href="/blog/tavily-alternative/">Tavily AI Search Comparison</a></li>
+          <li><a href="/blog/open-source-search-api/">Why We Built Open Source</a></li>
+          <li><a href="/#pricing">Cloud vs Self-Hosted</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>AGENT &amp; AI GUIDES</h4>
+        <ul>
+          <li><a href="/blog/mcp-server-guide/">Claude Desktop MCP Setup</a></li>
+          <li><a href="/blog/hybrid-search-explained/">Hybrid Search Architecture</a></li>
+          <li><a href="/blog/ai-search-without-api-keys/">AI Search Without API Keys</a></li>
+          <li><a href="/blog/intent-classification/">Intent Classification (16 Types)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>SCRAPING &amp; DEVOPS</h4>
+        <ul>
+          <li><a href="/blog/social-media-scraping/">12 Social Media Scrapers</a></li>
+          <li><a href="/blog/python-web-scraping-2026/">Python Web Scraping in 2026</a></li>
+          <li><a href="/blog/structured-data-extraction/">JSON Schema Extraction</a></li>
+          <li><a href="/blog/docker-search-api/">Docker &amp; Kubernetes Deployment</a></li>
+          <li><a href="/blog/web-scraping-compliance/">Robots.txt &amp; Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="container footer-bottom-inner">
+        <div>&copy; 2026 Jiro Search. Built by Blackvault Technology. MIT Licensed.</div>
+        <div class="footer-sublinks">
+          <a href="/blog/">Engineering Hub</a>
+          <a href="/blog/feed.xml">RSS Feed</a>
+          <a href="/sitemap.xml">XML Sitemap</a>
+          <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+
+</body>
+</html>

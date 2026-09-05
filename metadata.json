@@ -1,0 +1,6 @@
+{
+  "name": "Jiro Search",
+  "description": "Local-first, AI-native web search, scraping, and social media intelligence platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

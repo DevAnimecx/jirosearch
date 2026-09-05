@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extracting Video Transcripts and Metadata from TikTok & Instagram | Jiro Engineering</title>
+  <meta name="description" content="Learn how to scrape captions, video transcripts, creator metrics, and audio metadata from TikTok and Instagram Reels using Jiro social extraction endpoints.">
+  <link rel="canonical" href="https://jiro.dev/blog/tiktok-instagram-scraper-api/">
+  <meta property="og:title" content="Extracting Video Transcripts and Metadata from TikTok & Instagram | Jiro Engineering">
+  <meta property="og:description" content="Learn how to scrape captions, video transcripts, creator metrics, and audio metadata from TikTok and Instagram Reels using Jiro social extraction endpoints.">
+  <meta property="og:url" content="https://jiro.dev/blog/tiktok-instagram-scraper-api/">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" type="application/rss+xml" title="Jiro Engineering RSS Feed" href="/blog/feed.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    
+  :root {
+    --gold-base: #a78b71;
+    --gold-light: #c4ab92;
+    --gold-hover: #bda287;
+    --bg-dark: #000000;
+    --surface-1: rgba(255, 255, 255, 0.03);
+    --surface-2: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.08);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-code: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000000;
+    color: #e6e6e6;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold-light); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--gold-hover); text-decoration: underline; }
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  
+  /* HEADER */
+  header.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    font-style: italic;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-badge {
+    font-family: var(--font-code);
+    font-size: 11px;
+    background: rgba(167, 139, 113, 0.12);
+    color: var(--gold-light);
+    border: 1px solid rgba(167, 139, 113, 0.25);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .nav-menu {
+    display: none;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+  }
+  @media (min-width: 860px) {
+    .nav-menu { display: flex; }
+  }
+  .nav-menu a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .nav-menu a:hover, .nav-menu a.active {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-cta:hover {
+    background: rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+  }
+  
+  /* FOOTER */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: rgba(10, 10, 10, 0.95);
+    margin-top: 80px;
+    padding: 60px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  @media (min-width: 640px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 992px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 9px; font-size: 13px; }
+  .footer-col ul li a { color: rgba(255, 255, 255, 0.65); text-decoration: none; }
+  .footer-col ul li a:hover { color: #ffffff; text-decoration: underline; }
+  .footer-logo { font-family: var(--font-display); font-size: 26px; font-style: italic; font-weight: 700; color: #fff; }
+  .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin: 12px 0 16px; max-width: 280px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 48px;
+    padding: 24px 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .footer-bottom-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (min-width: 640px) {
+    .footer-bottom-inner { flex-direction: row; }
+  }
+  .footer-sublinks { display: flex; gap: 16px; }
+  .footer-sublinks a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
+  .footer-sublinks a:hover { color: var(--gold-light); }
+
+    
+    .article-wrap { max-width: 820px; margin: 48px auto; padding: 0 24px; }
+    .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 24px; display: flex; gap: 8px; }
+    .breadcrumb a { color: var(--gold-light); }
+    .post-header { margin-bottom: 40px; }
+    .post-category { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-base); margin-bottom: 12px; display: inline-block; }
+    .post-title { font-family: var(--font-display); font-size: 38px; line-height: 1.15; color: #ffffff; margin-bottom: 16px; font-style: italic; font-weight: 700; }
+    .post-meta { display: flex; gap: 16px; font-size: 13px; color: rgba(255,255,255,0.6); align-items: center; }
+    .article-body { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.85); }
+    .article-body h2 { font-family: var(--font-display); font-size: 26px; color: #ffffff; margin: 36px 0 16px; font-style: italic; }
+    .article-body h3 { font-size: 19px; color: var(--gold-light); margin: 28px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body pre { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 18px; border-radius: 10px; font-family: var(--font-code); font-size: 13px; overflow-x: auto; margin: 24px 0; color: #e0e0e0; }
+    .article-body code { font-family: var(--font-code); font-size: 13px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: var(--gold-light); }
+    .article-body ol, .article-body ul { margin: 16px 0 24px 24px; }
+    .article-body li { margin-bottom: 8px; }
+
+    /* AUTHOR BIO CARD */
+    .article-author-card {
+      margin: 48px 0 32px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .author-avatar-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-base), #3a2e22);
+      color: #ffffff;
+      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .author-details { flex: 1; }
+    .author-header-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+    .author-name { font-size: 16px; font-weight: 600; color: #ffffff; margin: 0; }
+    .author-role { font-size: 12px; color: var(--gold-light); font-weight: 400; }
+    .author-bio { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.6; margin-bottom: 12px; }
+    .author-links { display: flex; gap: 16px; font-size: 12px; }
+    .author-links a { color: var(--gold-light); font-weight: 500; text-decoration: none; }
+    .author-links a:hover { text-decoration: underline; color: var(--gold-hover); }
+
+    /* CLUSTER CALLOUT */
+    .blog-cluster-callout {
+      margin: 36px 0;
+      padding: 24px 28px;
+      background: linear-gradient(135deg, rgba(167, 139, 113, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(167, 139, 113, 0.25);
+      border-radius: 16px;
+    }
+    .cluster-callout-inner { display: flex; flex-direction: column; gap: 16px; }
+    @media (min-width: 640px) {
+      .cluster-callout-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+    .cluster-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-base); text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .cluster-callout-text h3 { font-family: var(--font-display); font-size: 20px; color: #ffffff; margin-bottom: 6px; }
+    .cluster-callout-text p { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.5; margin: 0; max-width: 520px; }
+    .btn-cluster-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--gold-base);
+      color: #000000;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* RELATED ARTICLES */
+    .related-section { margin-top: 52px; padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .related-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+    .related-header h3 { font-family: var(--font-display); font-size: 22px; font-style: italic; color: #ffffff; }
+    .related-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 640px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+    .related-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .related-card:hover { border-color: rgba(167, 139, 113, 0.4); transform: translateY(-2px); text-decoration: none; }
+    .related-category { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--gold-light); margin-bottom: 8px; }
+    .related-title { font-size: 14px; font-weight: 600; color: #ffffff; line-height: 1.4; margin-bottom: 8px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Extracting Video Transcripts and Metadata from TikTok & Instagram",
+    "description": "Learn how to scrape captions, video transcripts, creator metrics, and audio metadata from TikTok and Instagram Reels using Jiro social extraction endpoints.",
+    "datePublished": "2026-09-01",
+    "author": {
+      "@type": "Person",
+      "name": "Adarsh Kushwah",
+      "jobTitle": "Lead Engineer",
+      "worksFor": { "@type": "Organization", "name": "Blackvault Technology" }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Jiro Search",
+      "logo": { "@type": "ImageObject", "url": "https://jiro.dev/logo.png" }
+    },
+    "mainEntityOfPage": "https://jiro.dev/blog/tiktok-instagram-scraper-api/"
+  }
+  </script>
+</head>
+<body>
+  
+  <header class="site-nav" role="banner">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <a href="/" class="nav-logo" rel="home">Jiro</a>
+        <span class="nav-badge" id="nav-release-tag">v0.2.8</span>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu" role="menubar">
+          <li role="menuitem"><a href="/#features" class="">Features</a></li>
+          <li role="menuitem"><a href="/docs/" class="">Docs</a></li>
+          <li role="menuitem"><a href="/pricing/" class="">Pricing</a></li>
+          <li role="menuitem"><a href="/dashboard/" class="">Dashboard</a></li>
+          <li role="menuitem"><a href="/blog/" class="active">Blog</a></li>
+          <li role="menuitem"><a href="/changelog/" class="">Changelog</a></li>
+          <li role="menuitem"><a href="/roadmap/" class="">Roadmap</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="nav-cta" aria-label="GitHub repository">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span id="nav-star-count">Star</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="article-wrap" role="main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>&rsaquo;</span>
+      <a href="/blog/">Blog</a>
+      <span>&rsaquo;</span>
+      <span>Scraping</span>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-category">Scraping</span>
+        <h1 class="post-title">Extracting Video Transcripts and Metadata from TikTok & Instagram</h1>
+        <div class="post-meta">
+          <span>By Adarsh Kushwah</span>
+          <span>&bull;</span>
+          <time datetime="2026-09-01">2026-09-01</time>
+          <span>&bull;</span>
+          <span>9 min read</span>
+        </div>
+      </header>
+
+      <div class="article-body">
+        
+      <h2>The Challenge of Short-Form Video Data Ingestion</h2>
+      <p>Modern social research and trend analysis require monitoring TikTok and Instagram Reels in real-time. Traditional scrapers struggle with dynamic client-side hydration, obfuscated video player bundles, and aggressive anti-crawler protections.</p>
+
+      <h3>Jiro Social Media Extraction Module</h3>
+      <p>Jiro v0.2 includes native extractors for both TikTok and Instagram. By targeting internal server-rendered JSON state (such as <code>__UNIVERSAL_DATA_FOR_REHYDRATION__</code> on TikTok and <code>window._sharedData</code> on Instagram), Jiro parses verified video metadata in under 200 milliseconds.</p>
+
+      <pre><code>curl -X POST http://localhost:8000/v1/social \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://www.tiktok.com/@openai/video/7321098765432109876",
+    "extract_transcript": true
+  }'</code></pre>
+    
+      </div>
+
+      <!-- AUTHOR BIO BOX -->
+      <div class="article-author-card">
+        <div class="author-avatar-badge">AK</div>
+        <div class="author-details">
+          <div class="author-header-line">
+            <h4 class="author-name">Adarsh Kushwah</h4>
+            <span class="author-role">Lead Engineer &bull; Blackvault Technology</span>
+          </div>
+          <p class="author-bio">
+            Creator of Jiro Search and high-concurrency scraping infrastructure. Specializing in autonomous agent tooling, Model Context Protocol (MCP), and local-first AI search architectures.
+          </p>
+          <div class="author-links">
+            <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub &rarr;</a>
+            <a href="/blog/">Engineering Hub &rarr;</a>
+            <a href="/blog/feed.xml">RSS Feed &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER CALLOUT -->
+      <div class="blog-cluster-callout">
+        <div class="cluster-callout-inner">
+          <div class="cluster-callout-text">
+            <span class="cluster-tag">ENGINEERING BLOG &bull; 24 GUIDES</span>
+            <h3>Explore More Search &amp; Agent Architecture</h3>
+            <p>Compare SerpAPI and Tavily, configure Claude Desktop with MCP, or learn how hybrid search fuses BM25 and CPU embeddings.</p>
+          </div>
+          <a href="/blog/" class="btn-cluster-explore">
+            <span>View All 24 Articles</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- RELATED ARTICLES SECTION -->
+      <section class="related-section" aria-labelledby="related-heading">
+        <div class="related-header">
+          <h3 id="related-heading">Related Engineering Guides</h3>
+          <a href="/blog/" style="font-size:12px; color:var(--gold-light);">Browse all 24 articles &rarr;</a>
+        </div>
+        <div class="related-grid">
+          <a href="/blog/mcp-server-guide/" class="related-card">
+            <div>
+              <span class="related-category">MCP &amp; Agents</span>
+              <h4 class="related-title">How to Give Claude Desktop Web Search with an MCP Server</h4>
+            </div>
+            <span style="font-size:11px; color:var(--gold-light);">Read article &rarr;</span>
+          </a>
+          <a href="/blog/serpapi-alternative/" class="related-card">
+            <div>
+              <span class="related-category">Comparisons</span>
+              <h4 class="related-title">The Free SerpAPI Alternative: How Jiro Compares in 2026</h4>
+            </div>
+            <span style="font-size:11px; color:var(--gold-light);">Read article &rarr;</span>
+          </a>
+          <a href="/blog/hybrid-search-explained/" class="related-card">
+            <div>
+              <span class="related-category">Architecture</span>
+              <h4 class="related-title">Hybrid Search Explained: Keyword + Semantic + SERP in One API</h4>
+            </div>
+            <span style="font-size:11px; color:var(--gold-light);">Read article &rarr;</span>
+          </a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col brand-col">
+        <a href="/" class="footer-logo">Jiro</a>
+        <p class="footer-desc">
+          Local-first, AI-native web search &amp; scraping API. Self-hosted SerpAPI alternative with MCP server, 9 search engines, and 12 social scrapers.
+        </p>
+        <div style="font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(167, 139, 113, 0.1); border: 1px solid rgba(167, 139, 113, 0.2); border-radius: 999px; padding: 4px 12px; display: inline-block;">
+          MIT Licensed &bull; Controlled Software
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>PRODUCT</h4>
+        <ul>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/pricing/">Pricing &amp; Plans</a></li>
+          <li><a href="/dashboard/">Live Dashboard</a></li>
+          <li><a href="/changelog/">Changelog (Auto-Sync)</a></li>
+          <li><a href="/roadmap/">Product Roadmap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>DEVELOPERS</h4>
+        <ul>
+          <li><a href="/docs/">Documentation</a></li>
+          <li><a href="/blog/mcp-server-guide/">MCP Guide</a></li>
+          <li><a href="/blog/">Engineering Blog (24 Guides)</a></li>
+          <li><a href="/blog/serpapi-alternative/">SerpAPI Alternative</a></li>
+          <li><a href="/blog/tavily-alternative/">Tavily Alternative</a></li>
+          <li><a href="/blog/hybrid-search-explained/">Hybrid Search</a></li>
+          <li><a href="/blog/feed.xml">RSS XML Feed</a></li>
+          <li><a href="/sitemap.xml">XML Sitemap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>COMMUNITY</h4>
+        <ul>
+          <li><a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://discord.gg/jirosearch" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/issues" target="_blank" rel="noopener">Issues</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/discussions" target="_blank" rel="noopener">Discussions</a></li>
+          <li><a href="/contributing/">Contributing Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <ul>
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/acceptable-use/">Acceptable Use</a></li>
+          <li><a href="/license/">MIT License &amp; Trademark</a></li>
+          <li><a href="/security/">Security &amp; Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div>&copy; 2026 Jiro Search. Built by Blackvault Technology. MIT Licensed.</div>
+        <div class="footer-sublinks">
+          <a href="/docs/">Docs</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/dashboard/">Dashboard</a>
+          <a href="/changelog/">Changelog</a>
+          <a href="/blog/">Blog</a>
+          <a href="/license/">License</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Live GitHub Auto-Sync Script
+    (function() {
+      async function syncGitHub() {
+        try {
+          const cached = sessionStorage.getItem('jiro_gh_stats');
+          if (cached) {
+            const data = JSON.parse(cached);
+            updateBadges(data);
+            return;
+          }
+          const res = await fetch('https://api.github.com/repos/DevAnimecx/jiro');
+          if (res.ok) {
+            const repo = await res.json();
+            const payload = {
+              stars: repo.stargazers_count,
+              forks: repo.forks_count,
+              updated: repo.pushed_at
+            };
+            sessionStorage.setItem('jiro_gh_stats', JSON.stringify(payload));
+            updateBadges(payload);
+          }
+        } catch (e) {
+          // Graceful fallback
+        }
+      }
+
+      function updateBadges(data) {
+        const starEl = document.getElementById('nav-star-count');
+        if (starEl && data.stars !== undefined) {
+          starEl.textContent = '★ ' + data.stars;
+        }
+      }
+
+      syncGitHub();
+    })();
+  </script>
+  
+</body>
+</html>

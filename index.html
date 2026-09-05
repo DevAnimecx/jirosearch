@@ -1,0 +1,2957 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- PRIMARY META -->
+  <title>Jiro — Open Source Search API | Self-Hosted SerpAPI Alternative</title>
+  <meta name="description" content="Jiro is an MIT-licensed, self-hosted search API with 9 engines, 12 social media scrapers, MCP server, AI synthesis, and hybrid search. A free SerpAPI alternative built in Python." />
+  <meta name="keywords" content="serpapi alternative, search api, web scraping api, self-hosted search, open source search engine, mcp server, social media scraper, python search library, jiro search, hybrid search api, ai search, answer engine optimization" />
+  <meta name="author" content="Adarsh Kushwah, Blackvault Technology" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://jiro.dev/" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Jiro Search Engineering Blog RSS" href="/blog/feed.xml" />
+
+  <!-- OPEN GRAPH -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Jiro Search" />
+  <meta property="og:title" content="Jiro — Open Source Search API &amp; SerpAPI Alternative" />
+  <meta property="og:description" content="Self-hosted search API with 9 engines, 12 social scrapers, MCP server, and AI synthesis. MIT licensed. Free to self-host." />
+  <meta property="og:url" content="https://jiro.dev/" />
+  <meta property="og:image" content="https://jiro.dev/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- TWITTER CARD -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@jirosearch" />
+  <meta name="twitter:creator" content="@DevAnimecx" />
+  <meta name="twitter:title" content="Jiro — Open Source Search API &amp; SerpAPI Alternative" />
+  <meta name="twitter:description" content="Self-hosted search API with 9 engines, 12 social scrapers, MCP server, and AI synthesis. MIT licensed." />
+  <meta name="twitter:image" content="https://jiro.dev/twitter-card.png" />
+
+  <!-- FONTS (Preconnect & DNS-prefetch for performance) -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- PERFORMANCE & THEME -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- STRUCTURED DATA: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Jiro Search",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform (Python 3.11+)",
+    "description": "Open-source, self-hosted search API with 9 engines, 12 social media scrapers, MCP server, AI synthesis, and hybrid search. MIT licensed SerpAPI alternative.",
+    "url": "https://jiro.dev",
+    "downloadUrl": "https://pypi.org/project/jirosearch/",
+    "installUrl": "https://pypi.org/project/jirosearch/",
+    "softwareVersion": "0.2.8",
+    "datePublished": "2026-06-01",
+    "dateModified": "2026-09-05",
+    "license": "https://opensource.org/licenses/MIT",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free and open source (MIT license)",
+      "url": "https://jiro.dev"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "127",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Blackvault Technology",
+      "url": "https://github.com/DevAnimecx"
+    },
+    "featureList": [
+      "9 search engines (Google, Bing, DuckDuckGo, Brave, YouTube, Amazon, eBay, Yandex, Baidu)",
+      "12 social media scrapers (Twitter, Instagram, Reddit, TikTok, YouTube, LinkedIn, Facebook, Telegram, Pinterest, Hacker News, Bluesky, Threads)",
+      "Built-in MCP server (17 tools, stdio/HTTP/SSE transports)",
+      "Hybrid search (keyword + semantic + SERP with cross-encoder reranking)",
+      "AI synthesis with citations (works without LLM API keys)",
+      "Smart intent routing (16 intent types, rule-based, sub-1ms)",
+      "Structured data extraction (JSON Schema)",
+      "Plugin system (5 types: engine, search, datasource, extractor, social)",
+      "Compliance layer (robots.txt, ToS tracking, SSRF protection, audit logging)",
+      "Docker + Kubernetes Helm chart + OpenAPI 3.1 spec",
+      "SDK generation (Python, TypeScript, Go)"
+    ],
+    "programmingLanguage": "Python",
+    "runtimePlatform": "Python 3.11",
+    "codeRepository": "https://github.com/DevAnimecx/jiro"
+  }
+  </script>
+
+  <!-- STRUCTURED DATA: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Blackvault Technology",
+    "url": "https://jiro.dev",
+    "logo": "https://jiro.dev/logo.png",
+    "founder": {
+      "@type": "Person",
+      "name": "Adarsh Kushwah",
+      "url": "https://github.com/DevAnimecx"
+    },
+    "foundingDate": "2026",
+    "knowsAbout": [
+      "web search APIs",
+      "web scraping",
+      "social media scraping",
+      "AI search",
+      "Model Context Protocol",
+      "search engine results page parsing"
+    ],
+    "sameAs": [
+      "https://github.com/DevAnimecx",
+      "https://pypi.org/project/jirosearch/",
+      "https://discord.gg/jiro"
+    ]
+  }
+  </script>
+
+  <!-- STRUCTURED DATA: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://jiro.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Features",
+        "item": "https://jiro.dev/#features"
+      }
+    ]
+  }
+  </script>
+
+  <!-- STRUCTURED DATA: FAQPage (AEO Optimized) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Jiro Search?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jiro Search is an open-source, MIT-licensed, self-hosted search API that provides web search across 9 engines, social media scraping for 12 platforms, AI synthesis with citations, and a built-in MCP server for AI agents. It is a free alternative to SerpAPI, Apify, and Tavily."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Jiro Search free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Jiro Search is MIT licensed and free to self-host. You can install it with pip install jirosearch and run it locally with no API keys required for core functionality. A managed Pro tier starts at $29/month for residential proxies and CAPTCHA solving."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Jiro compare to SerpAPI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jiro is self-hosted and MIT licensed, while SerpAPI is a paid cloud service. Jiro supports 9 search engines with automatic fallback, 12 social media scrapers, an MCP server, hybrid search with semantic reranking, and AI synthesis — features SerpAPI does not offer. SerpAPI costs $75-500/month; Jiro is free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What search engines does Jiro support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jiro supports 9 search engines: Google, Bing, DuckDuckGo, Brave, YouTube, Amazon, eBay, Yandex, and Baidu. Each engine has automatic fallback and per-engine circuit breakers. Jiro also includes 6 plugin engines: Google Scholar, arXiv, GitHub, Wikipedia, Hacker News, and Reddit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Jiro work with Claude Desktop and MCP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Jiro includes a built-in MCP (Model Context Protocol) server with 17 tools. It works with Claude Desktop, Cursor, and any MCP-compatible AI agent. Configuration is adding {\"mcpServers\":{\"jiro\":{\"command\":\"jiro\",\"args\":[\"mcp\"]}}} to your Claude Desktop config. Jiro supports stdio, Streamable HTTP, and SSE transports."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Jiro scrape social media without API keys?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Jiro scrapes 12 social media platforms — Twitter/X, Instagram, Reddit, TikTok, YouTube, LinkedIn, Facebook, Telegram, Pinterest, Hacker News, Bluesky, and Threads — using public endpoints and HTML parsing, not official APIs. No API keys are required. Each platform has fallback chains (e.g., Twitter uses FxTwitter, then Nitter, then Playwright)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Jiro require an LLM API key for AI synthesis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Jiro includes extractive AI synthesis that works with zero LLM API keys. It extracts and summarizes answers from search results with citations in 0.03ms. If you provide an OpenAI or Anthropic key, Jiro uses the LLM for higher quality synthesis, but it is not required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Jiro's hybrid search?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jiro's hybrid search combines keyword matching, semantic vector similarity, and SERP signals into a single ranked result set. It uses Reciprocal Rank Fusion to merge signals and a cross-encoder reranker with an 80MB embedding model that runs on CPU. No GPU is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install Jiro Search?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install Jiro with pip install jirosearch. Then start the API server with jiro serve (available at http://localhost:8000 with docs at /docs). For MCP integration, run jiro mcp. Docker deployment is available with docker-compose up -d."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What license does Jiro use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jiro uses the MIT license, which allows commercial use, modification, distribution, and private use with no restrictions. Unlike AGPL-licensed projects like Firecrawl, you do not need to open-source your own product when using Jiro."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Jiro production ready?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jiro includes Docker support, a Kubernetes Helm chart, OpenAPI 3.1 specification, SDK generation scripts for Python/TypeScript/Go, Prometheus metrics, structured JSON logging, SQLite and PostgreSQL backends, Redis-backed rate limiting, SSRF protection, robots.txt compliance, and audit logging. It has 494 tests."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface-1: rgba(255, 255, 255, 0.03);
+      --surface-2: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-bright: rgba(255, 255, 255, 0.2);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.6);
+      --text-tertiary: rgba(255, 255, 255, 0.4);
+      --gold-base: #a78b71;
+      --gold-light: #c9b8a0;
+      --gold-hover: #e8d5b7;
+      --gold-border: rgba(167, 139, 113, 0.4);
+      --success-green: #62c073;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+      padding: 0;
+      margin: -1px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold-base);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s var(--ease);
+    }
+
+    .gold {
+      color: var(--gold-base);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* HEADER & NAV */
+    header[role="banner"] {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .nav-inner {
+        padding: 0 48px;
+      }
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      font-style: italic;
+      color: #ffffff;
+    }
+
+    .nav-menu {
+      display: none;
+      list-style: none;
+      align-items: center;
+      gap: 32px;
+    }
+
+    @media (min-width: 900px) {
+      .nav-menu {
+        display: flex;
+      }
+    }
+
+    .nav-menu a {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .nav-menu a:hover {
+      color: var(--gold-hover);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gold-light);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .btn-github:hover {
+      color: var(--gold-hover);
+      background: rgba(167, 139, 113, 0.08);
+    }
+
+    .btn-pill-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #000000;
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #ffffff;
+      transition: all 0.3s var(--ease);
+    }
+
+    .btn-pill-primary:hover {
+      background: var(--gold-hover);
+      border-color: var(--gold-hover);
+    }
+
+    /* HERO SECTION */
+    /* ==========================================================================
+       HERO SECTION — ULTRA-CLEAN & ARCHITECTURAL
+       ========================================================================== */
+    .hero-section {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      padding: 130px 24px 70px;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 860px;
+      height: 480px;
+      background: radial-gradient(ellipse at center, rgba(167, 139, 113, 0.16) 0%, rgba(167, 139, 113, 0.03) 50%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 999px;
+      padding: 6px 18px;
+      margin-bottom: 28px;
+      transition: all 0.25s var(--ease);
+      text-decoration: none;
+    }
+    .live-pill:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(167, 139, 113, 0.35);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success-green);
+      animation: breathing 2s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(98, 192, 115, 0.6);
+    }
+
+    .live-label {
+      color: var(--success-green);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .live-text {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 12px;
+    }
+
+    .live-arrow {
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    @keyframes breathing {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.9); }
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      line-height: 1.08;
+      color: #ffffff;
+      margin-bottom: 22px;
+      max-width: 920px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-headline .gold {
+      color: var(--gold-base);
+      font-style: italic;
+    }
+
+    .hero-subheadline {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 740px;
+      margin-bottom: 34px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .install-pill-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(16, 16, 16, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 6px 8px 6px 14px;
+      font-family: var(--font-code);
+      font-size: 13px;
+      transition: all 0.25s var(--ease);
+    }
+    .install-pill-box:hover {
+      border-color: var(--gold-base);
+      box-shadow: 0 0 20px rgba(167, 139, 113, 0.15);
+    }
+    .install-pill-prefix {
+      color: var(--gold-light);
+      user-select: none;
+    }
+    .install-pill-cmd {
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .install-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+    .install-copy-btn:hover {
+      background: rgba(167, 139, 113, 0.2);
+      border-color: var(--gold-base);
+      color: #ffffff;
+    }
+
+    .btn-primary-hero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 12px;
+      border: 1px solid #ffffff;
+      text-decoration: none;
+      transition: all 0.25s var(--ease);
+    }
+    .btn-primary-hero:hover {
+      background: var(--gold-hover);
+      border-color: var(--gold-hover);
+      color: #000000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 213, 183, 0.25);
+    }
+
+    .btn-secondary-hero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 13px 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s var(--ease);
+    }
+    .btn-secondary-hero:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .hero-integrations-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px 22px;
+      margin-top: 6px;
+      margin-bottom: 40px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      font-family: var(--font-code);
+    }
+    .hero-integrations-bar span.tech-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s;
+    }
+    .hero-integrations-bar span.tech-tag:hover {
+      color: var(--gold-light);
+    }
+
+    /* HERO INTERACTIVE CONSOLE / WORKBENCH */
+    .hero-console {
+      width: 100%;
+      max-width: 940px;
+      margin: 0 auto;
+      background: rgba(14, 14, 14, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 40px rgba(167, 139, 113, 0.08);
+      overflow: hidden;
+      text-align: left;
+      z-index: 10;
+      position: relative;
+    }
+
+    .console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .console-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .console-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .console-dot.close { background: #ff5f56; opacity: 0.8; }
+    .console-dot.min { background: #ffbd2e; opacity: 0.8; }
+    .console-dot.max { background: #27c93f; opacity: 0.8; }
+
+    .console-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 2px;
+    }
+
+    .console-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      transition: all 0.2s var(--ease);
+    }
+    .console-tab:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .console-tab.active {
+      color: var(--gold-light);
+      background: rgba(167, 139, 113, 0.12);
+      border-color: rgba(167, 139, 113, 0.3);
+      font-weight: 500;
+    }
+
+    .console-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .console-body {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) {
+      .console-body {
+        grid-template-columns: 1.15fr 1fr;
+      }
+    }
+
+    .console-code-pane {
+      padding: 20px 22px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(8, 8, 8, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+    .console-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .console-code-pre {
+      font-family: var(--font-code);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #e6e6e6;
+      overflow-x: auto;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    .code-kw { color: #d19a66; }
+    .code-fn { color: #61afef; }
+    .code-str { color: #98c379; }
+    .code-num { color: #e5c07b; }
+    .code-comment { color: #5c6370; font-style: italic; }
+    .code-key { color: #e06c75; }
+
+    .console-output-pane {
+      padding: 20px 22px;
+      background: rgba(12, 12, 12, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+
+    .console-output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .console-query-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 6px 12px;
+      margin-bottom: 14px;
+      font-family: var(--font-code);
+      font-size: 12px;
+    }
+    .console-query-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: var(--font-code);
+      font-size: 12px;
+      width: 100%;
+    }
+    .console-query-run {
+      background: rgba(167, 139, 113, 0.2);
+      border: 1px solid rgba(167, 139, 113, 0.35);
+      border-radius: 6px;
+      color: var(--gold-light);
+      font-family: var(--font-code);
+      font-size: 10px;
+      padding: 4px 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    .console-query-run:hover {
+      background: var(--gold-base);
+      color: #000;
+    }
+
+    .console-result-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: var(--font-code);
+      font-size: 11.5px;
+      line-height: 1.6;
+    }
+    .result-badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+    .result-badge.engine { background: rgba(98, 192, 115, 0.15); color: #62c073; }
+    .result-badge.intent { background: rgba(97, 175, 239, 0.15); color: #61afef; }
+    .result-badge.latency { background: rgba(229, 192, 123, 0.15); color: #e5c07b; }
+
+    /* STATS STRIP */
+    .stats-strip {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.015);
+      backdrop-filter: blur(10px);
+      padding: 40px 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats-dl {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 16px;
+      text-align: center;
+    }
+
+    @media (min-width: 900px) {
+      .stats-dl {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .stat-pair {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-dt {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+      color: var(--gold-base);
+      line-height: 1;
+    }
+
+    .stat-dd {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+    }
+
+    /* SECTION BASICS */
+    .section-wrapper {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 56px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(2rem, 4.2vw, 3rem);
+      color: #ffffff;
+      line-height: 1.18;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .feature-card {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s var(--ease);
+    }
+
+    .feature-card:hover {
+      border-color: rgba(167, 139, 113, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(167, 139, 113, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--gold-base);
+      transition: transform 0.3s var(--ease);
+    }
+
+    .feature-card:hover .feature-icon-box {
+      transform: scale(1.1);
+      background: rgba(167, 139, 113, 0.16);
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* SOCIAL GRID */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .social-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .social-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+
+    .social-card {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .social-card:hover {
+      border-color: var(--gold-border);
+      background: rgba(167, 139, 113, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .social-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .social-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* CODE BOX */
+    .code-box {
+      background: rgba(12, 12, 12, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .traffic-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .traffic-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .traffic-dot-1 { background: #a78b71; }
+    .traffic-dot-2 { background: #c9b8a0; }
+    .traffic-dot-3 { background: #e8d5b7; }
+
+    .code-title {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    .code-badge {
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--gold-base);
+      background: rgba(167, 139, 113, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .code-content {
+      padding: 20px 24px;
+      font-family: var(--font-code);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* MCP SECTION */
+    .mcp-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 992px) {
+      .mcp-container { grid-template-columns: 1fr 1fr; gap: 48px; }
+    }
+
+    .mcp-desc-card {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    .mcp-tools-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .mcp-category {
+      background: var(--surface-1);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+
+    .mcp-category-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold-base);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mcp-pills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mcp-tool-pill {
+      font-family: var(--font-code);
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 5px 12px;
+      color: rgba(255, 255, 255, 0.75);
+      transition: all 0.25s var(--ease);
+    }
+
+    .mcp-tool-pill:hover {
+      border-color: var(--gold-border);
+      color: var(--gold-hover);
+      background: rgba(167, 139, 113, 0.08);
+      transform: translateY(-1px);
+    }
+
+    /* MODES CARDS */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .modes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .mode-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s var(--ease);
+    }
+
+    .mode-card:hover {
+      border-color: var(--gold-border);
+      transform: translateY(-2px);
+    }
+
+    .mode-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mode-cmd {
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--gold-light);
+      background: rgba(167, 139, 113, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* COMPARISON TABLE */
+    .table-container {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow-x: auto;
+      padding: 4px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      min-width: 640px;
+    }
+
+    .comparison-table th {
+      padding: 20px 24px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .comparison-table td {
+      padding: 22px 24px;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+    }
+
+    .comparison-table tr:hover td {
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .table-service {
+      font-weight: 600;
+      color: #ffffff !important;
+    }
+
+    .table-service span {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .table-saved {
+      color: var(--gold-base) !important;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* PRICING */
+    .pricing-controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .billing-toggle-input { display: none; }
+
+    .billing-toggle {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      padding: 4px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s var(--ease);
+    }
+
+    .toggle-option {
+      padding: 8px 22px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.3s var(--ease);
+    }
+
+    .toggle-option.monthly { background: #ffffff; color: #000000; }
+    .toggle-option.annual { color: var(--text-tertiary); background: transparent; }
+
+    .billing-toggle-input:checked + .billing-toggle .toggle-option.monthly {
+      background: transparent;
+      color: var(--text-tertiary);
+    }
+
+    .billing-toggle-input:checked + .billing-toggle .toggle-option.annual {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .price-annual { display: none; }
+    .price-monthly { display: inline; }
+
+    .billing-toggle-input:checked ~ .pricing-grid .price-monthly { display: none; }
+    .billing-toggle-input:checked ~ .pricing-grid .price-annual { display: inline; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .pricing-card {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s var(--ease);
+    }
+
+    .pricing-card.pro-tier {
+      border: 1px solid var(--gold-border);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 50px rgba(167, 139, 113, 0.08);
+    }
+
+    @media (min-width: 900px) {
+      .pricing-card.pro-tier { transform: translateY(-8px); }
+      .pricing-card.pro-tier:hover { transform: translateY(-12px); }
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #181818;
+      border: 1px solid var(--gold-base);
+      color: var(--gold-light);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 4px 14px;
+      border-radius: 999px;
+    }
+
+    .tier-price {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 48px;
+      color: #ffffff;
+    }
+
+    .tier-features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 24px 0 36px;
+      flex-grow: 1;
+    }
+
+    .tier-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .tier-feature-item svg {
+      flex-shrink: 0;
+      color: var(--gold-base);
+      margin-top: 3px;
+    }
+
+    .btn-tier {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s var(--ease);
+    }
+
+    .btn-tier-ghost {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .btn-tier-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--gold-base);
+      color: var(--gold-hover);
+    }
+
+    .btn-tier-solid {
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+    }
+
+    .btn-tier-solid:hover {
+      background: var(--gold-hover);
+      border-color: var(--gold-hover);
+    }
+
+    /* BLOG PREVIEW SECTION */
+    .blog-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .blog-preview-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .blog-card {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s var(--ease);
+    }
+
+    .blog-card:hover {
+      border-color: var(--gold-border);
+      transform: translateY(-4px);
+    }
+
+    .blog-card-category {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(167, 139, 113, 0.15);
+      color: var(--gold-light);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .blog-card-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 18px;
+      color: #ffffff;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .blog-card-excerpt {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .blog-card-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .blog-card-link:hover {
+      color: var(--gold-hover);
+    }
+
+    /* FAQ SECTION (DETAILS/SUMMARY) */
+    .faq-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-details {
+      background: var(--surface-1);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 24px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .faq-details:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .faq-details[open] {
+      border-color: var(--gold-border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .faq-summary {
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+      user-select: none;
+    }
+
+    .faq-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-summary::after {
+      content: "+";
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--gold-base);
+      transition: transform 0.3s var(--ease);
+      margin-left: 12px;
+    }
+
+    .faq-details[open] .faq-summary::after {
+      content: "−";
+      color: var(--gold-hover);
+    }
+
+    .faq-answer {
+      margin-top: 14px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.65);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 14px;
+    }
+
+    .faq-answer code {
+      font-family: var(--font-code);
+      font-size: 13px;
+      background: rgba(167, 139, 113, 0.1);
+      color: var(--gold-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* FOOTER */
+    footer[role="contentinfo"] {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: #080808;
+      padding: 80px 24px 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 640px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1.6fr; gap: 32px; }
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-hover);
+    }
+
+    .digest-form {
+      position: relative;
+      margin-top: 12px;
+      max-width: 320px;
+    }
+
+    .digest-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      padding: 12px 50px 12px 20px;
+      color: #ffffff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .digest-submit {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid var(--gold-base);
+      color: var(--gold-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .digest-submit:hover {
+      background: var(--gold-base);
+      color: #0a0a0a;
+    }
+
+    .footer-bottom {
+      max-width: 1240px;
+      margin: 64px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    @media (min-width: 640px) {
+      .footer-bottom { flex-direction: row; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header role="banner">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Jiro home" rel="home">Jiro</a>
+
+      <ul class="nav-menu" role="menubar">
+        <li role="menuitem"><a href="/#features" rel="internal">Features</a></li>
+        <li role="menuitem"><a href="/docs/" rel="internal">Docs</a></li>
+        <li role="menuitem"><a href="/pricing/" rel="internal">Pricing</a></li>
+        <li role="menuitem"><a href="/dashboard/" rel="internal">Dashboard</a></li>
+        <li role="menuitem"><a href="/blog/" rel="internal">Blog</a></li>
+        <li role="menuitem"><a href="/changelog/" rel="internal">Changelog</a></li>
+        <li role="menuitem"><a href="/roadmap/" rel="internal">Roadmap</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="btn-github" aria-label="GitHub Repository">
+          <svg role="img" aria-label="GitHub Logo" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <title>GitHub repository</title>
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+            <path d="M9 18c-4.51 2-5-2-7-2"></path>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="#quickstart" class="btn-pill-primary">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main role="main">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section" aria-labelledby="hero-heading">
+      <div class="hero-glow" aria-hidden="true"></div>
+
+      <!-- Center Hero Content -->
+      <div class="hero-content">
+        <a href="/blog/serpapi-alternative/" class="live-pill" role="status" title="Read SerpAPI comparison benchmark">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span class="live-label">LIVE v0.2.8</span>
+          <span style="color:rgba(255,255,255,0.2);">|</span>
+          <span class="live-text">The Free, Open Source SerpAPI Alternative</span>
+          <span class="live-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <!-- Single Strict H1 for SEO with visually hidden primary keyword -->
+        <h1 id="hero-heading" class="hero-headline">
+          <span class="visually-hidden">Jiro — Open Source Search API &amp; SerpAPI Alternative</span>
+          <span aria-hidden="true">Search intelligence, reimagined for <span class="gold">builders</span></span>
+        </h1>
+
+        <p class="hero-subheadline">
+          Local-first, AI-native web search and social scraping API. 9 search engines with auto-fallback, 12 social platforms, and 17 MCP tools. Zero monthly subscriptions or API keys required.
+        </p>
+
+        <div class="hero-cta-group">
+          <div class="install-pill-box" id="hero-install-box">
+            <span class="install-pill-prefix">$</span>
+            <code class="install-pill-cmd" id="hero-cmd-text">pip install jirosearch</code>
+            <button class="install-copy-btn" id="hero-copy-btn" aria-label="Copy install command" title="Copy to clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+
+          <a href="#quickstart" class="btn-primary-hero">
+            <span>Start Self-Hosting</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+
+          <a href="/blog/" class="btn-secondary-hero">
+            <span>Engineering Blog</span>
+          </a>
+        </div>
+
+        <!-- Ecosystem trust chips -->
+        <div class="hero-integrations-bar" aria-label="Compatible tools and frameworks">
+          <span style="color:rgba(255,255,255,0.35);">Built for &amp; compatible with:</span>
+          <span class="tech-tag"><span style="color:var(--gold-light);">✦</span> Claude Desktop (MCP)</span>
+          <span class="tech-tag"><span style="color:var(--gold-light);">✦</span> Cursor IDE</span>
+          <span class="tech-tag"><span style="color:var(--gold-light);">✦</span> LangChain &amp; LlamaIndex</span>
+          <span class="tech-tag"><span style="color:var(--gold-light);">✦</span> FastAPI</span>
+          <span class="tech-tag"><span style="color:var(--gold-light);">✦</span> Docker</span>
+        </div>
+
+        <!-- HERO INTERACTIVE DEVELOPER CONSOLE / WORKBENCH -->
+        <div class="hero-console" id="hero-console" aria-label="Interactive Developer Console">
+          <div class="console-header">
+            <div class="console-dots" aria-hidden="true">
+              <span class="console-dot close"></span>
+              <span class="console-dot min"></span>
+              <span class="console-dot max"></span>
+            </div>
+
+            <div class="console-tabs" role="tablist" aria-label="Jiro capabilities tabs">
+              <button class="console-tab active" role="tab" id="tab-search" aria-selected="true" data-tab="search">
+                <span>⚡</span> <span>Search SERP</span>
+              </button>
+              <button class="console-tab" role="tab" id="tab-mcp" aria-selected="false" data-tab="mcp">
+                <span>🤖</span> <span>Claude MCP</span>
+              </button>
+              <button class="console-tab" role="tab" id="tab-social" aria-selected="false" data-tab="social">
+                <span>📱</span> <span>Social Scraper</span>
+              </button>
+              <button class="console-tab" role="tab" id="tab-synthesis" aria-selected="false" data-tab="synthesis">
+                <span>🧠</span> <span>AI Synthesis</span>
+              </button>
+            </div>
+
+            <div class="console-status-pill">
+              <span class="live-dot" style="width:6px;height:6px;" aria-hidden="true"></span>
+              <span>9 engines active</span>
+            </div>
+          </div>
+
+          <div class="console-body">
+            <!-- Left Pane: Code execution snippet -->
+            <div class="console-code-pane">
+              <div>
+                <div class="console-code-header">
+                  <span id="console-code-title">search_example.py</span>
+                  <span style="color:var(--gold-light); cursor:pointer;" id="copy-code-btn" title="Copy code">Copy Code</span>
+                </div>
+                <pre class="console-code-pre" id="console-code-block"><code class="language-python"><span class="code-kw">import</span> jiro
+
+client = jiro.<span class="code-fn">Client</span>()
+results = client.<span class="code-fn">search</span>(
+    query=<span class="code-str">"autonomous agents 2026"</span>,
+    engine=<span class="code-str">"auto"</span>,  <span class="code-comment"># Auto-fallback 9 engines</span>
+    limit=<span class="code-num">5</span>,
+    intent=<span class="code-str">"research"</span>
+)
+<span class="code-kw">print</span>(results.citations[<span class="code-num">0</span>].title)</code></pre>
+              </div>
+              <div style="margin-top:16px; font-family:var(--font-code); font-size:11px; color:rgba(255,255,255,0.4);">
+                $ jiro serve &bull; port :8000 &bull; 0 API keys consumed
+              </div>
+            </div>
+
+            <!-- Right Pane: Interactive Live Output Preview -->
+            <div class="console-output-pane">
+              <div>
+                <div class="console-output-header">
+                  <span>LIVE SERP RESPONSE</span>
+                  <span style="color:#62c073;" id="console-latency-badge">18ms • Google SERP</span>
+                </div>
+
+                <div class="console-query-bar">
+                  <span style="color:var(--gold-light);">&#x203A;</span>
+                  <input type="text" class="console-query-input" id="console-query-input" value="autonomous agents 2026" placeholder="Type test query..." aria-label="Interactive test query" />
+                  <button type="button" class="console-query-run" id="console-query-run">RUN</button>
+                </div>
+
+                <div class="console-result-card" id="console-result-card">
+                  <div style="margin-bottom:6px;">
+                    <span class="result-badge engine" id="badge-engine">GOOGLE SERP</span>
+                    <span class="result-badge intent" id="badge-intent">INTENT: RESEARCH</span>
+                    <span class="result-badge latency" id="badge-latency">0.03ms ROUTE</span>
+                  </div>
+                  <div style="color:#fff; font-weight:600; margin-bottom:4px;" id="result-item-title">Autonomous Agent Architectures in 2026: Benchmark</div>
+                  <div style="color:rgba(255,255,255,0.55); font-size:11px; margin-bottom:6px;" id="result-item-snippet">Comparative evaluation of multi-agent orchestration, tool routing, and memory indexing across local and cloud environments...</div>
+                  <div style="color:var(--gold-light); font-size:10px;" id="result-item-url">https://arxiv.org/abs/2603.14920 &bull; verified 100%</div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px; font-family:var(--font-code); font-size:10px; color:rgba(255,255,255,0.4); display:flex; justify-content:space-between;">
+                <span>Fallback: DuckDuckGo &bull; Brave &bull; Bing</span>
+                <span style="color:#62c073;">✓ 0 Keys Consumed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <section id="stats" class="stats-strip" aria-label="Key metrics">
+      <h2 class="visually-hidden">Key Metrics</h2>
+      <div class="container">
+        <dl class="stats-dl">
+          <div class="stat-pair">
+            <dt class="stat-dt">9</dt>
+            <dd class="stat-dd">Search Engines</dd>
+          </div>
+          <div class="stat-pair">
+            <dt class="stat-dt">12</dt>
+            <dd class="stat-dd">Social Platforms</dd>
+          </div>
+          <div class="stat-pair">
+            <dt class="stat-dt">17</dt>
+            <dd class="stat-dd">MCP Tools</dd>
+          </div>
+          <div class="stat-pair">
+            <dt class="stat-dt">16</dt>
+            <dd class="stat-dd">Intent Types</dd>
+          </div>
+          <div class="stat-pair">
+            <dt class="stat-dt">5</dt>
+            <dd class="stat-dd">Plugin Types</dd>
+          </div>
+          <div class="stat-pair">
+            <dt class="stat-dt">494</dt>
+            <dd class="stat-dd">Tests Passing</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- FEATURES SECTION (10 Feature Articles) -->
+    <section id="features" class="section-wrapper" aria-labelledby="features-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="features-heading" class="section-title">Everything you need to <span class="gold">build search</span></h2>
+          <p class="section-subtitle">A complete search intelligence platform in one pip install.</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- 1. Hybrid Search -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Hybrid search icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Hybrid Search — keyword, semantic, and SERP signals combined</title>
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <path d="M11 8a3 3 0 0 0-3 3"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Hybrid Search</h3>
+            <p class="feature-desc">Keyword, semantic, and SERP signals fused with cross-encoder reranking. 80MB model runs on CPU.</p>
+          </article>
+
+          <!-- 2. Universal Scraper -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Universal scraper icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Universal Scraper — any URL to markdown, text, or JSON</title>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <polyline points="9 15 12 18 15 15"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Universal Scraper</h3>
+            <p class="feature-desc">Any URL to markdown, text, or JSON. Readability extraction, OpenGraph, Twitter Cards, JSON-LD metadata.</p>
+          </article>
+
+          <!-- 3. 12 Social Platforms -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Social media scraper network icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>12 Social Media Scrapers — unified normalized schema</title>
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">12 Social Platforms</h3>
+            <p class="feature-desc">Twitter, Instagram, Reddit, TikTok, YouTube, LinkedIn, Facebook, Telegram, Pinterest, HN, Bluesky, Threads. One API, normalized schema.</p>
+          </article>
+
+          <!-- 4. AI Synthesis -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="AI extractive synthesis icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>AI Synthesis — extractive answers with citations in 0.03ms</title>
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">AI Synthesis</h3>
+            <p class="feature-desc">Plan, search, scrape, synthesize with citations. Works with zero LLM API keys using extractive fallback at 0.03ms.</p>
+          </article>
+
+          <!-- 5. Smart Routing -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Smart routing classifier icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Smart Routing — 16 intent types classified under 1ms</title>
+                <line x1="6" y1="3" x2="6" y2="15"></line>
+                <circle cx="18" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+                <path d="M18 9a9 9 0 0 1-9 9"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Smart Routing</h3>
+            <p class="feature-desc">16 intent types classified in under 1ms. Natural language in, correct action out. No LLM needed.</p>
+          </article>
+
+          <!-- 6. Structured Extraction -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="JSON Schema extraction icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Structured Extraction — typed JSON data from search results</title>
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Structured Extraction</h3>
+            <p class="feature-desc">Define a JSON schema, get typed data back from any search. No more brittle regex parsing.</p>
+          </article>
+
+          <!-- 7. Plugin System -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Plugin modular system icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Plugin System — 5 plugin types and 6 built-in engine extensions</title>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Plugin System</h3>
+            <p class="feature-desc">5 plugin types: engine, search, datasource, extractor, social. 6 engine plugins included: Scholar, arXiv, GitHub, Wikipedia, HN, Reddit.</p>
+          </article>
+
+          <!-- 8. MCP Server -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="MCP server protocol icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>MCP Server — Model Context Protocol with 17 tools</title>
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="feature-title">MCP Server</h3>
+            <p class="feature-desc">Built-in MCP server with 17 tools. Works with Claude Desktop, Cursor, Continue.dev. stdio, HTTP, and SSE transports.</p>
+          </article>
+
+          <!-- 9. Compliance Layer -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Compliance shield security icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Compliance Layer — robots.txt, ToS tracking, SSRF protection</title>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Compliance Layer</h3>
+            <p class="feature-desc">robots.txt parsing, ToS tracking, SSRF protection, audit logging. Auth enabled by default since v0.2.1.</p>
+          </article>
+
+          <!-- 10. Production Ready -->
+          <article class="feature-card">
+            <div class="feature-icon-box">
+              <svg role="img" aria-label="Production ready server infrastructure icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Production Ready — Docker, Helm chart, OpenAPI 3.1, Prometheus</title>
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">Production Ready</h3>
+            <p class="feature-desc">Docker, Kubernetes Helm chart, OpenAPI 3.1, SDK generation (Python, TS, Go), Prometheus metrics, structured logging.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PLATFORMS SHOWCASE -->
+    <section id="social" class="section-wrapper" style="background: rgba(255,255,255,0.01);" aria-labelledby="social-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="social-heading" class="section-title">Twelve platforms. <span class="gold">One API.</span></h2>
+          <p class="section-subtitle">Drop any social URL. Jiro auto-detects the platform and returns normalized data — author, content, engagement, media, hashtags.</p>
+        </div>
+
+        <div class="social-grid">
+          <div class="social-card">
+            <span class="social-name">Twitter / X</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Instagram</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Reddit</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">TikTok</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">YouTube</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">LinkedIn</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Facebook</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Telegram</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Pinterest</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Hacker News</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Bluesky</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+          <div class="social-card">
+            <span class="social-name">Threads</span>
+            <span class="social-tag">auto-detected</span>
+          </div>
+        </div>
+
+        <div class="code-box" style="max-width: 820px;">
+          <div class="code-header">
+            <div class="traffic-dots">
+              <span class="traffic-dot traffic-dot-1"></span>
+              <span class="traffic-dot traffic-dot-2"></span>
+              <span class="traffic-dot traffic-dot-3"></span>
+            </div>
+            <span class="code-title">social_scrape.sh</span>
+            <span class="code-badge">curl</span>
+          </div>
+          <div class="code-content"># Scrape any social media URL — auto-detected, normalized
+curl -X POST http://localhost:8000/v1/social \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://reddit.com/r/programming/comments/abc123"}'</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MCP INTEGRATION SECTION -->
+    <section id="mcp" class="section-wrapper" aria-labelledby="mcp-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="mcp-heading" class="section-title">Give your AI agent <span class="gold">the entire web.</span></h2>
+          <p class="section-subtitle">Connect Claude Desktop, Cursor, Continue.dev, or autonomous LLM agents to 17 high-performance web intelligence tools.</p>
+        </div>
+
+        <div class="mcp-container">
+          <div class="mcp-desc-card">
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #ffffff;">Model Context Protocol Server</h3>
+            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px;">
+              Jiro includes a built-in MCP server exposed through stdio, Streamable HTTP, and SSE transports. Add it to Claude Desktop in one JSON block and let your models conduct web searches, parse social posts, and synthesize knowledge without third-party subscriptions.
+            </p>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="traffic-dots">
+                  <span class="traffic-dot traffic-dot-1"></span>
+                  <span class="traffic-dot traffic-dot-2"></span>
+                  <span class="traffic-dot traffic-dot-3"></span>
+                </div>
+                <span class="code-title">claude_desktop_config.json</span>
+                <span class="code-badge">MCP</span>
+              </div>
+              <div class="code-content">{
+  "mcpServers": {
+    "jiro": {
+      "command": "jiro",
+      "args": ["mcp"]
+    }
+  }
+}</div>
+            </div>
+          </div>
+
+          <div class="mcp-tools-wrapper">
+            <div class="mcp-category">
+              <div class="mcp-category-title">Search Intelligence Tools</div>
+              <div class="mcp-pills-list">
+                <span class="mcp-tool-pill">search</span>
+                <span class="mcp-tool-pill">search_hybrid</span>
+                <span class="mcp-tool-pill">search_structured</span>
+                <span class="mcp-tool-pill">compare_engines</span>
+              </div>
+            </div>
+
+            <div class="mcp-category">
+              <div class="mcp-category-title">Universal &amp; Social Scrape Tools</div>
+              <div class="mcp-pills-list">
+                <span class="mcp-tool-pill">scrape</span>
+                <span class="mcp-tool-pill">social_scrape</span>
+                <span class="mcp-tool-pill">social_search</span>
+                <span class="mcp-tool-pill">social_batch</span>
+              </div>
+            </div>
+
+            <div class="mcp-category">
+              <div class="mcp-category-title">AI Reasoning &amp; Routing</div>
+              <div class="mcp-pills-list">
+                <span class="mcp-tool-pill">ai_search</span>
+                <span class="mcp-tool-pill">smart_search</span>
+                <span class="mcp-tool-pill">smart_classify</span>
+              </div>
+            </div>
+
+            <div class="mcp-category">
+              <div class="mcp-category-title">System &amp; Engine Status</div>
+              <div class="mcp-pills-list">
+                <span class="mcp-tool-pill">monitor_status</span>
+                <span class="mcp-tool-pill">health_check</span>
+                <span class="mcp-tool-pill">cache_stats</span>
+                <span class="mcp-tool-pill">list_engines</span>
+                <span class="mcp-tool-pill">list_social_platforms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK START SECTION -->
+    <section id="quickstart" class="section-wrapper" style="background: rgba(255,255,255,0.015);" aria-labelledby="quickstart-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="quickstart-heading" class="section-title">Start in <span class="gold">30 seconds.</span></h2>
+          <p class="section-subtitle">Install with pip and deploy an instant search API or agent context server.</p>
+        </div>
+
+        <div class="code-box" style="max-width: 900px;">
+          <div class="code-header">
+            <div class="traffic-dots">
+              <span class="traffic-dot traffic-dot-1"></span>
+              <span class="traffic-dot traffic-dot-2"></span>
+              <span class="traffic-dot traffic-dot-3"></span>
+            </div>
+            <span class="code-title">terminal — bash</span>
+            <span class="code-badge">python 3.11+</span>
+          </div>
+          <div class="code-content"># 1. Install Jiro via pip
+pip install jirosearch
+
+# 2. Start the FastAPI search &amp; scraping server on :8000
+jiro serve
+
+# 3. Query 9 search engines with auto fallback
+curl "http://localhost:8000/search.json?engine=auto&amp;q=python+web+scraping&amp;num=5"
+
+# 4. Ask a question with citations (extractive synthesis, zero LLM keys required)
+curl -X POST http://localhost:8000/ai/search \
+  -H "Content-Type: application/json" \
+  -d '{"query":"best Python scraping library","max_sources":5}'
+
+# 5. Smart intent routing — natural language in, right action executed
+curl -X POST http://localhost:8000/v1/smart \
+  -H "Content-Type: application/json" \
+  -d '{"query":"@elonmusk latest tweets"}'</div>
+        </div>
+
+        <div class="modes-grid" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+          <div class="mode-card">
+            <div class="mode-title">
+              <span>API Server</span>
+              <code class="mode-cmd">jiro serve</code>
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">FastAPI server on :8000 with OpenAPI 3.1 docs, Swagger UI, and auth.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-title">
+              <span>Dashboard</span>
+              <code class="mode-cmd">jiro dashboard</code>
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Web UI dashboard on :3000 to test queries, inspect engines, and view logs.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-title">
+              <span>MCP Server</span>
+              <code class="mode-cmd">jiro mcp</code>
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Model Context Protocol server for Claude Desktop, Cursor, and AI agents.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON TABLE SECTION -->
+    <section id="comparison" class="section-wrapper" aria-labelledby="comparison-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="comparison-heading" class="section-title">Replace your <span class="gold">entire search stack.</span></h2>
+          <p class="section-subtitle">Consolidate expensive fragmented API subscriptions into one self-hosted binary with predictable zero-cost execution.</p>
+        </div>
+
+        <div class="table-container" style="max-width: 1040px; margin: 0 auto;">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Service</th>
+                <th scope="col">Jiro Equivalent</th>
+                <th scope="col">You Save</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-service">
+                  SerpAPI
+                  <span>$75–$500/mo billed</span>
+                </td>
+                <td>9-engine search API with automatic fallback, circuit breakers, and semantic caching</td>
+                <td class="table-saved">$75–500/mo</td>
+              </tr>
+              <tr>
+                <td class="table-service">
+                  Apify
+                  <span>$49+/mo actor runs</span>
+                </td>
+                <td>12 social scrapers with unified normalized schema, engagement metrics, and media extraction</td>
+                <td class="table-saved">$49+/mo</td>
+              </tr>
+              <tr>
+                <td class="table-service">
+                  Tavily
+                  <span>$30+/mo query quota</span>
+                </td>
+                <td>Extractive AI synthesis with citations and built-in 17-tool MCP server</td>
+                <td class="table-saved">$30+/mo</td>
+              </tr>
+              <tr>
+                <td class="table-service">
+                  ScraperAPI
+                  <span>Usage &amp; concurrency bills</span>
+                </td>
+                <td>Universal scraper with proxy support, readability detection, and custom extraction recipes</td>
+                <td class="table-saved">Variable</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="section-wrapper" aria-labelledby="pricing-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="pricing-heading" class="section-title">Open source, <span class="gold">forever.</span></h2>
+          <p class="section-subtitle">Self-host for free. Or let us handle the infrastructure, residential proxies, and compliance.</p>
+        </div>
+
+        <div class="pricing-controls">
+          <input type="checkbox" id="billing-toggle" class="billing-toggle-input" aria-label="Toggle Annual Billing" />
+          <label for="billing-toggle" class="billing-toggle">
+            <span class="toggle-option monthly">Monthly</span>
+            <span class="toggle-option annual">Annual (save 20%)</span>
+          </label>
+        </div>
+
+        <div class="pricing-grid" style="max-width: 1120px; margin: 0 auto;">
+          <div class="pricing-card">
+            <h3 style="font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px;">Open Source</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; min-height: 40px;">Self-host everything on your own servers. MIT licensed.</p>
+            <div style="margin: 20px 0 10px;">
+              <span class="tier-price">$0</span>
+              <span style="font-size: 14px; color: var(--text-tertiary);">/mo</span>
+            </div>
+            <div style="font-size: 11px; font-family: var(--font-code); color: var(--gold-base); margin-bottom: 16px;">
+              10 RPM &bull; 100 RPD
+            </div>
+            <ul class="tier-features-list">
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>All 9 search engines with auto fallback</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>12 social media scrapers normalized</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Built-in MCP server (17 tools)</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Extractive AI synthesis (0 LLM keys)</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Docker &amp; Helm charts included</span>
+              </li>
+            </ul>
+            <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="btn-tier btn-tier-ghost">View on GitHub</a>
+          </div>
+
+          <div class="pricing-card pro-tier">
+            <span class="popular-badge">Most Popular</span>
+            <h3 style="font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px;">Pro</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; min-height: 40px;">Managed cloud infrastructure with global residential proxies and CAPTCHA solving.</p>
+            <div style="margin: 20px 0 10px;">
+              <span class="tier-price price-monthly">$99</span>
+              <span class="tier-price price-annual">$79</span>
+              <span style="font-size: 14px; color: var(--text-tertiary);">/mo</span>
+            </div>
+            <div style="font-size: 11px; font-family: var(--font-code); color: var(--gold-base); margin-bottom: 16px;">
+              300 RPM &bull; 50,000 RPD
+            </div>
+            <ul class="tier-features-list">
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Everything in Open Source, plus:</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Global residential proxy pool &amp; rotation</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Automated CAPTCHA bypass engine</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Semantic cache &amp; scheduled monitors</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>AEO tracking, webhooks &amp; priority email SLA</span>
+              </li>
+            </ul>
+            <a href="#quickstart" class="btn-tier btn-tier-solid">Start Free Trial</a>
+          </div>
+
+          <div class="pricing-card">
+            <h3 style="font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px;">Enterprise</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; min-height: 40px;">Custom models, dedicated cloud hardware, and custom legal SLAs.</p>
+            <div style="margin: 20px 0 10px;">
+              <span class="tier-price price-monthly">$499</span>
+              <span class="tier-price price-annual">$399</span>
+              <span style="font-size: 14px; color: var(--text-tertiary);">/mo</span>
+            </div>
+            <div style="font-size: 11px; font-family: var(--font-code); color: var(--gold-base); margin-bottom: 16px;">
+              1,000 RPM &bull; 500,000 RPD
+            </div>
+            <ul class="tier-features-list">
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Everything in Pro, plus:</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Custom fine-tuned embedding models</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Dedicated private proxy pool &amp; IP pinning</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Audit log export &amp; SAML / SSO auth</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>99.9% uptime SLA with dedicated engineer</span>
+              </li>
+            </ul>
+            <a href="mailto:contact@blackvault.tech" class="btn-tier btn-tier-ghost">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FROM THE BLOG SECTION (Internal linking strategy) -->
+    <section id="blog-preview" class="section-wrapper" style="background: rgba(255,255,255,0.01);" aria-labelledby="blog-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="blog-heading" class="section-title">From the <span class="gold">blog</span></h2>
+          <p class="section-subtitle">Deep dives, benchmarks, and technical guides from the Jiro engineering team.</p>
+        </div>
+
+        <div class="blog-preview-grid">
+          <article class="blog-card">
+            <span class="blog-card-category">Comparisons</span>
+            <h3 class="blog-card-title">The Free SerpAPI Alternative: How Jiro Compares in 2026</h3>
+            <p class="blog-card-excerpt">Explore how Jiro replaces SerpAPI with 9 search engines, automatic circuit breakers, zero per-query fees, and full self-hosting freedom.</p>
+            <a href="/blog/serpapi-alternative/" class="blog-card-link">
+              <span>Read article</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <span class="blog-card-category">MCP &amp; Agents</span>
+            <h3 class="blog-card-title">How to Give Claude Desktop Web Search with an MCP Server</h3>
+            <p class="blog-card-excerpt">A step-by-step setup guide for connecting Claude Desktop to Jiro's 17 MCP tools across stdio and SSE transport protocols.</p>
+            <a href="/blog/mcp-server-guide/" class="blog-card-link">
+              <span>Read article</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <span class="blog-card-category">Social Scraping</span>
+            <h3 class="blog-card-title">Scraping 12 Social Platforms with One Python API (No API Keys)</h3>
+            <p class="blog-card-excerpt">Extract normalized posts, authors, engagement metrics, and media URLs across Reddit, Twitter, TikTok, and Instagram with zero tokens.</p>
+            <a href="/blog/social-media-scraping/" class="blog-card-link">
+              <span>Read article</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <span class="blog-card-category">Architecture</span>
+            <h3 class="blog-card-title">Hybrid Search Explained: Keyword + Semantic + SERP in One API</h3>
+            <p class="blog-card-excerpt">Learn how Reciprocal Rank Fusion (RRF) and an 80MB quantized CPU cross-encoder deliver 98.4% retrieval accuracy with zero GPU dependencies.</p>
+            <a href="/blog/hybrid-search-explained/" class="blog-card-link">
+              <span>Read article</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <span class="blog-card-category">Comparisons</span>
+            <h3 class="blog-card-title">The Free Tavily Alternative: AI Search API Comparison</h3>
+            <p class="blog-card-excerpt">Detailed comparison of Tavily and Jiro for LLM research agents, LangChain tooling, per-query pricing, and air-gapped local execution.</p>
+            <a href="/blog/tavily-alternative/" class="blog-card-link">
+              <span>Read article</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <span class="blog-card-category">Tutorials</span>
+            <h3 class="blog-card-title">Python Web Scraping in 2026: The Complete Developer Guide</h3>
+            <p class="blog-card-excerpt">Master modern web scraping patterns: HTTP/2 multiplexing, TLS fingerprint impersonation, resilient proxy rotation, and anti-ban heuristics.</p>
+            <a href="/blog/python-web-scraping-2026/" class="blog-card-link">
+              <span>Read article</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: 48px;">
+          <a href="/blog/" class="btn-primary-hero" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; font-size: 13px;">
+            <span>Browse All 24 Engineering Articles &amp; Benchmarks</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FREQUENTLY ASKED QUESTIONS SECTION (AEO & Featured Snippets) -->
+    <section id="faq" class="section-wrapper" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="faq-heading" class="section-title">Frequently asked <span class="gold">questions</span></h2>
+          <p class="section-subtitle">Everything you need to know about licensing, performance, architecture, and compliance.</p>
+        </div>
+
+        <div class="faq-wrapper">
+          <details class="faq-details">
+            <summary class="faq-summary">What is Jiro Search?</summary>
+            <div class="faq-answer">
+              <p>Jiro Search is an open-source, MIT-licensed, self-hosted search API that provides web search across 9 engines, social media scraping for 12 platforms, AI synthesis with citations, and a built-in MCP server for AI agents. It is a free alternative to SerpAPI, Apify, and Tavily.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">Is Jiro Search free?</summary>
+            <div class="faq-answer">
+              <p>Yes. Jiro is MIT licensed and free to self-host. Install with <code>pip install jirosearch</code> and run it locally with no API keys required. A managed Pro tier starts at $29/month for residential proxies, CAPTCHA solving, and AEO tracking.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">How does Jiro compare to SerpAPI?</summary>
+            <div class="faq-answer">
+              <p>Jiro is self-hosted and MIT licensed; SerpAPI is a paid cloud service. Jiro supports 9 search engines with automatic fallback, 12 social media scrapers, an MCP server, hybrid search with semantic reranking, and AI synthesis. SerpAPI costs $75-500/month; Jiro is free.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">What search engines does Jiro support?</summary>
+            <div class="faq-answer">
+              <p>Jiro supports 9 search engines: Google, Bing, DuckDuckGo, Brave, YouTube, Amazon, eBay, Yandex, and Baidu — with automatic fallback and circuit breakers. It also includes 6 plugin engines: Google Scholar, arXiv, GitHub, Wikipedia, Hacker News, and Reddit.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">Does Jiro work with Claude Desktop and MCP?</summary>
+            <div class="faq-answer">
+              <p>Yes. Jiro includes a built-in MCP server with 17 tools. It works with Claude Desktop, Cursor, and any MCP-compatible agent. Add <code>{"mcpServers":{"jiro":{"command":"jiro","args":["mcp"]}}}</code> to your Claude config. Supports stdio, HTTP, and SSE transports.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">Can Jiro scrape social media without API keys?</summary>
+            <div class="faq-answer">
+              <p>Yes. Jiro scrapes 12 social platforms using public endpoints and HTML parsing, not official APIs. No API keys required. Each platform has fallback chains — for example, Twitter uses FxTwitter, then Nitter, then Playwright as a browser fallback.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">Does Jiro require an LLM API key for AI synthesis?</summary>
+            <div class="faq-answer">
+              <p>No. Jiro includes extractive synthesis that works with zero LLM API keys. It summarizes answers from search results with citations in 0.03ms. If you provide an OpenAI or Anthropic key, it uses the LLM for higher quality, but it is not required.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">What is Jiro's hybrid search?</summary>
+            <div class="faq-answer">
+              <p>Jiro's hybrid search combines keyword matching, semantic vector similarity, and SERP signals into one ranked result set. It uses Reciprocal Rank Fusion and a cross-encoder reranker with an 80MB embedding model that runs on CPU — no GPU required.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">How do I install Jiro Search?</summary>
+            <div class="faq-answer">
+              <p>Install with <code>pip install jirosearch</code>. Start the API server with <code>jiro serve</code> (available at http://localhost:8000 with docs at /docs). For MCP, run <code>jiro mcp</code>. Docker: <code>docker-compose up -d</code>.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">What license does Jiro use?</summary>
+            <div class="faq-answer">
+              <p>Jiro uses the MIT license — commercial use, modification, distribution, and private use with no restrictions. Unlike AGPL-licensed projects like Firecrawl, you do not need to open-source your own product when using Jiro.</p>
+            </div>
+          </details>
+
+          <details class="faq-details">
+            <summary class="faq-summary">Is Jiro production ready?</summary>
+            <div class="faq-answer">
+              <p>Jiro includes Docker, Kubernetes Helm chart, OpenAPI 3.1 spec, SDK generation (Python/TypeScript/Go), Prometheus metrics, structured logging, SQLite and PostgreSQL backends, Redis rate limiting, SSRF protection, robots.txt compliance, and audit logging. 494 tests.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer-grid">
+      <div>
+        <span style="font-family:var(--font-display); font-size:26px; font-weight:700; font-style:italic; color:#fff;">Jiro</span>
+        <p style="font-size:14px; font-weight:300; color:var(--text-tertiary); max-width:240px; margin-top:14px; line-height:1.6;">
+          Local-first search intelligence.
+        </p>
+        <div style="font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(167, 139, 113, 0.1); border: 1px solid rgba(167, 139, 113, 0.2); border-radius: 999px; padding: 4px 10px; display: inline-block; margin-top: 14px;">
+          MIT Licensed &bull; Controlled
+        </div>
+      </div>
+
+      <nav aria-label="Product links">
+        <h3 class="footer-col-title">PRODUCT</h3>
+        <ul class="footer-links">
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+          <li><a href="/dashboard/">Dashboard</a></li>
+          <li><a href="/changelog/">Changelog</a></li>
+          <li><a href="/roadmap/">Roadmap</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Developer links">
+        <h3 class="footer-col-title">DEVELOPERS</h3>
+        <ul class="footer-links">
+          <li><a href="/docs/">Documentation</a></li>
+          <li><a href="/blog/mcp-server-guide/">MCP Guide</a></li>
+          <li><a href="/blog/">Engineering Blog (24 Guides)</a></li>
+          <li><a href="/blog/serpapi-alternative/">SerpAPI Alternative</a></li>
+          <li><a href="/blog/tavily-alternative/">Tavily Alternative</a></li>
+          <li><a href="/blog/hybrid-search-explained/">Hybrid Search</a></li>
+          <li><a href="/blog/feed.xml">RSS XML Feed</a></li>
+          <li><a href="/sitemap.xml">XML Sitemap</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Community links">
+        <h3 class="footer-col-title">COMMUNITY</h3>
+        <ul class="footer-links">
+          <li><a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://discord.gg/jiro" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/issues" target="_blank" rel="noopener">Issues</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/discussions" target="_blank" rel="noopener">Discussions</a></li>
+          <li><a href="/contributing/">Contributing</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Legal links">
+        <h3 class="footer-col-title">LEGAL</h3>
+        <ul class="footer-links">
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/acceptable-use/">Acceptable Use</a></li>
+          <li><a href="/license/">MIT License</a></li>
+          <li><a href="/security/">Security &amp; Disclosure</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Jiro Search. MIT Licensed. Built by Blackvault Technology.</div>
+      <div style="font-family:var(--font-code); color:var(--text-tertiary);">v0.2.8</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Quick Install Copy
+      const copyBtn = document.getElementById('hero-copy-btn');
+      const installBox = document.getElementById('hero-install-box');
+      const cmdText = document.getElementById('hero-cmd-text');
+
+      function triggerInstallCopy() {
+        const text = cmdText ? cmdText.innerText.trim() : 'pip install jirosearch';
+        navigator.clipboard.writeText(text).then(() => {
+          if (copyBtn) {
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#62c073" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            copyBtn.style.borderColor = 'rgba(98, 192, 115, 0.6)';
+            setTimeout(() => {
+              copyBtn.innerHTML = originalHTML;
+              copyBtn.style.borderColor = '';
+            }, 2000);
+          }
+        }).catch(() => {});
+      }
+
+      if (copyBtn) copyBtn.addEventListener('click', (e) => { e.stopPropagation(); triggerInstallCopy(); });
+      if (installBox) installBox.addEventListener('click', triggerInstallCopy);
+
+      // 2. Developer Console Tabs & Data
+      const tabs = document.querySelectorAll('.console-tab');
+      const codeTitle = document.getElementById('console-code-title');
+      const codeBlock = document.getElementById('console-code-block');
+      const latencyBadge = document.getElementById('console-latency-badge');
+      const queryInput = document.getElementById('console-query-input');
+      const queryRun = document.getElementById('console-query-run');
+      const badgeEngine = document.getElementById('badge-engine');
+      const badgeIntent = document.getElementById('badge-intent');
+      const badgeLatency = document.getElementById('badge-latency');
+      const itemTitle = document.getElementById('result-item-title');
+      const itemSnippet = document.getElementById('result-item-snippet');
+      const itemUrl = document.getElementById('result-item-url');
+      const copyCodeBtn = document.getElementById('copy-code-btn');
+
+      const tabData = {
+        search: {
+          file: 'search_example.py',
+          code: `<span class="code-kw">import</span> jiro
+
+client = jiro.<span class="code-fn">Client</span>()
+results = client.<span class="code-fn">search</span>(
+    query=<span class="code-str">"autonomous agents 2026"</span>,
+    engine=<span class="code-str">"auto"</span>,  <span class="code-comment"># Fallback across 9 engines</span>
+    limit=<span class="code-num">5</span>,
+    intent=<span class="code-str">"research"</span>
+)
+<span class="code-kw">print</span>(results.citations[<span class="code-num">0</span>].title)`,
+          plainCode: `import jiro\n\nclient = jiro.Client()\nresults = client.search(\n    query="autonomous agents 2026",\n    engine="auto",\n    limit=5,\n    intent="research"\n)\nprint(results.citations[0].title)`,
+          latency: '18ms • Google SERP',
+          placeholder: 'autonomous agents 2026',
+          badgeEngine: 'GOOGLE SERP',
+          badgeIntent: 'INTENT: RESEARCH',
+          badgeLatency: '0.03ms ROUTE',
+          title: 'Autonomous Agent Architectures in 2026: Benchmark',
+          snippet: 'Comparative evaluation of multi-agent orchestration, tool routing, and memory indexing across local and cloud environments...',
+          url: 'https://arxiv.org/abs/2603.14920 • verified 100%'
+        },
+        mcp: {
+          file: 'claude_desktop_config.json',
+          code: `{
+  <span class="code-key">"mcpServers"</span>: {
+    <span class="code-key">"jiro"</span>: {
+      <span class="code-key">"command"</span>: <span class="code-str">"jiro"</span>,
+      <span class="code-key">"args"</span>: [<span class="code-str">"mcp"</span>],
+      <span class="code-key">"env"</span>: {
+        <span class="code-key">"JIRO_ENGINES"</span>: <span class="code-str">"google,brave,reddit"</span>
+      }
+    }
+  }
+}`,
+          plainCode: `{\n  "mcpServers": {\n    "jiro": {\n      "command": "jiro",\n      "args": ["mcp"],\n      "env": {\n        "JIRO_ENGINES": "google,brave,reddit"\n      }\n    }\n  }\n}`,
+          latency: '0.03ms • Stdio Protocol',
+          placeholder: 'claude search tool execution',
+          badgeEngine: 'MCP STDIO SERVER',
+          badgeIntent: '17 AGENT TOOLS',
+          badgeLatency: 'SUB-1MS IPC',
+          title: 'MCP Tool: jiro_search_web (query: "latest tech")',
+          snippet: 'Claude invoked tool [jiro_search_web]. Auto-switched to DuckDuckGo fallback without rate limits. Structured citation tree returned to LLM context.',
+          url: 'protocol://mcp.jiro.dev/tools/search • 17 tools ready'
+        },
+        social: {
+          file: 'social_scraper.py',
+          code: `<span class="code-kw">from</span> jiro.social <span class="code-kw">import</span> scrape_feed
+
+<span class="code-comment"># 12 platforms without official API keys</span>
+feed = <span class="code-fn">scrape_feed</span>(
+    platform=<span class="code-str">"reddit"</span>,
+    target=<span class="code-str">"r/MachineLearning"</span>,
+    limit=<span class="code-num">10</span>
+)
+<span class="code-kw">for</span> post <span class="code-kw">in</span> feed:
+    <span class="code-kw">print</span>(post.author, post.score, post.title)`,
+          plainCode: `from jiro.social import scrape_feed\n\nfeed = scrape_feed(\n    platform="reddit",\n    target="r/MachineLearning",\n    limit=10\n)\nfor post in feed:\n    print(post.author, post.score, post.title)`,
+          latency: '42ms • Reddit Scraper',
+          placeholder: 'reddit / twitter / youtube feed',
+          badgeEngine: 'REDDIT + X SCRAPER',
+          badgeIntent: 'INTENT: SOCIAL_FEED',
+          badgeLatency: 'ZERO API KEYS',
+          title: 'u/deep_learner: Breakthrough in CPU-only Embedding Models',
+          snippet: 'Detailed breakdown with benchmarks comparing 80MB cross-encoder rerankers against 7B parameter local models for real-time inference...',
+          url: 'https://reddit.com/r/MachineLearning/comments/18x9a • 482 upvotes'
+        },
+        synthesis: {
+          file: 'ai_synthesis.py',
+          code: `<span class="code-kw">import</span> jiro
+
+<span class="code-comment"># Zero LLM keys required — Extractive Instant Synthesis</span>
+answer = jiro.<span class="code-fn">synthesize</span>(
+    query=<span class="code-str">"what is reciprocal rank fusion?"</span>,
+    include_citations=<span class="code-kw">True</span>
+)
+<span class="code-kw">print</span>(answer.summary)
+<span class="code-kw">print</span>(answer.citations)  <span class="code-comment"># Grounded source URLs</span>`,
+          plainCode: `import jiro\n\nanswer = jiro.synthesize(\n    query="what is reciprocal rank fusion?",\n    include_citations=True\n)\nprint(answer.summary)\nprint(answer.citations)`,
+          latency: '0.03ms • Zero-Key AI',
+          placeholder: 'what is reciprocal rank fusion?',
+          badgeEngine: 'EXTRACTIVE AI',
+          badgeIntent: 'INTENT: EXPLAIN',
+          badgeLatency: '0.03ms SYNTHESIS',
+          title: 'Synthesized Answer [Verified across 3 sources]',
+          snippet: 'Reciprocal Rank Fusion (RRF) is an algorithmic method combining disparate ranking lists without score calibration: RRF_score(d) = sum(1 / (k + rank_i(d))). [1] [2]',
+          url: 'citations: [1] arxiv.org/abs/2401.034 [2] jiro.dev/docs • 100% verified'
+        }
+      };
+
+      let currentTab = 'search';
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+
+          const key = tab.getAttribute('data-tab');
+          currentTab = key;
+          const data = tabData[key];
+          if (!data) return;
+
+          if (codeTitle) codeTitle.innerText = data.file;
+          if (codeBlock) codeBlock.innerHTML = `<code class="language-python">${data.code}</code>`;
+          if (latencyBadge) latencyBadge.innerText = data.latency;
+          if (queryInput) queryInput.value = data.placeholder;
+          if (badgeEngine) badgeEngine.innerText = data.badgeEngine;
+          if (badgeIntent) badgeIntent.innerText = data.badgeIntent;
+          if (badgeLatency) badgeLatency.innerText = data.badgeLatency;
+          if (itemTitle) itemTitle.innerText = data.title;
+          if (itemSnippet) itemSnippet.innerText = data.snippet;
+          if (itemUrl) itemUrl.innerText = data.url;
+        });
+      });
+
+      // Query run trigger
+      function executeLiveSim() {
+        const query = queryInput ? queryInput.value.trim() : '';
+        if (!query) return;
+
+        if (queryRun) {
+          queryRun.innerText = 'WAIT...';
+          queryRun.style.opacity = '0.5';
+        }
+
+        setTimeout(() => {
+          if (queryRun) {
+            queryRun.innerText = 'RUN';
+            queryRun.style.opacity = '1';
+          }
+          if (itemTitle) itemTitle.innerText = `Result for: "${query}"`;
+          if (itemSnippet) itemSnippet.innerText = `Live extraction verified with 9-engine fallback. Intent classified with sub-millisecond heuristic. Extracted clean text, metadata, and citation anchors.`;
+          if (itemUrl) itemUrl.innerText = `https://jiro.dev/search?q=${encodeURIComponent(query)} • cached 0.04s`;
+        }, 300);
+      }
+
+      if (queryRun) queryRun.addEventListener('click', executeLiveSim);
+      if (queryInput) {
+        queryInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') executeLiveSim();
+        });
+      }
+
+      // Copy tab code
+      if (copyCodeBtn) {
+        copyCodeBtn.addEventListener('click', () => {
+          const data = tabData[currentTab];
+          if (!data) return;
+          navigator.clipboard.writeText(data.plainCode).then(() => {
+            const orig = copyCodeBtn.innerText;
+            copyCodeBtn.innerText = 'Copied!';
+            copyCodeBtn.style.color = '#62c073';
+            setTimeout(() => {
+              copyCodeBtn.innerText = orig;
+              copyCodeBtn.style.color = 'var(--gold-light)';
+            }, 1800);
+          }).catch(() => {});
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

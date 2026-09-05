@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Jiro Engineering Blog</title>
+  <link>https://jiro.dev/blog/</link>
+  <description>Technical guides on web search, scraping, MCP servers, and AI agent architectures.</description>
+  <language>en</language>
+  <lastBuildDate>Sat, 05 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <atom:link href="https://jiro.dev/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title><![CDATA[Powering Gemini & Claude CLI Agents with Local Search MCP]]></title>
+    <link>https://jiro.dev/blog/gemini-cli-agent-search/</link>
+    <guid>https://jiro.dev/blog/gemini-cli-agent-search/</guid>
+    <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Connect Google Gemini CLI, Claude Desktop, and autonomous terminal agents to 9 search engines via local Model Context Protocol (MCP) without commercial API keys.]]></description>
+    <category>MCP & Agents</category>
+  </item>
+  <item>
+    <title><![CDATA[Building a Zero-Token DuckDuckGo & Bing SERP Extractor in Python]]></title>
+    <link>https://jiro.dev/blog/self-hosted-duckduckgo-scraper/</link>
+    <guid>https://jiro.dev/blog/self-hosted-duckduckgo-scraper/</guid>
+    <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[How to build a high-concurrency, resilient SERP extraction engine for DuckDuckGo and Bing using Python, HTTP/2 multiplexing, and anti-ban header rotation.]]></description>
+    <category>Tutorials</category>
+  </item>
+  <item>
+    <title><![CDATA[The Free SerpAPI Alternative: How Jiro Compares in 2026]]></title>
+    <link>https://jiro.dev/blog/serpapi-alternative/</link>
+    <guid>https://jiro.dev/blog/serpapi-alternative/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Compare Jiro and SerpAPI on price, speed, privacy, and engine support. Learn how self-hosting gives you unlimited Google and Bing searches for $0.]]></description>
+    <category>Comparisons</category>
+  </item>
+  <item>
+    <title><![CDATA[The Free Tavily Alternative: AI Search API Comparison]]></title>
+    <link>https://jiro.dev/blog/tavily-alternative/</link>
+    <guid>https://jiro.dev/blog/tavily-alternative/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Tavily charges $0.008/search. Jiro gives you local AI search with 0-key extractive answers, 9 engines, and an MCP server for free. Full comparison.]]></description>
+    <category>Comparisons</category>
+  </item>
+  <item>
+    <title><![CDATA[How to Give Claude Desktop Web Search with an MCP Server]]></title>
+    <link>https://jiro.dev/blog/mcp-server-guide/</link>
+    <guid>https://jiro.dev/blog/mcp-server-guide/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Step-by-step guide to configuring Claude Desktop with Jiro MCP server for free, local web search across 9 engines. No API keys, no subscriptions.]]></description>
+    <category>MCP & Agents</category>
+  </item>
+  <item>
+    <title><![CDATA[Scraping 12 Social Platforms with One Python API (No API Keys)]]></title>
+    <link>https://jiro.dev/blog/social-media-scraping/</link>
+    <guid>https://jiro.dev/blog/social-media-scraping/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Extract posts, comments, transcripts, and engagement from Reddit, YouTube, Bluesky, TikTok, and 8 more platforms using Jiro with zero API keys.]]></description>
+    <category>Scraping</category>
+  </item>
+  <item>
+    <title><![CDATA[Hybrid Search Explained: Keyword + Semantic + SERP in One API]]></title>
+    <link>https://jiro.dev/blog/hybrid-search-explained/</link>
+    <guid>https://jiro.dev/blog/hybrid-search-explained/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Learn how hybrid search combines BM25 keyword matching, vector embeddings, and live SERP results with Reciprocal Rank Fusion for 98.4% precision.]]></description>
+    <category>Architecture</category>
+  </item>
+  <item>
+    <title><![CDATA[Why We Built an Open Source Search API (And Why MIT Matters)]]></title>
+    <link>https://jiro.dev/blog/open-source-search-api/</link>
+    <guid>https://jiro.dev/blog/open-source-search-api/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[The search API market is dominated by closed, expensive SaaS. Here is why we built Jiro under the MIT license and how it changes search for developers.]]></description>
+    <category>Open Source</category>
+  </item>
+  <item>
+    <title><![CDATA[AI Search Without API Keys: How Extractive Synthesis Works]]></title>
+    <link>https://jiro.dev/blog/ai-search-without-api-keys/</link>
+    <guid>https://jiro.dev/blog/ai-search-without-api-keys/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[How Jiro generates instant answers from search results in 8ms using CPU-friendly extractive NLP without calling OpenAI, Anthropic, or any paid LLM.]]></description>
+    <category>AI Search</category>
+  </item>
+  <item>
+    <title><![CDATA[Python Web Scraping in 2026: The Complete Developer Guide]]></title>
+    <link>https://jiro.dev/blog/python-web-scraping-2026/</link>
+    <guid>https://jiro.dev/blog/python-web-scraping-2026/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[From requests and BeautifulSoup to anti-bot evasion and headless browsers. Everything you need to know about modern web scraping in Python.]]></description>
+    <category>Tutorials</category>
+  </item>
+  <item>
+    <title><![CDATA[Deploying a Search API with Docker and Kubernetes]]></title>
+    <link>https://jiro.dev/blog/docker-search-api/</link>
+    <guid>https://jiro.dev/blog/docker-search-api/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Deploy Jiro as a self-hosted search API in production with Docker, Docker Compose, and Kubernetes Helm charts. Scale to millions of queries/day.]]></description>
+    <category>DevOps</category>
+  </item>
+  <item>
+    <title><![CDATA[How Intent Classification Makes Search Smarter (16 Types, 0ms Latency)]]></title>
+    <link>https://jiro.dev/blog/intent-classification/</link>
+    <guid>https://jiro.dev/blog/intent-classification/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[How Jiro classifies search intent into 16 categories using zero-dependency heuristic pattern matching and routes queries to the optimal engine.]]></description>
+    <category>AI Search</category>
+  </item>
+  <item>
+    <title><![CDATA[Structured Data Extraction from Search Results with JSON Schema]]></title>
+    <link>https://jiro.dev/blog/structured-data-extraction/</link>
+    <guid>https://jiro.dev/blog/structured-data-extraction/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Extract typed, validated data from search results using JSON Schema. Turn unstructured web pages into clean data pipelines with Jiro.]]></description>
+    <category>Data Engineering</category>
+  </item>
+  <item>
+    <title><![CDATA[Web Scraping Compliance in 2026: robots.txt, ToS, and SSRF]]></title>
+    <link>https://jiro.dev/blog/web-scraping-compliance/</link>
+    <guid>https://jiro.dev/blog/web-scraping-compliance/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[The legal and ethical landscape of web scraping: hiQ v. LinkedIn, EU copyright directive, robots.txt compliance, SSRF protection, and best practices.]]></description>
+    <category>Security</category>
+  </item>
+  <item>
+    <title><![CDATA[CPU-Optimized Cross-Encoder Reranking: How Jiro Scores 98.4% Precision]]></title>
+    <link>https://jiro.dev/blog/cross-encoder-reranking/</link>
+    <guid>https://jiro.dev/blog/cross-encoder-reranking/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Explore how Jiro utilizes an 80MB quantized ONNX cross-encoder model to re-rank multi-engine search results on standard CPU hardware with sub-15ms overhead.]]></description>
+    <category>Architecture</category>
+  </item>
+  <item>
+    <title><![CDATA[Scraping Reddit & Subreddits Without OAuth2 App Approval in 2026]]></title>
+    <link>https://jiro.dev/blog/reddit-api-alternatives/</link>
+    <guid>https://jiro.dev/blog/reddit-api-alternatives/</guid>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Comprehensive guide to extracting Reddit threads, comments, and upvote metrics without commercial API key fees or complex OAuth2 app approval verification.]]></description>
+    <category>Scraping</category>
+  </item>
+  <item>
+    <title><![CDATA[Deploying a Distributed Web Scraping Cluster with K8s and Jiro]]></title>
+    <link>https://jiro.dev/blog/kubernetes-scraping-cluster/</link>
+    <guid>https://jiro.dev/blog/kubernetes-scraping-cluster/</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Production blueprint for orchestrating high-availability Jiro search and scraping pods with Kubernetes Helm charts, HPA scaling, and egress proxy routing.]]></description>
+    <category>DevOps</category>
+  </item>
+  <item>
+    <title><![CDATA[Reciprocal Rank Fusion (RRF) Deep Dive: Math, Code, and SERP Tuning]]></title>
+    <link>https://jiro.dev/blog/reciprocal-rank-fusion-deep-dive/</link>
+    <guid>https://jiro.dev/blog/reciprocal-rank-fusion-deep-dive/</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Master the mathematics and implementation of Reciprocal Rank Fusion (RRF) for merging multi-engine search results into an optimal unified SERP ranking.]]></description>
+    <category>Architecture</category>
+  </item>
+  <item>
+    <title><![CDATA[Defeating TLS Fingerprinting and Cloudflare Bot Management in Scrapers]]></title>
+    <link>https://jiro.dev/blog/anti-bot-fingerprint-evasion/</link>
+    <guid>https://jiro.dev/blog/anti-bot-fingerprint-evasion/</guid>
+    <pubDate>Wed, 02 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[How modern anti-bot systems detect scrapers via JA3/JA4 TLS fingerprints and HTTP/2 settings frames, and how Jiro impersonates legitimate browser handshakes.]]></description>
+    <category>Security</category>
+  </item>
+  <item>
+    <title><![CDATA[Build an Open-Source Deep Research Agent with Jiro and Ollama]]></title>
+    <link>https://jiro.dev/blog/local-deep-research-agent/</link>
+    <guid>https://jiro.dev/blog/local-deep-research-agent/</guid>
+    <pubDate>Wed, 02 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Step-by-step guide to constructing an autonomous deep research agent using local LLMs (Ollama Llama 3.3 / Qwen 2.5), Jiro search synthesis, and citation graph generation.]]></description>
+    <category>AI Search</category>
+  </item>
+  <item>
+    <title><![CDATA[Extracting Video Transcripts and Metadata from TikTok & Instagram]]></title>
+    <link>https://jiro.dev/blog/tiktok-instagram-scraper-api/</link>
+    <guid>https://jiro.dev/blog/tiktok-instagram-scraper-api/</guid>
+    <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Learn how to scrape captions, video transcripts, creator metrics, and audio metadata from TikTok and Instagram Reels using Jiro social extraction endpoints.]]></description>
+    <category>Scraping</category>
+  </item>
+  <item>
+    <title><![CDATA[SearXNG vs Jiro: Head-to-Head Architecture, Latency, and API Comparison]]></title>
+    <link>https://jiro.dev/blog/searxng-vs-jiro/</link>
+    <guid>https://jiro.dev/blog/searxng-vs-jiro/</guid>
+    <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Detailed engineering comparison between SearXNG and Jiro: metasearch mechanics, memory consumption, MCP integration, and native LLM agent readiness.]]></description>
+    <category>Comparisons</category>
+  </item>
+  <item>
+    <title><![CDATA[Building a High-Throughput Search Proxy with Rate Limiting and Caching]]></title>
+    <link>https://jiro.dev/blog/enterprise-search-proxy/</link>
+    <guid>https://jiro.dev/blog/enterprise-search-proxy/</guid>
+    <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[How to build an enterprise-grade search proxy cluster using Jiro, Redis token buckets, and tier-based API key quotas for scalable AI infrastructure.]]></description>
+    <category>Architecture</category>
+  </item>
+  <item>
+    <title><![CDATA[Designing High-Concurrency Async Python SDKs with httpx and Pydantic]]></title>
+    <link>https://jiro.dev/blog/async-python-search-sdk/</link>
+    <guid>https://jiro.dev/blog/async-python-search-sdk/</guid>
+    <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Engineering guide to building strongly-typed, asynchronous search SDK clients in Python with automatic retry backoff, Pydantic validation, and streaming.]]></description>
+    <category>Tutorials</category>
+  </item>
+</channel>
+</rss>

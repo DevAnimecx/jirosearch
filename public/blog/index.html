@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Blog &amp; Search Guides (24 Articles) | Jiro</title>
+  <meta name="description" content="In-depth technical guides, architecture breakdowns, comparisons, and benchmarks for web search, scraping, MCP servers, and AI agents. Written by Jiro engineers.">
+  <link rel="canonical" href="https://jiro.dev/blog/">
+  <meta property="og:title" content="Jiro Engineering Blog &amp; Search Architecture">
+  <meta property="og:description" content="24 in-depth guides on local-first search, SerpAPI/Tavily alternatives, MCP server setup, and high-concurrency web scraping.">
+  <meta property="og:url" content="https://jiro.dev/blog/">
+  <meta property="og:type" content="website">
+  <link rel="alternate" type="application/rss+xml" title="Jiro Engineering Blog RSS" href="/blog/feed.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    
+  :root {
+    --gold-base: #a78b71;
+    --gold-light: #c4ab92;
+    --gold-hover: #bda287;
+    --bg-dark: #000000;
+    --surface-1: rgba(255, 255, 255, 0.03);
+    --surface-2: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.08);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-code: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000000;
+    color: #e6e6e6;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold-light); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--gold-hover); text-decoration: underline; }
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  
+  /* HEADER */
+  header.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    font-style: italic;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-badge {
+    font-family: var(--font-code);
+    font-size: 11px;
+    background: rgba(167, 139, 113, 0.12);
+    color: var(--gold-light);
+    border: 1px solid rgba(167, 139, 113, 0.25);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .nav-menu {
+    display: none;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+  }
+  @media (min-width: 860px) {
+    .nav-menu { display: flex; }
+  }
+  .nav-menu a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .nav-menu a:hover, .nav-menu a.active {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-cta:hover {
+    background: rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+  }
+  
+  /* FOOTER */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: rgba(10, 10, 10, 0.95);
+    margin-top: 80px;
+    padding: 60px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  @media (min-width: 640px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 992px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 9px; font-size: 13px; }
+  .footer-col ul li a { color: rgba(255, 255, 255, 0.65); text-decoration: none; }
+  .footer-col ul li a:hover { color: #ffffff; text-decoration: underline; }
+  .footer-logo { font-family: var(--font-display); font-size: 26px; font-style: italic; font-weight: 700; color: #fff; }
+  .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin: 12px 0 16px; max-width: 280px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 48px;
+    padding: 24px 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .footer-bottom-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (min-width: 640px) {
+    .footer-bottom-inner { flex-direction: row; }
+  }
+  .footer-sublinks { display: flex; gap: 16px; }
+  .footer-sublinks a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
+  .footer-sublinks a:hover { color: var(--gold-light); }
+
+    .blog-hero { padding: 64px 24px 32px; text-align: center; max-width: 800px; margin: 0 auto; }
+    .blog-hero h1 { font-family: var(--font-display); font-size: 46px; font-style: italic; color: #fff; margin-bottom: 16px; }
+    .blog-hero p { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+    
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 32px auto; max-width: 1000px; padding: 0 24px; }
+    .filter-chip {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip.active, .filter-chip:hover {
+      background: rgba(167, 139, 113, 0.15);
+      border-color: var(--gold-base);
+      color: #fff;
+    }
+
+    .search-input-wrap { max-width: 500px; margin: 0 auto 40px; padding: 0 24px; }
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 18px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--gold-base); }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 1160px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+    }
+    @media (min-width: 640px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 992px) { .posts-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .post-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .post-card:hover {
+      border-color: rgba(167, 139, 113, 0.4);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .card-cat { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--gold-base); letter-spacing: 0.1em; margin-bottom: 8px; }
+    .card-title { font-family: var(--font-display); font-size: 20px; color: #fff; line-height: 1.25; margin-bottom: 12px; font-style: italic; }
+    .card-desc { font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.5; margin-bottom: 20px; flex: 1; }
+    .card-meta { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255, 255, 255, 0.4); font-family: var(--font-code); }
+  </style>
+</head>
+<body>
+  
+  <header class="site-nav" role="banner">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <a href="/" class="nav-logo" rel="home">Jiro</a>
+        <span class="nav-badge" id="nav-release-tag">v0.2.8</span>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu" role="menubar">
+          <li role="menuitem"><a href="/#features" class="">Features</a></li>
+          <li role="menuitem"><a href="/docs/" class="">Docs</a></li>
+          <li role="menuitem"><a href="/pricing/" class="">Pricing</a></li>
+          <li role="menuitem"><a href="/dashboard/" class="">Dashboard</a></li>
+          <li role="menuitem"><a href="/blog/" class="active">Blog</a></li>
+          <li role="menuitem"><a href="/changelog/" class="">Changelog</a></li>
+          <li role="menuitem"><a href="/roadmap/" class="">Roadmap</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener" class="nav-cta" aria-label="GitHub repository">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span id="nav-star-count">Star</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+
+  <main>
+    <div class="blog-hero">
+      <div style="font-family: var(--font-code); font-size: 11px; color: var(--gold-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">ENGINEERING HUB &bull; 24 TECHNICAL GUIDES</div>
+      <h1>Jiro Engineering Blog</h1>
+      <p>In-depth architectural breakdowns, algorithmic tutorials, SerpAPI/Tavily comparisons, and scraping guides for autonomous AI agents.</p>
+    </div>
+
+    <!-- SEARCH INPUT -->
+    <div class="search-input-wrap">
+      <input type="text" id="blogSearch" class="search-input" placeholder="Search 24 engineering articles...">
+    </div>
+
+    <!-- FILTER CHIPS -->
+    <div class="filter-bar">
+      <button class="filter-chip active" onclick="filterCategory('All', this)">All</button><button class="filter-chip " onclick="filterCategory('MCP & Agents', this)">MCP & Agents</button><button class="filter-chip " onclick="filterCategory('Tutorials', this)">Tutorials</button><button class="filter-chip " onclick="filterCategory('Comparisons', this)">Comparisons</button><button class="filter-chip " onclick="filterCategory('Scraping', this)">Scraping</button><button class="filter-chip " onclick="filterCategory('Architecture', this)">Architecture</button><button class="filter-chip " onclick="filterCategory('Open Source', this)">Open Source</button><button class="filter-chip " onclick="filterCategory('AI Search', this)">AI Search</button><button class="filter-chip " onclick="filterCategory('DevOps', this)">DevOps</button><button class="filter-chip " onclick="filterCategory('Data Engineering', this)">Data Engineering</button><button class="filter-chip " onclick="filterCategory('Security', this)">Security</button>
+    </div>
+
+    <!-- POSTS GRID -->
+    <div class="posts-grid" id="postsGrid">
+      
+        <a href="/blog/gemini-cli-agent-search/" class="post-card" data-category="MCP & Agents" data-search="powering gemini & claude cli agents with local search mcp connect google gemini cli, claude desktop, and autonomous terminal agents to 9 search engines via local model context protocol (mcp) without commercial api keys. mcp & agents">
+          <div>
+            <div class="card-cat">MCP & Agents</div>
+            <h2 class="card-title">Powering Gemini & Claude CLI Agents with Local Search MCP</h2>
+            <p class="card-desc">Connect Google Gemini CLI, Claude Desktop, and autonomous terminal agents to 9 search engines via local Model Context Protocol (MCP) without commercial API keys.</p>
+          </div>
+          <div class="card-meta">
+            <span>9 min read</span>
+            <time datetime="2026-09-05">2026-09-05</time>
+          </div>
+        </a>
+      
+        <a href="/blog/self-hosted-duckduckgo-scraper/" class="post-card" data-category="Tutorials" data-search="building a zero-token duckduckgo & bing serp extractor in python how to build a high-concurrency, resilient serp extraction engine for duckduckgo and bing using python, http/2 multiplexing, and anti-ban header rotation. tutorials">
+          <div>
+            <div class="card-cat">Tutorials</div>
+            <h2 class="card-title">Building a Zero-Token DuckDuckGo & Bing SERP Extractor in Python</h2>
+            <p class="card-desc">How to build a high-concurrency, resilient SERP extraction engine for DuckDuckGo and Bing using Python, HTTP/2 multiplexing, and anti-ban header rotation.</p>
+          </div>
+          <div class="card-meta">
+            <span>11 min read</span>
+            <time datetime="2026-09-05">2026-09-05</time>
+          </div>
+        </a>
+      
+        <a href="/blog/serpapi-alternative/" class="post-card" data-category="Comparisons" data-search="the free serpapi alternative: how jiro compares in 2026 compare jiro and serpapi on price, speed, privacy, and engine support. learn how self-hosting gives you unlimited google and bing searches for $0. comparisons">
+          <div>
+            <div class="card-cat">Comparisons</div>
+            <h2 class="card-title">The Free SerpAPI Alternative: How Jiro Compares in 2026</h2>
+            <p class="card-desc">Compare Jiro and SerpAPI on price, speed, privacy, and engine support. Learn how self-hosting gives you unlimited Google and Bing searches for $0.</p>
+          </div>
+          <div class="card-meta">
+            <span>8 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/tavily-alternative/" class="post-card" data-category="Comparisons" data-search="the free tavily alternative: ai search api comparison tavily charges $0.008/search. jiro gives you local ai search with 0-key extractive answers, 9 engines, and an mcp server for free. full comparison. comparisons">
+          <div>
+            <div class="card-cat">Comparisons</div>
+            <h2 class="card-title">The Free Tavily Alternative: AI Search API Comparison</h2>
+            <p class="card-desc">Tavily charges $0.008/search. Jiro gives you local AI search with 0-key extractive answers, 9 engines, and an MCP server for free. Full comparison.</p>
+          </div>
+          <div class="card-meta">
+            <span>7 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/mcp-server-guide/" class="post-card" data-category="MCP & Agents" data-search="how to give claude desktop web search with an mcp server step-by-step guide to configuring claude desktop with jiro mcp server for free, local web search across 9 engines. no api keys, no subscriptions. mcp & agents">
+          <div>
+            <div class="card-cat">MCP & Agents</div>
+            <h2 class="card-title">How to Give Claude Desktop Web Search with an MCP Server</h2>
+            <p class="card-desc">Step-by-step guide to configuring Claude Desktop with Jiro MCP server for free, local web search across 9 engines. No API keys, no subscriptions.</p>
+          </div>
+          <div class="card-meta">
+            <span>5 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/social-media-scraping/" class="post-card" data-category="Scraping" data-search="scraping 12 social platforms with one python api (no api keys) extract posts, comments, transcripts, and engagement from reddit, youtube, bluesky, tiktok, and 8 more platforms using jiro with zero api keys. scraping">
+          <div>
+            <div class="card-cat">Scraping</div>
+            <h2 class="card-title">Scraping 12 Social Platforms with One Python API (No API Keys)</h2>
+            <p class="card-desc">Extract posts, comments, transcripts, and engagement from Reddit, YouTube, Bluesky, TikTok, and 8 more platforms using Jiro with zero API keys.</p>
+          </div>
+          <div class="card-meta">
+            <span>9 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/hybrid-search-explained/" class="post-card" data-category="Architecture" data-search="hybrid search explained: keyword + semantic + serp in one api learn how hybrid search combines bm25 keyword matching, vector embeddings, and live serp results with reciprocal rank fusion for 98.4% precision. architecture">
+          <div>
+            <div class="card-cat">Architecture</div>
+            <h2 class="card-title">Hybrid Search Explained: Keyword + Semantic + SERP in One API</h2>
+            <p class="card-desc">Learn how hybrid search combines BM25 keyword matching, vector embeddings, and live SERP results with Reciprocal Rank Fusion for 98.4% precision.</p>
+          </div>
+          <div class="card-meta">
+            <span>8 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/open-source-search-api/" class="post-card" data-category="Open Source" data-search="why we built an open source search api (and why mit matters) the search api market is dominated by closed, expensive saas. here is why we built jiro under the mit license and how it changes search for developers. open source">
+          <div>
+            <div class="card-cat">Open Source</div>
+            <h2 class="card-title">Why We Built an Open Source Search API (And Why MIT Matters)</h2>
+            <p class="card-desc">The search API market is dominated by closed, expensive SaaS. Here is why we built Jiro under the MIT license and how it changes search for developers.</p>
+          </div>
+          <div class="card-meta">
+            <span>6 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/ai-search-without-api-keys/" class="post-card" data-category="AI Search" data-search="ai search without api keys: how extractive synthesis works how jiro generates instant answers from search results in 8ms using cpu-friendly extractive nlp without calling openai, anthropic, or any paid llm. ai search">
+          <div>
+            <div class="card-cat">AI Search</div>
+            <h2 class="card-title">AI Search Without API Keys: How Extractive Synthesis Works</h2>
+            <p class="card-desc">How Jiro generates instant answers from search results in 8ms using CPU-friendly extractive NLP without calling OpenAI, Anthropic, or any paid LLM.</p>
+          </div>
+          <div class="card-meta">
+            <span>7 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/python-web-scraping-2026/" class="post-card" data-category="Tutorials" data-search="python web scraping in 2026: the complete developer guide from requests and beautifulsoup to anti-bot evasion and headless browsers. everything you need to know about modern web scraping in python. tutorials">
+          <div>
+            <div class="card-cat">Tutorials</div>
+            <h2 class="card-title">Python Web Scraping in 2026: The Complete Developer Guide</h2>
+            <p class="card-desc">From requests and BeautifulSoup to anti-bot evasion and headless browsers. Everything you need to know about modern web scraping in Python.</p>
+          </div>
+          <div class="card-meta">
+            <span>12 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/docker-search-api/" class="post-card" data-category="DevOps" data-search="deploying a search api with docker and kubernetes deploy jiro as a self-hosted search api in production with docker, docker compose, and kubernetes helm charts. scale to millions of queries/day. devops">
+          <div>
+            <div class="card-cat">DevOps</div>
+            <h2 class="card-title">Deploying a Search API with Docker and Kubernetes</h2>
+            <p class="card-desc">Deploy Jiro as a self-hosted search API in production with Docker, Docker Compose, and Kubernetes Helm charts. Scale to millions of queries/day.</p>
+          </div>
+          <div class="card-meta">
+            <span>8 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/intent-classification/" class="post-card" data-category="AI Search" data-search="how intent classification makes search smarter (16 types, 0ms latency) how jiro classifies search intent into 16 categories using zero-dependency heuristic pattern matching and routes queries to the optimal engine. ai search">
+          <div>
+            <div class="card-cat">AI Search</div>
+            <h2 class="card-title">How Intent Classification Makes Search Smarter (16 Types, 0ms Latency)</h2>
+            <p class="card-desc">How Jiro classifies search intent into 16 categories using zero-dependency heuristic pattern matching and routes queries to the optimal engine.</p>
+          </div>
+          <div class="card-meta">
+            <span>6 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/structured-data-extraction/" class="post-card" data-category="Data Engineering" data-search="structured data extraction from search results with json schema extract typed, validated data from search results using json schema. turn unstructured web pages into clean data pipelines with jiro. data engineering">
+          <div>
+            <div class="card-cat">Data Engineering</div>
+            <h2 class="card-title">Structured Data Extraction from Search Results with JSON Schema</h2>
+            <p class="card-desc">Extract typed, validated data from search results using JSON Schema. Turn unstructured web pages into clean data pipelines with Jiro.</p>
+          </div>
+          <div class="card-meta">
+            <span>8 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/web-scraping-compliance/" class="post-card" data-category="Security" data-search="web scraping compliance in 2026: robots.txt, tos, and ssrf the legal and ethical landscape of web scraping: hiq v. linkedin, eu copyright directive, robots.txt compliance, ssrf protection, and best practices. security">
+          <div>
+            <div class="card-cat">Security</div>
+            <h2 class="card-title">Web Scraping Compliance in 2026: robots.txt, ToS, and SSRF</h2>
+            <p class="card-desc">The legal and ethical landscape of web scraping: hiQ v. LinkedIn, EU copyright directive, robots.txt compliance, SSRF protection, and best practices.</p>
+          </div>
+          <div class="card-meta">
+            <span>10 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/cross-encoder-reranking/" class="post-card" data-category="Architecture" data-search="cpu-optimized cross-encoder reranking: how jiro scores 98.4% precision explore how jiro utilizes an 80mb quantized onnx cross-encoder model to re-rank multi-engine search results on standard cpu hardware with sub-15ms overhead. architecture">
+          <div>
+            <div class="card-cat">Architecture</div>
+            <h2 class="card-title">CPU-Optimized Cross-Encoder Reranking: How Jiro Scores 98.4% Precision</h2>
+            <p class="card-desc">Explore how Jiro utilizes an 80MB quantized ONNX cross-encoder model to re-rank multi-engine search results on standard CPU hardware with sub-15ms overhead.</p>
+          </div>
+          <div class="card-meta">
+            <span>10 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/reddit-api-alternatives/" class="post-card" data-category="Scraping" data-search="scraping reddit & subreddits without oauth2 app approval in 2026 comprehensive guide to extracting reddit threads, comments, and upvote metrics without commercial api key fees or complex oauth2 app approval verification. scraping">
+          <div>
+            <div class="card-cat">Scraping</div>
+            <h2 class="card-title">Scraping Reddit & Subreddits Without OAuth2 App Approval in 2026</h2>
+            <p class="card-desc">Comprehensive guide to extracting Reddit threads, comments, and upvote metrics without commercial API key fees or complex OAuth2 app approval verification.</p>
+          </div>
+          <div class="card-meta">
+            <span>8 min read</span>
+            <time datetime="2026-09-04">2026-09-04</time>
+          </div>
+        </a>
+      
+        <a href="/blog/kubernetes-scraping-cluster/" class="post-card" data-category="DevOps" data-search="deploying a distributed web scraping cluster with k8s and jiro production blueprint for orchestrating high-availability jiro search and scraping pods with kubernetes helm charts, hpa scaling, and egress proxy routing. devops">
+          <div>
+            <div class="card-cat">DevOps</div>
+            <h2 class="card-title">Deploying a Distributed Web Scraping Cluster with K8s and Jiro</h2>
+            <p class="card-desc">Production blueprint for orchestrating high-availability Jiro search and scraping pods with Kubernetes Helm charts, HPA scaling, and egress proxy routing.</p>
+          </div>
+          <div class="card-meta">
+            <span>12 min read</span>
+            <time datetime="2026-09-03">2026-09-03</time>
+          </div>
+        </a>
+      
+        <a href="/blog/reciprocal-rank-fusion-deep-dive/" class="post-card" data-category="Architecture" data-search="reciprocal rank fusion (rrf) deep dive: math, code, and serp tuning master the mathematics and implementation of reciprocal rank fusion (rrf) for merging multi-engine search results into an optimal unified serp ranking. architecture">
+          <div>
+            <div class="card-cat">Architecture</div>
+            <h2 class="card-title">Reciprocal Rank Fusion (RRF) Deep Dive: Math, Code, and SERP Tuning</h2>
+            <p class="card-desc">Master the mathematics and implementation of Reciprocal Rank Fusion (RRF) for merging multi-engine search results into an optimal unified SERP ranking.</p>
+          </div>
+          <div class="card-meta">
+            <span>10 min read</span>
+            <time datetime="2026-09-03">2026-09-03</time>
+          </div>
+        </a>
+      
+        <a href="/blog/anti-bot-fingerprint-evasion/" class="post-card" data-category="Security" data-search="defeating tls fingerprinting and cloudflare bot management in scrapers how modern anti-bot systems detect scrapers via ja3/ja4 tls fingerprints and http/2 settings frames, and how jiro impersonates legitimate browser handshakes. security">
+          <div>
+            <div class="card-cat">Security</div>
+            <h2 class="card-title">Defeating TLS Fingerprinting and Cloudflare Bot Management in Scrapers</h2>
+            <p class="card-desc">How modern anti-bot systems detect scrapers via JA3/JA4 TLS fingerprints and HTTP/2 settings frames, and how Jiro impersonates legitimate browser handshakes.</p>
+          </div>
+          <div class="card-meta">
+            <span>11 min read</span>
+            <time datetime="2026-09-02">2026-09-02</time>
+          </div>
+        </a>
+      
+        <a href="/blog/local-deep-research-agent/" class="post-card" data-category="AI Search" data-search="build an open-source deep research agent with jiro and ollama step-by-step guide to constructing an autonomous deep research agent using local llms (ollama llama 3.3 / qwen 2.5), jiro search synthesis, and citation graph generation. ai search">
+          <div>
+            <div class="card-cat">AI Search</div>
+            <h2 class="card-title">Build an Open-Source Deep Research Agent with Jiro and Ollama</h2>
+            <p class="card-desc">Step-by-step guide to constructing an autonomous deep research agent using local LLMs (Ollama Llama 3.3 / Qwen 2.5), Jiro search synthesis, and citation graph generation.</p>
+          </div>
+          <div class="card-meta">
+            <span>13 min read</span>
+            <time datetime="2026-09-02">2026-09-02</time>
+          </div>
+        </a>
+      
+        <a href="/blog/tiktok-instagram-scraper-api/" class="post-card" data-category="Scraping" data-search="extracting video transcripts and metadata from tiktok & instagram learn how to scrape captions, video transcripts, creator metrics, and audio metadata from tiktok and instagram reels using jiro social extraction endpoints. scraping">
+          <div>
+            <div class="card-cat">Scraping</div>
+            <h2 class="card-title">Extracting Video Transcripts and Metadata from TikTok & Instagram</h2>
+            <p class="card-desc">Learn how to scrape captions, video transcripts, creator metrics, and audio metadata from TikTok and Instagram Reels using Jiro social extraction endpoints.</p>
+          </div>
+          <div class="card-meta">
+            <span>9 min read</span>
+            <time datetime="2026-09-01">2026-09-01</time>
+          </div>
+        </a>
+      
+        <a href="/blog/searxng-vs-jiro/" class="post-card" data-category="Comparisons" data-search="searxng vs jiro: head-to-head architecture, latency, and api comparison detailed engineering comparison between searxng and jiro: metasearch mechanics, memory consumption, mcp integration, and native llm agent readiness. comparisons">
+          <div>
+            <div class="card-cat">Comparisons</div>
+            <h2 class="card-title">SearXNG vs Jiro: Head-to-Head Architecture, Latency, and API Comparison</h2>
+            <p class="card-desc">Detailed engineering comparison between SearXNG and Jiro: metasearch mechanics, memory consumption, MCP integration, and native LLM agent readiness.</p>
+          </div>
+          <div class="card-meta">
+            <span>11 min read</span>
+            <time datetime="2026-09-01">2026-09-01</time>
+          </div>
+        </a>
+      
+        <a href="/blog/enterprise-search-proxy/" class="post-card" data-category="Architecture" data-search="building a high-throughput search proxy with rate limiting and caching how to build an enterprise-grade search proxy cluster using jiro, redis token buckets, and tier-based api key quotas for scalable ai infrastructure. architecture">
+          <div>
+            <div class="card-cat">Architecture</div>
+            <h2 class="card-title">Building a High-Throughput Search Proxy with Rate Limiting and Caching</h2>
+            <p class="card-desc">How to build an enterprise-grade search proxy cluster using Jiro, Redis token buckets, and tier-based API key quotas for scalable AI infrastructure.</p>
+          </div>
+          <div class="card-meta">
+            <span>10 min read</span>
+            <time datetime="2026-08-31">2026-08-31</time>
+          </div>
+        </a>
+      
+        <a href="/blog/async-python-search-sdk/" class="post-card" data-category="Tutorials" data-search="designing high-concurrency async python sdks with httpx and pydantic engineering guide to building strongly-typed, asynchronous search sdk clients in python with automatic retry backoff, pydantic validation, and streaming. tutorials">
+          <div>
+            <div class="card-cat">Tutorials</div>
+            <h2 class="card-title">Designing High-Concurrency Async Python SDKs with httpx and Pydantic</h2>
+            <p class="card-desc">Engineering guide to building strongly-typed, asynchronous search SDK clients in Python with automatic retry backoff, Pydantic validation, and streaming.</p>
+          </div>
+          <div class="card-meta">
+            <span>10 min read</span>
+            <time datetime="2026-08-30">2026-08-30</time>
+          </div>
+        </a>
+      
+    </div>
+  </main>
+
+  
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col brand-col">
+        <a href="/" class="footer-logo">Jiro</a>
+        <p class="footer-desc">
+          Local-first, AI-native web search &amp; scraping API. Self-hosted SerpAPI alternative with MCP server, 9 search engines, and 12 social scrapers.
+        </p>
+        <div style="font-family: var(--font-code); font-size: 11px; color: var(--gold-light); background: rgba(167, 139, 113, 0.1); border: 1px solid rgba(167, 139, 113, 0.2); border-radius: 999px; padding: 4px 12px; display: inline-block;">
+          MIT Licensed &bull; Controlled Software
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>PRODUCT</h4>
+        <ul>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/pricing/">Pricing &amp; Plans</a></li>
+          <li><a href="/dashboard/">Live Dashboard</a></li>
+          <li><a href="/changelog/">Changelog (Auto-Sync)</a></li>
+          <li><a href="/roadmap/">Product Roadmap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>DEVELOPERS</h4>
+        <ul>
+          <li><a href="/docs/">Documentation</a></li>
+          <li><a href="/blog/mcp-server-guide/">MCP Guide</a></li>
+          <li><a href="/blog/">Engineering Blog (24 Guides)</a></li>
+          <li><a href="/blog/serpapi-alternative/">SerpAPI Alternative</a></li>
+          <li><a href="/blog/tavily-alternative/">Tavily Alternative</a></li>
+          <li><a href="/blog/hybrid-search-explained/">Hybrid Search</a></li>
+          <li><a href="/blog/feed.xml">RSS XML Feed</a></li>
+          <li><a href="/sitemap.xml">XML Sitemap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>COMMUNITY</h4>
+        <ul>
+          <li><a href="https://github.com/DevAnimecx/jiro" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://discord.gg/jirosearch" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/issues" target="_blank" rel="noopener">Issues</a></li>
+          <li><a href="https://github.com/DevAnimecx/jiro/discussions" target="_blank" rel="noopener">Discussions</a></li>
+          <li><a href="/contributing/">Contributing Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <ul>
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/acceptable-use/">Acceptable Use</a></li>
+          <li><a href="/license/">MIT License &amp; Trademark</a></li>
+          <li><a href="/security/">Security &amp; Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div>&copy; 2026 Jiro Search. Built by Blackvault Technology. MIT Licensed.</div>
+        <div class="footer-sublinks">
+          <a href="/docs/">Docs</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/dashboard/">Dashboard</a>
+          <a href="/changelog/">Changelog</a>
+          <a href="/blog/">Blog</a>
+          <a href="/license/">License</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Live GitHub Auto-Sync Script
+    (function() {
+      async function syncGitHub() {
+        try {
+          const cached = sessionStorage.getItem('jiro_gh_stats');
+          if (cached) {
+            const data = JSON.parse(cached);
+            updateBadges(data);
+            return;
+          }
+          const res = await fetch('https://api.github.com/repos/DevAnimecx/jiro');
+          if (res.ok) {
+            const repo = await res.json();
+            const payload = {
+              stars: repo.stargazers_count,
+              forks: repo.forks_count,
+              updated: repo.pushed_at
+            };
+            sessionStorage.setItem('jiro_gh_stats', JSON.stringify(payload));
+            updateBadges(payload);
+          }
+        } catch (e) {
+          // Graceful fallback
+        }
+      }
+
+      function updateBadges(data) {
+        const starEl = document.getElementById('nav-star-count');
+        if (starEl && data.stars !== undefined) {
+          starEl.textContent = '★ ' + data.stars;
+        }
+      }
+
+      syncGitHub();
+    })();
+  </script>
+  
+
+  <script>
+    let activeCat = 'All';
+
+    function filterCategory(cat, btn) {
+      activeCat = cat;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    document.getElementById('blogSearch').addEventListener('input', applyFilters);
+
+    function applyFilters() {
+      const q = document.getElementById('blogSearch').value.toLowerCase();
+      document.querySelectorAll('.post-card').forEach(card => {
+        const matchesCat = activeCat === 'All' || card.dataset.category === activeCat;
+        const matchesSearch = !q || card.dataset.search.includes(q);
+        card.style.display = (matchesCat && matchesSearch) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
